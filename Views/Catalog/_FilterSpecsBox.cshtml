@@ -1,0 +1,487 @@
+﻿@model SpecificationFilterModel
+
+@{
+    var cont = 0;
+
+    // ============================
+    // GRUPOS y COLORES VISIBLES
+    // ============================
+    var colorGroups = new Dictionary<string, List<string>> {
+        { "Rojo", new List<string> { "#671627", "#6D2B07", "#771F45", "#9D0000", "#9D2235", "#9E2A2F", "#A01A40", "#AB2328", "#AE415C", "#B56A6E", "#B77E7F", "#C73144", "#CC2227", "#CC5636", "#CE4C49", "#D35434", "#E10098", "#E26C6C", "#E30613", "#E40000", "#E46179", "#E49ABD", "#E74476", "#E75170", "#ED7A3B", "#EF3340", "#F54E53", "#FB0000", "#FE9285", "#FF0000", "#FF0022", "#FF4444", "#FF666E", "#FF8886" } },
+        { "Naranja", new List<string> { "#B94700", "#C84F06", "#E94E1B", "#ED7A3B", "#FE5000", "#FF6A13", "#FF7B0A", "#FFB536" } },
+        { "Amarillo", new List<string> { "#B89D18", "#C2A900", "#C79B42", "#D4AF37", "#D5A104", "#D7A314", "#EAA706", "#F4AE33", "#FBB515", "#FBD476", "#FFD700", "#FFDB00", "#FFED00" } },
+        { "Verde", new List<string> { "#008000", "#009444", "#009640", "#009900", "#0BC938", "#0C911C", "#154734", "#18D649", "#1D332A", "#1EAE17", "#243721", "#325649", "#379630", "#3AAA35", "#4A773C", "#4C6128", "#5B6135", "#63A390", "#719949", "#73C92D", "#78C33C", "#87AE48", "#95C11F", "#00FF00", "#96FF00", "#97D700", "#B6C832", "#C3D841" } },
+        { "Cyan", new List<string> { "#006274", "#006493", "#006F8D", "#007257", "#009FE3", "#00A19A", "#00AB84", "#00AEB4", "#00C493", "#1AA7D1", "#83C8E7", "#87CEE2", "#96BCDA", "#C1CFCA", "#C5D9E7", "#D6E3E8" } },
+        { "Azul", new List<string> { "#0000AA", "#0000FF", "#003E9B", "#0040DB", "#004284", "#0055A7", "#0060FF", "#0641EA", "#0612AB", "#0B4C92", "#10069F", "#112939", "#11479F", "#1B2A3C", "#1B306B", "#192EEF", "#213787", "#2200FF", "#2A84CC", "#2B293D", "#2B3D58", "#2E364D", "#333F48", "#385585", "#395668", "#3CA7FA", "#3D53CA", "#434A5F", "#440099", "#465C7F", "#46749A", "#485CC7", "#4B5664", "#4B665E", "#567CBB", "#586883" } },
+        { "Morado", new List<string> { "#381258", "#381286", "#4E008E", "#4F0F70", "#8C3EC8", "#990099", "#A94463", "#B098C4", "#B695C0", "#BB29BB", "#CF78AA", "#D6B2D0" } },
+        { "Rosa", new List<string> { "#E5C2CA", "#E6007E", "#EDDBEB", "#F172C6", "#FE7CDD", "#FF83B6", "#FFBF9F" } },
+        { "Vino", new List<string> { "#0F0F70", "#671627", "#6A2C36", "#A01A40", "#B56A6E" } },
+        { "Marron", new List<string> { "#2D2926", "#402020", "#4E3629", "#4F2832", "#4F2C1D", "#502C1E", "#54415E", "#5E2A2B", "#5E5145", "#683C11", "#6A2C36", "#6A3643", "#6B2830", "#744F28", "#776E64", "#776F48", "#77725A", "#78564C", "#786748", "#7A6E66", "#7B6A58", "#84754E", "#86754D", "#8C7732", "#936037", "#946037", "#956C58", "#997777", "#998677", "#9E9E7D", "#A17F4D", "#A35330", "#A89968", "#AC8F87", "#AD7C59", "#AE8A79", "#AFA9A0", "#B17F4A", "#B2A8A2", "#B78D5B", "#B78D6B", "#B9975B", "#BF9474", "#C09C83", "#C1B2B6", "#C2AF9E", "#C29E85", "#C2BDA3", "#C4BDA3", "#C4BFB6", "#C5A28E", "#C5B783", "#CBA052", "#CDBA78", "#CEA886", "#CEBC71", "#D3BBA8", "#D3BCA4", "#D3BC8D", "#D5A286", "#D5D3BF", "#D7C69E", "#D8BA9A", "#D9B48F", "#DDCBA4", "#DFD1A7", "#E1B87F", "#E2DAC6", "#E2DEE0", "#E3CA99", "#EFCFAC" } },
+        { "Negro", new List<string> { "#000000", "#1C1C1E", "#1C1F2A", "#1D1D1B", "#25282A", "#2C2C2C", "#393939", "#4C4C4C", "#54585A", "#56595B", "#575756", "#656565", "#666666", "#6D7276", "#727272", "#7A7A7A", "#857874", "#898989", "#8C857B", "#8E8F90", "#978C87", "#9D968D", "#9D9D9C", "#A2AAAD", "#A4A4A4", "#A8A99E", "#AAADAA", "#AAAAAA", "#ACACAC", "#B2B4B2", "#B2B5B7", "#B8B8B8", "#B9B7BD", "#BEBEBE", "#C1C6C8", "#C4BCB7", "#C7C9C7", "#D0D3D4", "#D3D3D3", "#DBDCDB" } },
+        { "Gris", new List<string> { "#000000", "#1c1c1e", "#1c1f2a", "#1d1d1b", "#25282a", "#2c2c2c", "#393939","#4c4c4c", "#54585a", "#56595b", "#575756", "#656565", "#666666", "#6d7276","#727272", "#7a7a7a", "#857874", "#898989", "#8c857b", "#8e8f90", "#978c87","#9d968d", "#9d9d9c", "#a2aaad", "#a4a4a4", "#a8a99e", "#aaadaa", "#aaaaaa","#acacac", "#b2b4b2", "#b2b5b7", "#b8b8b8", "#b9b7bd", "#bebebe", "#c1c6c8","#c4bcb7", "#c7c9c7", "#d0d3d4", "#d3d3d3", "#dbdcdb","#1C1C1E", "#1C1F2A", "#1D1D1B", "#25282A", "#2C2C2C", "#393939", "#4C4C4C", "#54585A", "#56595B", "#575756", "#656565", "#666666", "#6D7276", "#727272", "#7A7A7A", "#857874", "#898989", "#8C857B", "#8E8F90", "#978C87", "#9D968D", "#9D9D9C", "#A2AAAD", "#A4A4A4", "#A8A99E", "#AAADAA", "#AAAAAA", "#ACACAC", "#B2B4B2", "#B2B5B7", "#B8B8B8", "#B9B7BD", "#BEBEBE", "#C1C6C8", "#C4BCB7", "#C7C9C7", "#D0D3D4", "#D3D3D3", "#DBDCDB"} },
+        { "Blanco", new List<string> { "#DDDDDD", "#DFDBDA", "#E3E3E3", "#EBE5DA", "#EDEDED", "#EDD5C4", "#EEEEEE", "#EFEBE6", "#F1E6B2", "#F7E7CE", "#F8ECE4", "#F8ECD7", "#FCFCFC", "#FFFFFF", "#9D9D9C" } },
+    };
+
+    var visibleColors = new Dictionary<string, string> {
+        { "Rojo", "#DF1313" },
+        { "Naranja", "#F06A27" },
+        { "Amarillo", "#F7EB11" },
+        { "Verde", "#3EB210" },
+        { "Cyan", "#2CBADE" },
+        { "Azul", "#2E21A9" },
+        { "Morado", "#7C21A9" },
+        { "Rosa", "#EE2EB8" },
+        { "Vino", "#951B31" },
+        { "Marron", "#976147" },
+        { "Negro", "#1F1F1E" },
+        { "Gris", "#BEBEBE" },
+        { "Blanco", "#F2F7F0" }
+    };
+
+    var valueToColorBase = new Dictionary<int, string>();
+    foreach (var attr in Model.Attributes.Where(a => a.Values.Any(v => !string.IsNullOrEmpty(v.ColorSquaresRgb))))
+    {
+        foreach (var value in attr.Values)
+        {
+            if (!string.IsNullOrEmpty(value.ColorSquaresRgb))
+            {
+                var hex = value.ColorSquaresRgb.ToUpper();
+                foreach (var baseColor in colorGroups)
+                {
+                    if (baseColor.Value.Contains(hex))
+                    {
+                        valueToColorBase[value.Id] = baseColor.Key;
+                        break;
+                    }
+                }
+                
+                // Si no se encuentra en ningún grupo, asignar a "Negro" por defecto
+                if (!valueToColorBase.ContainsKey(value.Id))
+                {
+                    valueToColorBase[value.Id] = "Negro";
+                }
+            }
+        }
+    }
+
+    // ============================
+    // RANGOS DE CAPACIDAD
+    // ============================
+var capacityRanges = new List<(string Name, double Min, double Max)> {
+    // Rangos para botellas (0 - 2+ L)
+    ("0 - 0.5 L", 0, 0.5),
+    ("0.5 - 1 L", 0.5, 1),
+    ("1 - 2 L", 1, 2),
+    ("2 - 5 L", 2, 5),
+    
+    // Rangos para mochilas (5 - 20 L)
+    ("5 - 10 L", 5, 10),
+    ("10 - 15 L", 10, 15),
+    ("15 - 20 L", 15, 20),
+    ("20 L+", 20, double.MaxValue)
+};
+
+// ============================
+// RANGOS DE GRAMAJE
+// ============================
+var gramajeRanges = new List<int> { 70, 80, 90, 100, 120, 160, 180, 200, 250 };
+var valueToGramajeRange = new Dictionary<int, int>();
+foreach (var attr in Model.Attributes.Where(a => a.Id == 5))
+{
+    foreach (var value in attr.Values)
+    {
+        var raw = value.Name;
+        var digits = new string(raw.Where(c => char.IsDigit(c)).ToArray());
+
+        if (int.TryParse(digits, out var number))
+        {
+            var closest = gramajeRanges.OrderBy(r => Math.Abs(r - number)).FirstOrDefault();
+            valueToGramajeRange[value.Id] = closest;
+        }
+    }
+}
+
+var valueToCapacityRange = new Dictionary<int, string>();
+foreach (var attr in Model.Attributes.Where(a => a.Id == 27))
+    {
+        foreach (var value in attr.Values)
+        {
+            double litros = 0;
+            var raw = value.Name.ToLower()
+                .Replace(" ", "")
+                .Replace(",", ".")
+                .Replace("ml", "")
+                .Replace("l", "");
+
+            // Intentar parsear mililitros
+            if (value.Name.ToLower().Contains("ml"))
+            {
+                if (double.TryParse(raw, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var ml))
+                {
+                    litros = ml / 1000.0;
+                }
+            }
+            // Intentar parsear litros
+            else if (double.TryParse(raw, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var l))
+            {
+                litros = l;
+            }
+
+            // Asignar al rango correspondiente
+            if (litros > 0)
+            {
+                foreach (var range in capacityRanges)
+                {
+                    if (litros >= range.Min && litros < range.Max)
+                    {
+                        valueToCapacityRange[value.Id] = range.Name;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+<div class="product-filter product-spec-filter widget widget-filter mb-4 pb-4">
+    <div class="mb-2 d-flex justify-content-between">
+        <h3 class="widget-title">@T("Filtering.SpecificationFilter")</h3>
+    </div>
+
+    <div class="filter-content collapse show" id="filterContent">
+        @{
+            var excludedAttributeIds = new[] { 67 }; // IDs de atributos a excluir (ejemplo: Color de pantalla, Tal, Pascual, etc.)
+}
+
+        @foreach (var attr in Model.Attributes.Where(a => !excludedAttributeIds.Contains(a.Id)))
+            {
+
+            cont++;
+
+            // ==== FILTRO DE COLORES ====
+            if (attr.Values.Any(x => !string.IsNullOrEmpty(x.ColorSquaresRgb)))
+            {
+                <div class="mb-2 d-flex justify-content-between">
+                    <span class="widget-sub-title">Color</span>
+                    <a data-bs-toggle="collapse" href="#collapseColorFilter_@cont" aria-expanded="true" aria-controls="collapseColorFilter_@cont" class="widget-collapse">
+                        <i class="bi bi-list"></i>
+                    </a>
+                </div>
+
+                <div class="collapse show" id="collapseColorFilter_@cont"> <!-- show -->
+                    <ul class="list-unstyled d-flex flex-wrap color-base-list">
+                        @foreach (var baseColor in colorGroups.Keys)
+                        {
+                            var circleHex = visibleColors.ContainsKey(baseColor) 
+                                ? visibleColors[baseColor] 
+                                : colorGroups[baseColor].First();
+
+                            <li class="me-2 mb-2">
+                                <input type="checkbox"
+                                    class="form-check-input d-none base-color-checkbox"
+                                    id="base-color-@baseColor-@cont"
+                                    data-color-base="@baseColor" />
+
+                                <label for="base-color-@baseColor-@cont"
+                                    class="color-circle"
+                                    title="@baseColor"
+                                    style="background-color: @circleHex;"></label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            // ==== FILTRO DE CAPACIDAD ====
+            else if (attr.Id == 27)
+            {
+                <div class="mb-2 d-flex justify-content-between">
+                    <span class="widget-sub-title">@attr.Name</span>
+                    <a data-bs-toggle="collapse" href="#collapseCapacityFilter_@cont" aria-expanded="true" aria-controls="collapseCapacityFilter_@cont" class="widget-collapse">
+                        <i class="bi bi-list"></i>
+                    </a>
+                </div>
+
+                <div class="collapse show" id="collapseCapacityFilter_@cont"> <!-- show -->
+                    <ul class="list-unstyled widget-list widget-filter-list pt-1">
+                        @foreach (var range in capacityRanges)
+                        {
+                            var safeId = range.Name.Replace(" ", "").Replace("‐", "").Replace("+", "Plus").Replace(".", "");
+                            
+                            <li class="item widget-filter-item mb-1 me-3">
+                                <div class="form-check">
+                                    <input id="capacity-@safeId-@cont"
+                                        class="form-check-input capacity-range-checkbox"
+                                        type="checkbox"
+                                        data-capacity-range="@range.Name" />
+
+                                    <label class="form-check-label text-accent" for="capacity-@safeId-@cont">
+                                        @range.Name
+                                    </label>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            // ==== FILTRO DE GRAMAJE ====
+            else if (attr.Id == 5)
+            {
+                <div class="mb-2 d-flex justify-content-between">
+                    <span class="widget-sub-title">@attr.Name</span>
+                    <a data-bs-toggle="collapse" href="#collapseGramajeFilter_@cont" aria-expanded="true" aria-controls="collapseGramajeFilter_@cont" class="widget-collapse">
+                        <i class="bi bi-list"></i>
+                    </a>
+                </div>
+
+                <div class="collapse show" id="collapseGramajeFilter_@cont">
+                    <ul class="list-unstyled widget-list widget-filter-list pt-1">
+                        @foreach (var g in gramajeRanges)
+                        {
+                            <li class="item widget-filter-item mb-1 me-3">
+                                <div class="form-check">
+                                    <input id="gramaje-@g-@cont"
+                                        class="form-check-input gramaje-range-checkbox"
+                                        type="checkbox"
+                                        data-gramaje-range="@g" />
+
+                                    <label class="form-check-label text-accent" for="gramaje-@g-@cont">
+                                        @($"{g} g/m²")
+                                    </label>
+                                            </div>
+                </li>
+                        }
+                    </ul>
+                </div>
+            }
+            
+            // ==== OTROS FILTROS ====
+            else
+            {
+                <div class="mb-2 d-flex justify-content-between">
+                    <span class="widget-sub-title">@attr.Name</span>
+                    <a data-bs-toggle="collapse" href="#collapseExample_@cont" aria-expanded="true" aria-controls="collapseExample_@cont" class="widget-collapse">
+                        <i class="bi bi-list"></i>
+                    </a>
+                </div>
+
+                <div class="collapse show" id="collapseExample_@cont">
+                    <ul class="group product-spec-group widget-list widget-filter-list list-unstyled pt-1" style="max-height: 11rem;" data-simplebar data-simplebar-auto-hide="false">
+                        @foreach (var value in attr.Values)
+                        {
+                            <li class="item widget-filter-item mb-1 me-3">
+                                <div class="form-check">
+                                    <input id="attr-visible-@value.Id" 
+                                        data-option-id="@value.Id" 
+                                        class="form-check-input visible-attribute-input" 
+                                        type="checkbox" 
+                                        checked="@value.Selected">
+                                    <label class="form-check-label widget-filter-item-text text-accent" for="attr-visible-@value.Id">
+                                        @value.Name
+                                    </label>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+
+        <!-- CHECKBOXES REALES OCULTOS (sin duplicar IDs) -->
+        <div class="d-none" id="real-attribute-filters">
+            @foreach (var attr in Model.Attributes)
+            {
+                foreach (var value in attr.Values)
+                {
+                    <input id="real-attr-@value.Id"
+                        data-option-id="@value.Id"
+                        data-color-base="@(valueToColorBase.ContainsKey(value.Id) ? valueToColorBase[value.Id] : "")"
+                        data-capacity-range="@(valueToCapacityRange.ContainsKey(value.Id) ? valueToCapacityRange[value.Id] : "")"
+                        data-gramaje-range="@(valueToGramajeRange.ContainsKey(value.Id) ? valueToGramajeRange[value.Id] : "")"
+                        class="form-check-input real-attribute-input"
+                        type="checkbox"
+                        checked="@value.Selected" />
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script asp-location="Footer">
+$(document).ready(function () {
+    var $realOptions = $('.real-attribute-input');
+    var $baseColorCheckboxes = $('.base-color-checkbox');
+    var $capacityCheckboxes = $('.capacity-range-checkbox');
+    var $visibleAttributes = $('.visible-attribute-input');
+
+    // Mapa de colores base a hexes
+    const colorGroups = {
+        "Rojo": ["#671627", "#6D2B07", "#771F45", "#9D0000", "#9D2235", "#9E2A2F", "#A01A40", "#AB2328", "#AE415C", "#B56A6E", "#B77E7F", "#C73144", "#CC2227", "#CC5636", "#CE4C49", "#D35434", "#E10098", "#E26C6C", "#E30613", "#E40000", "#E46179", "#E49ABD", "#E74476", "#E75170", "#ED7A3B", "#EF3340", "#F54E53", "#FB0000", "#FE9285", "#FF0000", "#FF0022", "#FF4444", "#FF666E", "#FF8886"],
+        "Naranja": ["#B94700", "#C84F06", "#E94E1B", "#ED7A3B", "#FE5000", "#FF6A13", "#FF7B0A", "#FFB536"],
+        "Amarillo": ["#B89D18", "#C2A900", "#C79B42", "#D4AF37", "#D5A104", "#D7A314", "#EAA706", "#F4AE33", "#FBB515", "#FBD476", "#FFD700", "#FFDB00", "#FFED00"],
+        "Verde": ["#008000", "#009444", "#009640", "#009900", "#0BC938", "#0C911C", "#154734", "#18D649", "#1D332A", "#1EAE17", "#243721", "#325649", "#379630", "#3AAA35", "#4A773C", "#4C6128", "#5B6135", "#63A390", "#719949", "#73C92D", "#78C33C", "#87AE48", "#95C11F", "#00FF00", "#96FF00", "#97D700", "#B6C832", "#C3D841"],
+        "Cyan": ["#006274", "#006493", "#006F8D", "#007257", "#009FE3", "#00A19A", "#00AB84", "#00AEB4", "#00C493", "#1AA7D1", "#83C8E7", "#87CEE2", "#96BCDA", "#C1CFCA", "#C5D9E7", "#D6E3E8"],
+        "Azul": ["#0000AA", "#0000FF", "#003E9B", "#0040DB", "#004284", "#0055A7", "#0060FF", "#0641EA", "#0612AB", "#0B4C92", "#10069F", "#112939", "#11479F", "#1B2A3C", "#1B306B", "#192EEF", "#213787", "#2200FF", "#2A84CC", "#2B293D", "#2B3D58", "#2E364D", "#333F48", "#385585", "#395668", "#3CA7FA", "#3D53CA", "#434A5F", "#440099", "#465C7F", "#46749A", "#485CC7", "#4B5664", "#4B665E", "#567CBB", "#586883"],
+        "Morado": ["#381258", "#381286", "#4E008E", "#4F0F70", "#8C3EC8", "#990099", "#A94463", "#B098C4", "#B695C0", "#BB29BB", "#CF78AA", "#D6B2D0"],
+        "Rosa": ["#E5C2CA", "#E6007E", "#EDDBEB", "#F172C6", "#FE7CDD", "#FF83B6", "#FFBF9F"],
+        "Vino": ["#0F0F70", "#671627", "#6A2C36", "#A01A40", "#B56A6E"],
+        "Marron": ["#2D2926", "#402020", "#4E3629", "#4F2832", "#4F2C1D", "#502C1E", "#54415E", "#5E2A2B", "#5E5145", "#683C11", "#6A2C36", "#6A3643", "#6B2830", "#744F28", "#776E64", "#776F48", "#77725A", "#78564C", "#786748", "#7A6E66", "#7B6A58", "#84754E", "#86754D", "#8C7732", "#936037", "#946037", "#956C58", "#997777", "#998677", "#9E9E7D", "#A17F4D", "#A35330", "#A89968", "#AC8F87", "#AD7C59", "#AE8A79", "#AFA9A0", "#B17F4A", "#B2A8A2", "#B78D5B", "#B78D6B", "#B9975B", "#BF9474", "#C09C83", "#C1B2B6", "#C2AF9E", "#C29E85", "#C2BDA3", "#C4BDA3", "#C4BFB6", "#C5A28E", "#C5B783", "#CBA052", "#CDBA78", "#CEA886", "#CEBC71", "#D3BBA8", "#D3BCA4", "#D3BC8D", "#D5A286", "#D5D3BF", "#D7C69E", "#D8BA9A", "#D9B48F", "#DDCBA4", "#DFD1A7", "#E1B87F", "#E2DAC6", "#E2DEE0", "#E3CA99", "#EFCFAC"],
+        "Negro": ["#000000", "#1C1C1E", "#1C1F2A", "#1D1D1B", "#25282A", "#2C2C2C", "#393939", "#4C4C4C", "#54585A", "#56595B", "#575756", "#656565", "#666666", "#6D7276", "#727272", "#7A7A7A", "#857874", "#898989", "#8C857B", "#8E8F90", "#978C87", "#9D968D", "#9D9D9C", "#A2AAAD", "#A4A4A4", "#A8A99E", "#AAADAA", "#AAAAAA", "#ACACAC", "#B2B4B2", "#B2B5B7", "#B8B8B8", "#B9B7BD", "#BEBEBE", "#C1C6C8", "#C4BCB7", "#C7C9C7", "#D0D3D4", "#D3D3D3", "#DBDCDB"],
+        "Blanco": ["#DDDDDD", "#DFDBDA", "#E3E3E3", "#EBE5DA", "#EDEDED", "#EDD5C4", "#EEEEEE", "#EFEBE6", "#F1E6B2", "#F7E7CE", "#F8ECE4", "#F8ECD7", "#FCFCFC", "#FFFFFF"]
+    };
+
+    // Función para convertir RGB a HEX
+    function rgbToHex(rgb) {
+        if (rgb.startsWith("#")) return rgb.toUpperCase();
+        const result = rgb.match(/\d+/g);
+        if (!result || result.length < 3) return "";
+        return "#" + result.slice(0, 3)
+            .map(x => ("0" + parseInt(x).toString(16)).slice(-2).toUpperCase())
+            .join("");
+    }
+
+    // Función para aplicar el color seleccionado a los productos
+    function aplicarColorAProductos(coloresSeleccionados) {
+        if (coloresSeleccionados.length === 0) return;
+
+        // Recopilar todos los hexes de los colores seleccionados
+        let hexesBuscados = [];
+        coloresSeleccionados.forEach(colorBase => {
+            if (colorGroups[colorBase]) {
+                hexesBuscados = hexesBuscados.concat(colorGroups[colorBase]);
+            }
+        });
+
+        if (hexesBuscados.length === 0) return;
+
+        // Aplicar a productos existentes
+        setTimeout(() => {
+            document.querySelectorAll(".product-item").forEach(producto => {
+                const topos = producto.querySelectorAll(".variant-preview");
+
+                for (let topo of topos) {
+                    const bg = window.getComputedStyle(topo).backgroundColor;
+                    if (!bg) continue;
+
+                    const hex = rgbToHex(bg);
+
+                    if (hexesBuscados.includes(hex)) {
+                        topo.click();
+                        break;
+                    }
+                }
+            });
+        }, 150);
+    }
+
+    // Sincronizar filtros visibles de atributos normales con los reales
+    $visibleAttributes.on('change', function () {
+        var optionId = $(this).data('option-id');
+        var isChecked = $(this).is(':checked');
+        
+        $realOptions.filter('[data-option-id="' + optionId + '"]')
+            .prop('checked', isChecked);
+        
+        CatalogProducts.getProducts();
+    });
+
+    // Filtro de colores base - CON CAMBIO DE IMAGEN
+    $baseColorCheckboxes.on('change', function () {
+        var colorBase = $(this).data('color-base');
+        var isChecked = $(this).is(':checked');
+
+        $realOptions.filter('[data-color-base="' + colorBase + '"]')
+            .prop('checked', isChecked);
+
+        CatalogProducts.getProducts();
+
+        // Obtener todos los colores seleccionados
+        var coloresSeleccionados = [];
+        $baseColorCheckboxes.filter(':checked').each(function() {
+            coloresSeleccionados.push($(this).data('color-base'));
+        });
+
+        // Aplicar cambio de imagen
+        aplicarColorAProductos(coloresSeleccionados);
+    });
+
+    // Escuchar cuando se cargan nuevos productos
+    $(CatalogProducts).on('loaded', function() {
+        // Obtener colores actualmente seleccionados
+        var coloresSeleccionados = [];
+        $baseColorCheckboxes.filter(':checked').each(function() {
+            coloresSeleccionados.push($(this).data('color-base'));
+        });
+
+        // Aplicar a los nuevos productos cargados
+        if (coloresSeleccionados.length > 0) {
+            aplicarColorAProductos(coloresSeleccionados);
+        }
+    });
+
+    // Filtro de capacidad
+    $capacityCheckboxes.on('change', function () {
+        var range = $(this).data('capacity-range');
+        var isChecked = $(this).is(':checked');
+
+        $realOptions.filter('[data-capacity-range="' + range + '"]')
+            .prop('checked', isChecked);
+
+        CatalogProducts.getProducts();
+    });
+
+    // Filtro de gramaje
+    var $gramajeCheckboxes = $('.gramaje-range-checkbox');
+    $gramajeCheckboxes.on('change', function () {
+        var g = $(this).data('gramaje-range');
+        var isChecked = $(this).is(':checked');
+
+        $realOptions.filter('[data-gramaje-range="' + g + '"]')
+            .prop('checked', isChecked);
+
+        CatalogProducts.getProducts();
+    });
+
+    // Listener para cambios directos en los checkboxes reales
+    $realOptions.on('change', function () {
+        CatalogProducts.getProducts();
+    });
+
+    // Enviar parámetros al backend
+    $(CatalogProducts).on('before', function (e) {
+        var selectedOptions = [];
+        
+        $realOptions.each(function() {
+            var $el = $(this);
+            if ($el.is(':checked')) {
+                selectedOptions.push($el.data('option-id'));
+            }
+        });
+
+        if (selectedOptions.length > 0) {
+            e.payload.urlBuilder.addParameter('specs', selectedOptions.join(','));
+        }
+    });
+});
+</script>
+
+<style>
+    .color-circle {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .color-circle:hover {
+        transform: scale(1.1);
+        border-color: #999;
+    }
+
+    .base-color-checkbox:checked + .color-circle {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 2px #999;
+    }
+</style>

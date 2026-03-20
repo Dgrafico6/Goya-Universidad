@@ -1,0 +1,27 @@
+﻿/*----------------------------------------------------------------------------*\
+    #Footer
+\*----------------------------------------------------------------------------*/
+
+
+.newsletter-result {
+  margin-top:0.5rem;
+  margin-bottom:0.75rem;
+  color:$danger;
+  font-size:$font-size-sm;
+}
+
+.footer-brands {
+  display:flex;
+  margin-bottom:0.5rem;
+  &__item {
+    height:2.5rem;
+    width:6rem;
+    margin-right:1rem;
+    &:last-child {
+      margin-right:0;
+    }
+  }
+  &__image {
+    object-fit:contain;
+  }
+}

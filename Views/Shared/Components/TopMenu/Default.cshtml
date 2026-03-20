@@ -1,0 +1,224 @@
+﻿@using Nop.Core
+@using Nop.Services.Customers
+@model TopMenuModel
+@inject IWorkContext workContext
+@inject ICustomerService customerService
+
+@{
+    var userIsRegistered = await customerService.IsRegisteredAsync(await workContext.GetCurrentCustomerAsync());
+}
+
+@functions {
+    async Task CategoryLine(TopMenuModel.CategoryLineModel lineModel)
+    {
+
+        var subCategories = lineModel.ResponsiveMobileMenu ?
+            //responsive (all categories)
+            lineModel.Category.SubCategories :
+            //standard design (only categories with "IncludeInTopMenu")
+            lineModel.Category.SubCategories.Where(x => x.IncludeInTopMenu).ToList();
+
+        var liClass = "";
+
+        var a1Class = "";
+        var a2Class = "";
+
+        var hrefClass = @Url.RouteUrl("Category", new { SeName = lineModel.Category.SeName });
+
+        if (subCategories.Count > 0)
+        {
+            if(lineModel.Level == 0)
+            {
+                liClass = "nav-item dropdown";
+                a1Class = "nav-link dropdown-toggle";
+            }else
+            {
+                liClass = "dropdown dropdown--parts";
+                a1Class = "nav-link-icon d-xl-none";
+                a2Class = "nav-link-part";
+            }
+
+        } else
+        {
+            if(lineModel.Level == 0)
+            {
+                liClass = "nav-item";
+                a1Class = "nav-link";
+            }else
+            {
+                liClass = "";
+                a1Class += "dropdown-item";
+            }
+        }
+
+        <li class="@liClass">
+            @{
+                if (subCategories.Count > 0)
+                {
+                    if (lineModel.Level == 0)
+                    {
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="@a1Class">@lineModel.Category.Name</a>
+                    } 
+                    else
+                    {
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="@a1Class"></a>
+                        <a href="@hrefClass" class="@a2Class">@lineModel.Category.Name</a>
+                        <div class="clearfix"></div>
+                    }
+                    <ul class="dropdown-menu">
+                        @foreach (var subCategory in subCategories)
+                        {
+                            var categoryLineModel = new TopMenuModel.CategoryLineModel
+                            {
+                                Category = subCategory,
+                                Level = lineModel.Level + 1,
+                                ResponsiveMobileMenu = lineModel.ResponsiveMobileMenu
+                            };
+                            await CategoryLine(categoryLineModel);
+                        }
+                    </ul>
+                }
+                else {
+                    <a class="@a1Class" href="@hrefClass">
+                        @lineModel.Category.Name
+                    </a>
+                }
+            }
+        </li>
+    }
+}
+
+<div class="collapse navbar-collapse" id="navbarCollapse">
+    
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMenuBefore, additionalData = Model })
+    <ul class="top-menu notmobile navbar-nav mt-2 mt-md-0">
+
+        @if (!Model.UseAjaxMenu)
+        {
+            var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu && (x.Name == "Productos" || x.Name == "Products" || x.Name=="Produits" || x.Name == "Productes" || x.Name == "Produtos")).ToList();
+            @foreach (var category in rootCategories)
+            {
+                var categoryLineModel = new TopMenuModel.CategoryLineModel
+                {
+                    Category = category
+                };
+                await CategoryLine(categoryLineModel);
+            }
+
+        }
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.inspiration.text")</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.novelties.href")">@T("goya.theme.topmenu.novelties.text")</a></li>
+                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.bestsellers.text")</a></li>*@
+                <li class="dropdown dropdown--parts">
+                    <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="nav-link-icon d-xl-none" aria-expanded="false"></a> 
+                    <a href="/" class="nav-link-part">@T("goya.theme.topmenu.collections.text")</a>
+                    <div class="clearfix"></div>
+                    <ul class="dropdown-menu">
+                        @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.fortheglobe.href")">@T("goya.theme.topmenu.fortheglobe.text")</a></li>*@
+                        <li><a class="dropdown-item" href="@T("goya.theme.topmenu.madeineurope.href")">@T("goya.theme.topmenu.madeineurope.text")</a></li>
+                        @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.bringcolor.href")">@T("goya.theme.topmenu.bringcolor.text")</a></li>*@
+                        <li><a class="dropdown-item" href="@T("goya.theme.topmenu.fairtrade.href")">@T("goya.theme.topmenu.fairtrade.text")</a></li>
+                        <li><a class="dropdown-item" href="@T("goya.theme.topmenu.selfcare.href")">@T("goya.theme.topmenu.selfcare.text")</a></li>
+                        <li><a class="dropdown-item" href="@T("goya.theme.topmenu.theorigins.href")">@T("goya.theme.topmenu.theorigins.text")</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        @if(userIsRegistered)
+        {
+            @*<li class="nav-item d-none d-xl-flex"><a class="nav-link" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.designer.text")</a></li>*@
+        }
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.promotions.text")</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.outlet.href")">@T("goya.theme.topmenu.outlet.text")</a></li>
+                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.offers.text")</a></li>*@
+            </ul>
+        </li>
+
+        <!--Herramientas de venta Visible en logout-->
+
+        @if (!userIsRegistered) 
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="@Url.RouteUrl("Login")">@T("goya.theme.topmenu.salestools.text")</a>
+            </li>
+        }
+
+        @if (userIsRegistered)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.salestools.text")</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="@T("goya.theme.topmenu.catalogues.href")">@T("goya.theme.topmenu.catalogues.text")</a></li>
+                    <li class="dropdown dropdown--parts">
+                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="nav-link-icon d-xl-none" aria-expanded="false"></a> 
+                        <a href="@T("goya.theme.topmenu.marketingresources.href")" class="nav-link-part">@T("goya.theme.topmenu.marketingresources.text")</a>
+                        <div class="clearfix"></div>
+                        <ul class="dropdown-menu">
+                            @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.marking.text")</a></li>*@
+                            @*<li><a class="dropdown-item" href="@Url.RouteUrl("NewslettersGenerator")">@T("goya.theme.topmenu.newslettersgenerator.text")</a></li>*@
+                            @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.newslettersgenerator.href")">@T("goya.theme.topmenu.newslettersgenerator.text")</a></li>*@
+                            @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.ggcustomers.href")">@T("goya.theme.topmenu.ggcustomers.text")</a></li>*@
+                            <li><a class="dropdown-item" href="@Url.Action("Index", "ResourcesCenter")">@T("goya.theme.topmenu.resourcescenter.text")</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>                                  
+        }
+        @*<li class="nav-item"><a class="nav-link" href="@T("goya.theme.topmenu.sustainability.href")">@T("goya.theme.topmenu.sustainability.text")</a></li>*@
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.aboutus.text")</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.goya2030.href")">@T("goya.theme.topmenu.goya2030.text")</a></li>
+				<li><a class="dropdown-item" href="@T("goya.theme.topmenu.roadshows.href")">@T("goya.theme.topmenu.roadshows.text")</a></li>
+                @*<li><a class="dropdown-item" href="@Url.RouteUrl("ContactUs")">@T("goya.theme.topmenu.showrooms.text")</a></li>*@
+                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.blog.text")</a></li>*@
+                <li><a class="dropdown-item" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.workwithus.href")">@T("goya.theme.topmenu.workwithus.text")</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.utilities.text")</a>
+            <ul class="dropdown-menu">
+                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.register.text")</a></li>*@
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.paymentsandshipments.href")">@T("goya.theme.topmenu.paymentsandshipments.text")</a></li>
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.faq.href")">@T("goya.theme.topmenu.faq.text")</a></li>
+                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.repeatingorder.text")</a></li>*@
+                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.specialmanipulating.href")">@T("goya.theme.topmenu.specialmanipulating.text")</a></li>
+            </ul>
+        </li>
+        @if (userIsRegistered)
+        {
+            <li class="nav-item dropdown d-lg-none">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Área de cliente</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerInfo")">@T("goya.theme.topmenu.customerinformation.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerAddresses")">@T("goya.theme.topmenu.addresses.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerOrders")">@T("goya.theme.topmenu.orders.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerChangePassword")">@T("goya.theme.topmenu.passwordchange.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerDesigns")">@T("goya.theme.topmenu.mydesings.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("AcaInvoices")">@T("goya.theme.topmenu.invoices.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("AcaCreditMemos")">@T("goya.theme.topmenu.creditmemos.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("AcaDeliveryNotes")">@T("goya.theme.topmenu.deliverynotes.text")</a></li>
+                    <li><a class="dropdown-item" href="@Url.RouteUrl("Wishlist")">@T("goya.theme.topmenu.wishlist.text")</a></li>
+                </ul>
+            </li>
+        }
+        @if (userIsRegistered)
+        {
+            <li class="nav-item nav-item--feat d-none d-xl-flex"><a class="nav-link dropdown-toggle" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.budget.text")</a></li>
+        }
+
+        <!-- Diseñador/Cotizador Visible en logout-->
+        @if (!userIsRegistered) 
+        {
+            <li class="nav-item nav-item--feat d-none d-xl-flex">
+                <a class="nav-link dropdown-toggle" href="@Url.RouteUrl("Login")"> @T("goya.theme.topmenu.budget.text")</a>
+            </li>
+        }
+
+    </ul>
+</div>

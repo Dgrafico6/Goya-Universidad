@@ -1,0 +1,130 @@
+﻿@using Nop.Core
+@model HeaderLinksModel
+@inject IWebHelper WebHelper
+
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderLinksBefore, additionalData = Model })
+
+<div class="header-links navbar-tool ms-3">
+
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false"><span class="navbar-toggler-icon"></span></button>
+
+    @if (Model.IsAuthenticated)
+    {
+        <div class="navbar-tool">
+            <a class="navbar-tool-icon-box" href="@Url.RouteUrl("CustomerInfo")">
+                <i class="navbar-tool-icon bi bi-person-check"></i>
+            </a>
+            <div class="navbar-tool-text ms-n3">
+                <small>
+                    <a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a>
+                </small>
+                <a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        var returnUrl = Context.Request.Query.TryGetValue("returnUrl", out var url) && !StringValues.IsNullOrEmpty(url)
+            ? url.ToString()
+            : WebHelper.GetRawUrl(Context.Request);
+        <a class="navbar-tool" href="@Url.RouteUrl("Login", new { returnUrl })">
+            <div class="navbar-tool-icon-box">
+                <i class="navbar-tool-icon bi bi-person"></i>
+            </div>
+            <div class="navbar-tool-text no-caret ms-n3">
+                <small>
+                    @T("goya.theme.account.welcome")</small>
+                @T("Account.Login")
+            </div>
+        </a>
+    }
+</div>
+
+@if (Model.ShoppingCartEnabled)
+{
+    if (!Model.CustomProperties.TryGetValue("OrderSubtotal", out var orderSubtotal))
+    {
+        orderSubtotal = string.Empty;
+    }
+
+    <div id="header-cart" class="header-links navbar-tool dropdown ms-3">
+        <a class="navbar-tool-icon-box bg-soft" href="@Url.RouteUrl("ShoppingCart")">
+            <span class="cart-qty navbar-tool-label">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</span>
+            <i class="navbar-tool-icon bi bi-cart2"></i>
+        </a>
+        <div class="navbar-tool-text">
+            <small>
+                <a href="@Url.RouteUrl("ShoppingCart")" class="ico-logout">@T("ShoppingCart")</a>
+            </small>
+            <a id="header-links-subtotal" href="@Url.RouteUrl("ShoppingCart")">@orderSubtotal</a>
+        </div>
+        @await Component.InvokeAsync("FlyoutShoppingCart")
+    </div>
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderLinksAfter, additionalData = Model })
+
+
+@if (Model.ShoppingCartEnabled)
+{
+    <script asp-location="Footer" asp-exclude-from-bundle="true">
+        $(() => {  
+            let header = $('.header')
+            let flyout = $(AjaxCart.flyoutcartselector)
+            let headerSubtotal = $('#header-links-subtotal')
+            
+            if(header){
+                header.on('mouseenter', '#topcartlink', () => flyout.addClass('active'))
+                header.on('mouseleave', '#topcartlink', () => flyout.removeClass('active'))
+                header.on('mouseenter', AjaxCart.flyoutcartselector, () => flyout.addClass('active'))
+                header.on('mouseleave', AjaxCart.flyoutcartselector, () => flyout.removeClass('active'))
+            }
+            
+            if (flyout && headerSubtotal){
+                
+                const targetNode = document.querySelector('#header-cart')
+                const config = { attributes: true, subtree: true , attributeOldValue: true, characterData: true }
+                
+                const callback = function(mutations, _) {
+                    console.log(mutations, observer);
+                    const subTotal = $('#flyout-cart-subtotal')
+                    headerSubtotal.html(subTotal.html()) 
+                }
+                
+                const observer = new MutationObserver(callback)
+                observer.observe(targetNode, config)  
+            }
+        })
+    </script>
+}
+<!-- Remove -->
+@*@if (Model.RegistrationType != UserRegistrationType.Disabled)
+{
+    <a href="@Url.RouteUrl("Register", new { returnUrl })" class="ico-register">@T("Account.Register")</a>
+}*@
+@*@if (Model.AllowPrivateMessages)
+{
+    <li>
+        <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })" class="ico-inbox">
+            <span class="inbox-label">@T("PrivateMessages.Inbox")</span>
+            <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+        </a>
+    </li>
+}
+@if (Model.WishlistEnabled)
+{
+    <li>
+        <a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">
+            <span class="wishlist-label">@T("Wishlist")</span>
+            <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+        </a>
+    </li>
+}
+@if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+{
+    //new private message notification
+    <script asp-location="Footer">
+        $(document).ready(function () {
+            displayPopupNotification('@Html.Raw(JavaScriptEncoder.Default.Encode(Model.AlertMessage))', 'success', false);
+        });
+    </script>
+}*@

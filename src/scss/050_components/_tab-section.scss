@@ -1,0 +1,95 @@
+//
+// Tab Section
+// --------------------------------------------------
+
+
+// nopCommerce tab sections
+.step-title {
+
+  display:flex;
+  position:relative;
+  align-items:center;
+  padding: 0.75rem 0 0.75rem 0.2rem;
+  border-bottom: 1px solid $border-color;
+  
+  &--enabled {
+    &:not(.active &) {
+      cursor:pointer;
+    }
+
+    .active & {
+      &:not(&.border-0) {
+        margin-bottom:1.5rem;
+      }
+      
+    }
+    
+    color:$primary;
+  }
+
+  &--disabled {
+    color:$medium-soft;
+  }
+
+  &::after {
+    font-family:"bootstrap-icons";
+    display:block;
+    position:absolute;
+    right:.75rem;
+    top:0.7rem;
+    @media (min-width: 399px){
+      right:1rem;
+    }
+    
+    font-size:1.2rem;
+    @at-root #{selector-replace(&, ".step-title", ".step-title.step-title--enabled")} {
+      color: $primary;
+    }
+    @at-root #{selector-replace(&, ".step-title", ".step-title.step-title--disabled")} {
+      color: $medium-soft;
+    }
+
+    .allow:not(active) & {
+      content:"\F22b";
+    }
+    .allow.active & {
+      content:"";
+    }
+  }
+
+  &--nonumber {
+    background-color:transparent;
+
+    &:after {
+      .tab-section.allow.active & {
+        content:"\F237";
+      }
+      
+    }
+
+    &[aria-expanded="true"]:after {
+      content:"\F237";
+    }
+
+    &[aria-expanded="false"]:after {
+      content:"\F22b";
+    }
+
+  }
+  
+  // Number
+  &__number {
+    margin-right:0.5rem;
+  }
+
+  // Help
+  &__help {
+    margin-top:0.125rem;
+    margin-left:0.5rem;
+    display:none;
+    @media (min-width: 399px){
+      display:initial;
+    }
+  }
+
+}

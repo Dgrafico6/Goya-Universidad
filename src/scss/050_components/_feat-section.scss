@@ -1,0 +1,72 @@
+.feat-section {
+
+  &__image {
+
+  }
+
+  &__info {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+
+    @include media-breakpoint-up(md) {
+      &--right {
+        text-align:right;
+      }
+      &--left {
+        text-align:left;
+        z-index:2;
+        padding-left:2rem;
+      }
+
+    }
+
+    @include media-breakpoint-up(xl) {
+      &--left {
+        padding-left:0;
+      }
+
+    }
+
+  }
+
+  &__title {
+    margin-bottom:1.5rem;
+    @include media-breakpoint-up(md) {
+
+      &--right {
+        text-align:right;
+      }
+      &--left {
+        text-align:left;
+      }
+    }
+
+  }
+
+  &__text {
+    margin-bottom:2rem;
+    font-size:$font-size-base-new;
+    @include media-breakpoint-up(md) {
+      &--right {
+        text-align:right;
+        margin-left:1rem;
+      }
+      &--left {
+        text-align:left;
+        margin-right:1rem;
+      }
+    }
+  }
+
+  &__marker {
+    background-color:white;
+    font-style:inherit;
+  }
+
+  &__actions {
+    
+  }
+
+}

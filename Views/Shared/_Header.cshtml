@@ -1,0 +1,26 @@
+﻿<div class="header navbar-sticky bg-light">
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderBefore })
+    <div class="header-upper navbar navbar-expand-xl navbar-light">
+        <div class="container">
+            <div class="header-logo flex-shrink-0">
+                @await Component.InvokeAsync("Logo")
+            </div>
+            <div class="search-box store-search-box input-group">
+                @await Component.InvokeAsync("SearchBox")
+            </div>
+            <div class="header-links-wrapper navbar-toolbar d-flex flex-shrink-0 align-items-center">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "assigned_commercial_info" })
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderSelectors })
+                @await Component.InvokeAsync("LanguageSelector")
+                @await Component.InvokeAsync("HeaderLinks")
+            </div>
+        </div>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMiddle })
+    <div class="header-lower navbar navbar-expand-xl navbar-light navbar-stuck-menu pt-0 pb-0">
+        <div class="container">
+            @await Component.InvokeAsync("TopMenu")
+        </div>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderAfter })
+</div>

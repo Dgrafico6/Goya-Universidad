@@ -1,0 +1,17 @@
+﻿@model CustomerNavigationModel
+@{
+    var count = 0;
+}
+<div class="block block-account-navigation mb-5">
+    <ul class="list-unstyled mb-0">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.AccountNavigationBefore, additionalData = Model })
+        @foreach (var item in Model.CustomerNavigationItems)
+        {
+            count += 1;
+            <li class="@(count == Model.CustomerNavigationItems.Count() ? "" : "border-bottom") mb-0 widget-list-item @item.ItemClass @(Model.SelectedTab == item.Tab ? "active" : "inactive")">
+                <a href="@Url.RouteUrl(item.RouteName)" class="nav-link-style d-flex align-items-center px-1 py-3 fs-md">@(item.Title)</a>
+            </li>
+        }
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.AccountNavigationAfter, additionalData = Model })
+    </ul>
+</div>

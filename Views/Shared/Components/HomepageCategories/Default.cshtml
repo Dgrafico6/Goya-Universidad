@@ -1,0 +1,101 @@
+﻿@model IList<CategoryModel>
+@if (Model.Count >= 6)
+{
+    <section class="container mb-5">
+        <h3 class="text-accent pb-2 display-7">@T("goya.theme.home.featuredcategories.title.text")</h3>
+        <div class="grid">
+          <!-- 1 -->
+                @{
+                    var hrefLink0 = Url.RouteUrl("Category", new { SeName = Model[0].SeName });
+                    var name0 = Model[0].Name;
+                    var src0 = Model[0].PictureModel.FullSizeImageUrl;
+                }
+
+                <a href="@hrefLink0" class="grid__item grid__item--cover grid__item--width2 grid__item--height2 d-block text-decoration-none">
+                    <div class="grid__border border-start-0 border-end-0 border-end-sm"></div>
+                    <div class="grid__content grid__content--3">
+                        <h2 class="grid__title text-white">@name0</h2>
+                    </div>
+                    <img alt="@name0" src="@src0" />
+                </a>
+          <!-- 2 -->
+                @{
+                    var hrefLink1 = Url.RouteUrl("Category", new { SeName = Model[1].SeName });
+                    var name1 = Model[1].Name;
+                    var src1 = Model[1].PictureModel.FullSizeImageUrl;
+                }
+        
+                <a href="@hrefLink1" class="grid__item grid__item--cover grid__item--width2 grid__item--height2 d-block text-decoration-none">
+                    <div class="grid__border border-start-0 border-start-sm border-end-0 border-end-sm"></div>
+                    <div class="grid__content grid__content--3">
+                        <h2 class="grid__title text-white">@name1</h2>
+                    </div>
+                    <img alt="@name1" src="@src1">
+                </a>
+          <!-- 3 -->
+                @{
+                    var hrefLink2 = Url.RouteUrl("Category", new { SeName = Model[2].SeName });
+                    var name2 = Model[2].Name;
+                    var src2 = Model[2].PictureModel.FullSizeImageUrl;
+                }
+
+                <a href="@hrefLink2" class="grid__item grid__item--cover grid__item--width2 grid__item--height2 d-block text-decoration-none">
+                    <div class="grid__border border-start-0 border-start-sm border-end-0"></div>
+                    <div class="grid__content grid__content--2">
+                        <h2 class="grid__title text-white">@name2</h2>
+                    </div>
+                    <img alt="@name2" src="@src2">
+                </a>
+          <!-- 4 -->
+                @{
+                var hrefLink3 = Url.RouteUrl("Category", new { SeName = Model[3].SeName });
+                var name3 = Model[3].Name;
+                var src3 = Model[3].PictureModel.FullSizeImageUrl;
+                }
+
+                <a href="@hrefLink3" class="grid__item grid__item--cover grid__item--width6 grid__item--height2 grid__item--fh d-block text-decoration-none">
+                    <div class="grid__border border-start-0 border-end-0"></div>
+                    <div class="grid__content grid__content--2">
+                        <h2 class="grid__title text-white">@name3</h2>
+                    </div>
+                    <img alt="@name3" src="@src3">
+                </a>
+          <!-- 5 -->
+                @{
+                var hrefLink5 = Url.RouteUrl("Category", new { SeName = Model[5].SeName });
+                var name5 = Model[5].Name;
+                var src5 = Model[5].PictureModel.FullSizeImageUrl;
+                }
+
+                <a href="@hrefLink5" class="grid__item grid__item--cover grid__item--width2 grid__item--height2 d-block text-decoration-none">
+                    <div class="grid__border border-start-0 border-end-0 border-end-sm"></div>
+                    <div class="grid__content grid__content--3">
+                        <h2 class="grid__title text-white">@name5</h2>
+                    </div>
+                    <img alt="@name5" src="@src5">
+                </a>
+          <!-- 6 -->
+                @{
+                var hrefLink4 = Url.RouteUrl("Category", new { SeName = Model[4].SeName });
+                var name4 = Model[4].Name;
+                var src4 = Model[4].PictureModel.FullSizeImageUrl;
+                }
+
+                <a href="@hrefLink4" class="grid__item grid__item--cover grid__item--width4 grid__item--height2  grid__item--nomobile text-decoration-none d-block">
+                    <div class="grid__border border-start-0 border-start-sm border-end-0"></div>
+                    <div class="grid__content grid__content--3">
+                        <h2 class="grid__title text-white">@name4</h2>
+                    </div>
+                    <img alt="@name4" src="@src4">
+                </a>
+          
+        </div>
+    </section>
+
+    <script type="text/javascript" asp-location="Footer">
+        $('.grid').isotope({
+            layoutMode: 'packery',
+            itemSelector: '.grid__item'
+        });
+    </script>
+}

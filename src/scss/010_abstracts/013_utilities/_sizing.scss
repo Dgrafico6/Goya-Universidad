@@ -1,0 +1,40 @@
+/*----------------------------------------------------------------------------*\
+    #Utilities
+\*----------------------------------------------------------------------------*/
+/**
+  */
+/**
+  * 01. xxx.....................xxx.
+  */
+
+
+
+
+/**
+  * equal
+  * equalise width and height of a box
+  */
+
+
+%equal {
+  position: relative;
+  display: block;
+  overflow: hidden;
+
+  &::before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: 100%;
+  }
+
+}
+
+.equal {
+  @extend %equal;
+}
+
+%dropdown-menu {
+  @extend .dropdown-menu;
+  display:inherit;
+}

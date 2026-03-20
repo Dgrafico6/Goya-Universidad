@@ -1,0 +1,32 @@
+{
+  "name": "goya-theme",
+  "version": "1.0.0",
+  "description": "Goya theme for nopCommerce",
+  "main": "app.js",
+  "scripts": {
+    "build": "node create-bundle.js",
+    "dev": "node create-bundle.js -d"
+  },
+  "keywords": [
+    "goya",
+    "theme",
+    "nopcommerce",
+    "theme"
+  ],
+  "author": "Zimaltec Team",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.8.3",
+    "isotope-layout": "^3.0.6",
+    "isotope-packery": "^2.0.1",
+    "npm": "^8.13.0",
+    "simplebar": "^5.3.8",
+    "sweetalert2": "^11.4.23"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.42",
+    "esbuild-plugin-inline-image": "^0.0.8",
+    "esbuild-sass-plugin": "^2.2.6"
+  }
+}

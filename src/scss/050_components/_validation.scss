@@ -1,0 +1,26 @@
+//
+// Validation
+// --------------------------------------------------
+
+
+
+.warning {
+  &-no-stock{
+    display:block;
+    position:absolute;
+    top:23%;
+    right:.75rem;
+    color:$body-color;
+    cursor:pointer;
+    z-index:999;
+    @include media-breakpoint-up(xl) {
+      right:2.5rem;
+    }
+    &--left {
+      right:11.5rem;
+      .customizer & {
+          right: 0.75rem;
+      }
+    }
+  }
+}

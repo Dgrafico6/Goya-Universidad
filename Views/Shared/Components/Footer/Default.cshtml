@@ -1,0 +1,173 @@
+@model FooterModel
+
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+
+@inject IWorkContext workContext
+
+<footer class="footer bg-dark pt-5">
+    <div class="container">
+        <div class="footer-upper row">
+            <div class="footer-block information col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="widget widget-links widget-light pb-2 mb-4">
+                    <h3 class="title widget-title text-light">
+                        @T("Footer.Information")
+                    </h3>
+                    <ul class="list widget-list">
+                        @*@if (Model.SitemapEnabled && Model.DisplaySitemapFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                        }*@
+                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                        }
+                        @if (Model.DisplayContactUsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            @*<div class="footer-block customer-service col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="widget widget-links widget-light pb-2 mb-4">
+                    <h3 class="title widget-title text-light">
+                        @T("Footer.CustomerService")
+                    </h3>
+                    <ul class="list widget-list">
+                        @if (Model.SearchEnabled && Model.DisplayProductSearchFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
+                        }
+                        @if (Model.NewsEnabled && Model.DisplayNewsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                        }
+                        @if (Model.BlogEnabled && Model.DisplayBlogFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                        }
+                        @if (Model.ForumEnabled && Model.DisplayForumsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                        }
+                        @if (Model.RecentlyViewedProductsEnabled && Model.DisplayRecentlyViewedProductsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                        }
+                        @if (Model.CompareProductsEnabled && Model.DisplayCompareProductsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                        }
+                        @if (Model.NewProductsEnabled && Model.DisplayNewProductsFooterItem)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                        }
+                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Topic", new {SeName = topic.SeName})">@topic.Name</a></li>
+                        }
+                        @if (Model.AllowCustomersToCheckGiftCardBalance)
+                        {
+                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("CheckGiftCardBalance")">@T("CheckGiftCardBalance")</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>*@
+            <div class="footer-block my-account col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="widget widget-links widget-light pb-2 mb-4">
+                    <h3 class="title widget-title text-light">
+                        @T("goya.theme.footer.stores.title.text")
+                    </h3>
+                    <ul class="list widget-list">
+                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.spain.link")">@T("goya.theme.footer.stores.spain.text")</a></li>
+                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.catalonia.link")">@T("goya.theme.footer.stores.catalonia.text")</a></li>
+                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.unitedkingdom.link")">@T("goya.theme.footer.stores.unitedkingdom.text")</a></li>
+                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.portugal.link")">@T("goya.theme.footer.stores.portugal.text")</a></li>
+                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.france.link")">@T("goya.theme.footer.stores.france.text")</a></li>
+                    </ul>
+                </div>
+            </div>
+                <div class="footer-block follow-us col-lg-4 col-12 text-lg-end pb-2 mb-4 ms-lg-auto">
+                    @await Component.InvokeAsync("NewsletterBox")
+                    <div class="py-3" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+                        <div class="social" style="display:flex; align-items:center; gap:0.5rem;">
+                        @*<h3 class="title widget-title text-light">@T("Footer.FollowUs")</h3>*@
+                        @await Component.InvokeAsync("SocialButtons")
+                    </div>
+                    <img src="/images/common/logo-goya-blanco.png" alt="Goya Distribuciones S.L." style="max-width:10.5rem; height:auto; margin-left:auto;" />
+                </div>
+            </div>
+        </div>
+        <div class="footer-brands" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
+            
+            <div class="footer-brands__item">
+                <a href="/media/amfori-goya.pdf" target="_blank">
+                    <img src="/images/footer/amfori.svg" alt="amfori - trade with purpose" />
+                </a>
+            </div>
+            <div class="footer-brands__item">
+                <img src="/images/footer/european-recycling-platform.svg" alt="European recycling platform" />
+            </div>
+            <div class="footer-brands__item">
+                <img src="/images/footer/sedex.svg" alt="Sedex" />
+            </div>
+            <div class="footer-brands__item">
+                <img src="/images/footer/weconnect.svg" alt="Weconnect International" />
+            </div>
+            <div class="footer-brands__item">
+                <img src="/images/footer/ecovadis.svg" alt="Ecovadis" />
+            </div>
+            <div class="footer-brands__item">
+                <img src="/images/footer/fsc.svg" alt="FSC" style="max-height: 40px; width: auto;"/>
+            </div>
+        </div>
+        <hr class="hr-light mb-3">
+        <div class="footer-lower mb-2">
+            <div class="footer-info text-center text-light fs-xs opacity-50 pb-2">
+                <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
+                @if (Model.DisplayTaxShippingInfoFooter)
+                {
+                    var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
+                    <span class="footer-tax-shipping">
+                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
+                    </span>
+                }
+            </div>
+            @await Component.InvokeAsync("StoreThemeSelector")
+        </div>
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
+    </div>
+    
+</footer>
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('.footer-block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 769) {
+                $(this).siblings('.list').slideToggle('slow');
+            }
+        });
+    });
+</script>
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('.block .title').on('click', function () {
+            var e = window, a = 'inner';
+            if (!('innerWidth' in window)) {
+                a = 'client';
+                e = document.documentElement || document.body;
+            }
+            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
+            if (result.width < 1001) {
+                $(this).siblings('.listbox').slideToggle('slow');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,111 @@
+﻿@model NewsletterBoxModel
+<div class="widget newsletter">
+    <h3 class="title widget-title text-light text-end">
+        @T("Newsletter.Title")
+    </h3>
+    <form class="newsletter-subscribe subscription-form validate" id="newsletter-subscribe-block">
+        <div class="newsletter-email input-group flex-nowrap mb-3">
+            <input asp-for="NewsletterEmail" id="newsletter-email" class="newsletter-subscribe-text form-control rounded-start" placeholder=@T("Newsletter.Email.Placeholder") aria-label="@T("Newsletter.Subscribe")" />
+
+            <button type="button" id="newsletter-subscribe-button" class="button-1 newsletter-subscribe-button btn btn-danger">@T(Model.AllowToUnsubscribe ? "Newsletter.Options.Send" : "Newsletter.Options.Subscribe")</button>
+            <script asp-location="Footer">
+                $(document).ready(function () {
+                    $('#newsletter-subscribe-button').on('click', function () {
+                        //terms of service
+                        var termOfServiceOk = true;
+                        if ($('#termsofservicenewsletter').length > 0) {
+                            //terms of service element exists
+                            if (!$('#termsofservicenewsletter').is(':checked')) {
+                                displayPopupNotification(
+                                    '@T("newsletter.TermsOfService.PleaseAccept")',
+                                    'warning');
+                                termOfServiceOk = false;
+                            } else {
+                                termOfServiceOk = true;
+                            }
+                        }
+                        return termOfServiceOk;
+                    });
+                });
+            </script>
+            @if (Model.AllowToUnsubscribe)
+            {
+                <div class="options">
+                    <span class="subscribe">
+                        <input id="newsletter_subscribe" type="radio" value="newsletter_subscribe" name="newsletter_block" checked="checked" />
+                        <label for="newsletter_subscribe">@T("Newsletter.Options.Subscribe")</label>
+                    </span>
+                    <span class="unsubscribe">
+                        <input id="newsletter_unsubscribe" type="radio" value="newsletter_unsubscribe" name="newsletter_block" />
+                        <label for="newsletter_unsubscribe">@T("Newsletter.Options.Unsubscribe")</label>
+                    </span>
+                </div>
+            }
+        </div>
+        <div class="newsletter-validation">
+            <span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait")</span>
+            <span asp-validation-for="NewsletterEmail"></span>
+        </div>
+        <div class="mt-2 terms-of-service text-white text-start">
+            <input id="termsofservicenewsletter" class="form-check-input" type="checkbox" name="termsofservicenewsletter"/>
+            <label for="termsofservicenewsletter" style="font-size:0.8rem; margin-top:8px; line-height:1;">@T("newsletter.TermsOfService.IAccept", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })) <span class="required">*</span></label>
+            <div class="pt-2 small">@T("newsletter.termsofservice.gdpr", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })) </div>
+        </div>
+    </form>
+    <div class="newsletter-result" id="newsletter-result-block"></div>
+    <script asp-location="Footer">
+        function newsletter_subscribe(subscribe) {
+            var subscribeProgress = $("#subscribe-loading-progress");
+            subscribeProgress.show();
+            var postData = {
+                subscribe: subscribe,
+                email: $("#newsletter-email").val()
+            };
+            addAntiForgeryToken(postData);
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.RouteUrl("SubscribeNewsletter"))",
+                data: postData,
+                success: function (data, textStatus, jqXHR) {
+                    $("#newsletter-result-block").html(data.Result);
+                    if (data.Success) {
+                        $('#newsletter-subscribe-block').hide();
+                        $('#newsletter-result-block').show();
+                    } else {
+                        $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Failed to subscribe.');
+                },
+                complete: function (jqXHR, textStatus) {
+                    subscribeProgress.hide();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#newsletter-subscribe-button').on('click', function () {
+                @if (Model.AllowToUnsubscribe)
+                {
+                    <text>if ($('#newsletter_subscribe').is(':checked')) {
+                    newsletter_subscribe('true');
+                } else {
+                    newsletter_subscribe('false');
+                }</text>
+                }
+                else
+                {
+                    <text>newsletter_subscribe('true');</text>
+                }
+            });
+            $("#newsletter-email").on("keydown", function (event) {
+                if (event.keyCode == 13) {
+                    $("#newsletter-subscribe-button").trigger("click");
+                    return false;
+                }
+            });
+        });
+    </script>
+</div>

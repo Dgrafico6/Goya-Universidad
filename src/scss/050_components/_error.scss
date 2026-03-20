@@ -1,0 +1,30 @@
+//
+// Error
+// --------------------------------------------------
+
+
+.message-error {
+  color:$danger;
+}
+
+.validation-summary-errors {
+  position:relative;
+  padding:0 0 0 1.5rem;
+  &:before {
+    content:"\F333";
+    font-family: $icons-font-family;
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+  }
+
+  ul {
+    margin-top:0.25rem;
+    list-style:none;
+    padding:0;
+    li {
+      
+    }
+  }
+}

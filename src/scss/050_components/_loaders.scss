@@ -1,0 +1,43 @@
+//
+// Loaders
+// --------------------------------------------------
+
+
+.ajax-products-busy {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: #ffffffab;
+
+  &__loader{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: block;
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    margin:15px auto;
+    background: $light;
+    box-shadow: -2rem 0 $light, 2rem 0 $light;
+    box-sizing: border-box;
+    animation: shadowPulse 2s linear infinite;
+  }
+}
+
+@keyframes shadowPulse {
+  33% {
+    background: $light;
+    box-shadow: -2rem 0 $danger, 2rem 0 $light;
+  }
+  66% {
+    background: $danger;
+    box-shadow: -2rem 0 $light, 2rem 0 $light;
+  }
+  100% {
+    background: $light;
+    box-shadow: -2rem 0 $light, 2rem 0 $danger;
+  }
+}

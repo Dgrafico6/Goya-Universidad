@@ -1,0 +1,17 @@
+﻿@using Nop.Core
+@model LogoModel
+@inject IStoreContext storeContext
+
+@{
+    var currentStore = await storeContext.GetCurrentStoreAsync();
+}
+
+<a href="@Url.RouteUrl("Homepage")">
+    @if (currentStore.Id <=5)
+    {
+        <img title="" alt="@Model.StoreName" src="/images/logotipo-goya-importaciones.svg">
+    }else
+    {
+        <img title="" alt="@Model.StoreName" src="@Model.LogoPath">
+    }
+</a>

@@ -1,0 +1,65 @@
+﻿<section class="container mb-4 mb-sm-5">
+    <div class="grid">
+      <div class="grid__item grid__item--cover grid__item--width4 grid__item--height2">
+          <div class="cover bg-dark"></div>
+          <div class="grid__border border-start-0 border-end-0 border-end-sm"></div>
+          <div class="grid__content grid__content--1" >
+              <h1 class="grid__title grid__title--1">@T("goya.theme.home.mainbanner.box1.title.text")</h1>
+              <div class="grid__description">@T("goya.theme.home.mainbanner.box1.description.text")</div>
+              <div class="d-table">
+                  <a href="/" class="grid__button btn btn-primary btn-sm">
+                      @T("goya.theme.home.featuredcategories.seemore.text")
+                  </a>
+              </div>
+          </div>
+          <img alt="@T("goya.theme.home.mainbanner.box1.title.text")" src="~/images/home/boligrafos-1b.jpg">
+      </div>
+      <div class="grid__item grid__item--width2 grid__item--nomobile grid__item--growdesktop1">
+          <div class="cover bg-dark"></div>
+          <div class="grid__border border-end-0"></div>
+          <div class="grid__content grid__content--2" >
+              <h2 class="grid__title grid__title--2">@T("goya.theme.home.mainbanner.box2.title.text")</h2>
+              <div class="d-table">
+                  <a href="/" class="grid__button btn btn-outline-light btn-sm">
+                      @T("goya.theme.home.featuredcategories.seemore.text")
+                  </a>
+              </div>
+          </div>
+          <img alt="@T("goya.theme.home.mainbanner.box2.title.text")" src="~/images/home/Banner_2.jpg">
+      </div>
+      <div class="grid__item bg-dark grid__item--nomobile grid__item--nodesktop1">
+          <div class="grid__border"></div>
+          <div class="grid__content grid__content--2" >
+              <h3 class="grid__title grid__title--3">@T("goya.theme.home.mainbanner.box3.title.text")</h3>
+              <div class="d-table">
+                  <a href="/" class="grid__button btn btn-outline-light btn-sm">
+                      @T("goya.theme.home.featuredcategories.seemore.text")
+                  </a>
+              </div>
+          </div>
+      </div>
+      <div class="grid__item grid__item--nomobile grid__item--nodesktop1">
+          <div class="cover bg-dark"></div>
+          <div class="grid__border border-end-0"></div>
+          <div class="grid__content grid__content--2" >
+              <h3 class="grid__title grid__title--3">@T("goya.theme.home.mainbanner.box4.title.text")</h3>
+              <div class="d-table">
+                  <a href="/" class="grid__button btn btn-outline-light btn-sm">
+                      @T("goya.theme.home.featuredcategories.seemore.text")
+                  </a>
+              </div>
+          </div>
+          <img alt="@T("goya.theme.home.mainbanner.box4.title.text")" src="~/images/home/Banner_4.jpg">
+      </div>
+    </div>
+</section>
+
+<script type="text/javascript" asp-location="Footer">
+$('.grid').isotope({
+  layoutMode: 'packery',
+  itemSelector: '.grid__item'
+});
+</script>
+
+
+

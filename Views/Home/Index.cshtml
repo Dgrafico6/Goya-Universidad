@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Mvc.ViewEngines
+@using Nop.Core
+@using Nop.Core.Domain.Seo
+@inject SeoSettings seoSettings
+@inject IStoreContext storeContext
+@inject ICompositeViewEngine Engine
+
+@{
+    Layout = "_Fullwidth";
+
+    //title
+    if (!string.IsNullOrEmpty(seoSettings.HomepageTitle))
+    {
+        NopHtml.AddTitleParts(seoSettings.HomepageTitle);
+    }
+
+    //meta
+    if (!string.IsNullOrEmpty(seoSettings.HomepageDescription))
+    {
+        NopHtml.AddMetaDescriptionParts(seoSettings.HomepageDescription);
+    }
+
+    //page class
+    NopHtml.AppendPageCssClassParts("html-home-page");
+
+    var currentStore = await storeContext.GetCurrentStoreAsync();
+
+    //Comentar y descomentar para habilitar el tipo de banner deseado
+    var bannerViewFound = "_HeroSlider";
+    //var bannerViewFound = "_IsotopeSlider";
+
+    var customStoreBannerViewName = bannerViewFound;
+
+    customStoreBannerViewName += (currentStore is not null ? "_" + currentStore.Id : "");
+
+    @if (Engine.FindView(ViewContext, customStoreBannerViewName, isMainPage: false).Success)
+        bannerViewFound = customStoreBannerViewName;
+
+}
+
+@{ await Html.RenderPartialAsync(bannerViewFound); }
+@{ await Html.RenderPartialAsync("_Feat_2"); }
+@await Component.InvokeAsync("HomepageProducts")
+@{ await Html.RenderPartialAsync("_Info"); }
+
+@{ await Html.RenderPartialAsync("_ContactUs"); }

@@ -1,0 +1,93 @@
+﻿@using Nop.Core.Domain.Orders
+@model MiniShoppingCartModel
+@inject OrderSettings OrderSettings
+
+<div id="flyout-cart" class="dropdown-menu dropdown-menu-end">
+    <div class="widget widget-cart px-3 pt-0 pb-1" style="width: 20rem;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+            <div class="fs-sm pb-2">
+                @if (Model.TotalProducts == 0)
+                {
+                    <span class="text-muted">@T("ShoppingCart.Mini.NoItems")</span>
+                }
+                else
+                {
+                    <span class="text-muted fs-base ms-1">@Html.Raw(string.Format(T("ShoppingCart.Mini.ItemsText").Text, $"<a href=\"{Url.RouteUrl("ShoppingCart")}\">{string.Format(T("ShoppingCart.Mini.Items").Text, Model.TotalProducts)}</a>"))</span>
+                }
+            </div>
+        </div>
+        @if (Model.TotalProducts > 0)
+        {
+            <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="product widget-cart-item pb-2 border-bottom">
+
+                        <button class="btn-close text-danger" type="button" aria-label="Remove">
+                            <span aria-hidden="true">×</span>
+                        </button>
+
+                        <div class="d-flex align-items-center">
+                            @if (Model.ShowProductImages)
+                            {
+                                <a class="picture flex-shrink-0" href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })" title="@item.Picture.Title">
+                                    <img loading="lazy" alt="@item.Picture.AlternateText" title="@item.Picture.Title" src="@item.Picture.ImageUrl" width="64">
+                                </a>
+                            }
+
+                            <div class="py-2 ms-2">
+                                <h6 class="name widget-product-title">
+                                    <a href="@Url.RouteUrl("Product", new { SeName = item.ProductSeName })">@item.ProductName</a>
+                                </h6>
+                                <div class="attributes widget-product-meta">
+                                    @if (!string.IsNullOrEmpty(item.AttributeInfo))
+                                    {
+
+                                        @Html.Raw(item.AttributeInfo)
+                                    }
+                                    <span class="price text-accent me-2">@item.UnitPrice</span>
+                                    <span class="quantity text-muted">x @item.Quantity</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar simplebar-visible" style="width: 0px; display: none;"></div>
+                </div>
+                <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar simplebar-visible"
+                     style="height: 0px; display: none; transform: translate3d(0px, 0px, 0px);"></div>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+                <div class="fs-sm me-2 py-2">
+                    <span class="text-muted">@T("ShoppingCart.Totals.SubTotal"):</span>
+                    <span id="flyout-cart-subtotal" class="text-accent fs-base ms-1">@Model.SubTotal</span>
+                </div>
+                @if (Model.DisplayShoppingCartButton)
+                {
+                    <a class="btn btn-outline-secondary btn-sm" href="@Url.RouteUrl("ShoppingCart")">
+                        @T("ShoppingCart.Mini.ViewCart")<i class="ci-arrow-right ms-1 me-n1"></i>
+                    </a>
+                }
+            </div>
+            @*@if (Model.DisplayCheckoutButton)
+                {*@
+            var checkOutAction = OrderSettings.OnePageCheckoutEnabled ? "CheckoutOnePage" : "Checkout";
+            string checkoutUrl;
+            if (Model.AnonymousCheckoutAllowed && Model.CurrentCustomerIsGuest)
+            {
+                checkoutUrl = Url.RouteUrl("LoginCheckoutAsGuest", new { returnUrl = Url.RouteUrl(checkOutAction) });
+            }
+            else
+            {
+                checkoutUrl = Url.RouteUrl(checkOutAction);
+            }
+            <a class="btn btn-danger btn-sm d-block w-100" href="@checkoutUrl">
+                <i class="ci-card me-2 fs-base align-middle"></i>@T("Checkout.Button")
+            </a>
+            @*}*@
+        }
+    </div>
+</div>

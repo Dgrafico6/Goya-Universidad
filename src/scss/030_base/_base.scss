@@ -1,0 +1,34 @@
+/*----------------------------------------------------------------------------*\
+    #Base
+\*----------------------------------------------------------------------------*/
+/**
+  * 
+  */
+
+
+
+
+
+.cover {
+  position:absolute;
+  width:100%;
+  height:100%;
+  opacity:0.25;
+  &--dark {
+    background-color:$dark;
+  }
+}
+
+.fit-cover {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+:focus-visible {
+  outline:none;
+}
+
+.container-fluid {
+  max-width:113.75rem;
+}

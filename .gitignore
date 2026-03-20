@@ -1,0 +1,33 @@
+# Node
+node_modules/
+
+# VS Code
+.vscode/
+
+# Env
+.env
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# .NET / NopCommerce
+bin/
+obj/
+
+# Sass
+.sass-cache/
+
+# Temp
+*.tmp
+*.temp

@@ -1,0 +1,18 @@
+﻿.header-logo a img {
+  width:6.25rem;
+
+  @media (min-width: 353px) { 
+    width:8rem;
+  }
+
+  @media (min-width: 402px) { 
+    width:10rem;
+  }
+
+  @media (min-width: 426px) { 
+    //width:90%;
+    width:11.25rem;
+  }
+
+}
+

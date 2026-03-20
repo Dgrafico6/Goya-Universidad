@@ -1,0 +1,17 @@
+﻿/*----------------------------------------------------------------------------*\
+    #CONTENIDOS
+\*----------------------------------------------------------------------------*/
+/**
+  * 01. bootstrap.....................All bootstrap framework resources.
+  * 02. bootstrap-icons...............Bootsrap icons.
+  */
+
+
+
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../node_modules/bootstrap-icons/font/bootstrap-icons';
+@import '../../../node_modules/sweetalert2/src/sweetalert2';
+//OWL Carousel not supported via npm anymore... Referencing local copy of resources
+@import 'owl-carousel/theme';
+@import 'owl-carousel/owl-carousel';

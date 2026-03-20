@@ -1,0 +1,664 @@
+@{
+    NopHtml.AppendCssFileParts("https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.css", excludeFromBundle: false);
+    var culture = CultureInfo.CurrentCulture;
+    var isoLanguage = culture.TwoLetterISOLanguageName;
+}
+<style asp-exclude-from-bundle="false">
+    :root{
+        --cc-bg: var(--bs-white);
+        --cc-text: var(--bs-medium);
+        --cc-border-radius: 0;
+        --cc-btn-primary-bg: var(--bs-danger);
+        --cc-btn-primary-text: var(--cc-bg);
+        --cc-btn-primary-hover-bg: #530c24;
+        --cc-btn-secondary-bg: var(--bs-secondary);
+        --cc-btn-secondary-text: var(--cc-text);
+        --cc-btn-secondary-hover-bg: #d1d9e8;
+        --cc-btn-border-radius: 0;
+        --cc-toggle-bg-off: #919ea6;
+        --cc-toggle-bg-on: var(--cc-btn-primary-bg);
+        --cc-toggle-bg-readonly: #d5dee2;
+        --cc-toggle-knob-bg: var(--cc-bg);
+        --cc-toggle-knob-icon-color: #ecf2fa;
+        --cc-block-text: var(--cc-text);
+        --cc-cookie-category-block-bg: #f0f4f7;
+        --cc-cookie-category-block-bg-hover: #e9eff4;
+        --cc-section-border: #f1f3f5;
+        --cc-cookie-table-border: #e9edf2;
+        --cc-overlay-bg: rgba(4, 6, 8, .85);
+        --cc-webkit-scrollbar-bg: #cfd5db;
+        --cc-webkit-scrollbar-bg-hover: #9199a0;
+    }
+</style>
+<script asp-exclude-from-bundle="false" asp-location="Footer" ex src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.8.9/dist/cookieconsent.js"></script>
+<script asp-exclude-from-bundle="false" asp-location="Footer">
+    window.addEventListener('load', function(){
+    
+        // obtain plugin
+        window.cc = initCookieConsent();
+    
+        // run plugin with your configuration
+        cc.run({
+            current_lang: '@isoLanguage',
+            autoclear_cookies: true,                   // default: false
+            page_scripts: true,                        // default: false
+    
+            // mode: 'opt-in'                          // default: 'opt-in'; value: 'opt-in' or 'opt-out'
+            // delay: 0,                               // default: 0
+            // auto_language: '',                      // default: null; could also be 'browser' or 'document'
+            // autorun: true,                          // default: true
+            // force_consent: false,                   // default: false
+            // hide_from_bots: true,                   // default: true
+            // remove_cookie_tables: false             // default: false
+            // cookie_name: 'cc_cookie',               // default: 'cc_cookie'
+            // cookie_expiration: 182,                 // default: 182 (days)
+            // cookie_necessary_only_expiration: 182   // default: disabled
+            // cookie_domain: location.hostname,       // default: current domain
+            // cookie_path: '/',                       // default: root
+            // cookie_same_site: 'Lax',                // default: 'Lax'
+            // use_rfc_cookie: false,                  // default: false
+            // revision: 0,                            // default: 0
+    
+            onFirstAction: function(user_preferences, cookie){
+                // callback triggered only once on the first accept/reject action
+            },
+    
+            onAccept: function (cookie) {
+                // callback triggered on the first accept/reject action, and after each page load
+                //var postData = {}
+                //addAntiForgeryToken(postData)
+
+                //$.ajax({
+                //    cache: false,
+                //    type: 'POST',
+                //    data: postData,
+                //    url: '@Url.RouteUrl("EuCookieLawAccept")',
+                //    dataType: 'json',
+                //    success: function (data, textStatus, jqXHR) {
+                //         console.log('Cookie settings has stored')
+                //    },
+                //    error: function (jqXHR, textStatus, errorThrown) {
+                //        console.error('Cookie settings cannot be stored')
+                //    }
+                //})
+            },
+    
+            onChange: function (cookie, changed_categories) {
+                // callback triggered when user changes preferences after consent has already been given
+            },
+    
+            languages: {
+                'en': {
+                    consent_modal: {
+                        title: 'We use cookies!',
+                        description: '<p class="mb-3">Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent.</p> <button type="button" data-cc="c-settings" class="cc-link">Let me choose</button>',
+                        primary_btn: {
+                            text: 'Accept all',
+                            role: 'accept_all'              // 'accept_selected' or 'accept_all'
+                        },
+                        secondary_btn: {
+                            text: 'Reject all',
+                            role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                        }
+                    },
+                    settings_modal: {
+                        title: 'Cookie preferences',
+                        save_settings_btn: 'Save settings',
+                        accept_all_btn: 'Accept all',
+                        reject_all_btn: 'Reject all',
+                        close_btn_label: 'Close',
+                        cookie_table_headers: [
+                            {col1: 'Name'},
+                            {col2: 'Domain'},
+                            {col3: 'Description'},
+                            {col4: 'Expiration'}
+                        ],
+                        blocks: [
+                            {
+                                title: 'Cookie usage 📢',
+                                description: 'We use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want. For more details relative to cookies and other sensitive data, please read the full <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })" class="cc-link" target="_blank">Privacy policy</a>.'
+                            }, 
+                            {
+                                title: 'Strictly necessary cookies',
+                                description: 'These cookies are essential for the proper functioning of my website. Without these cookies, the website would not work properly',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
+                                    readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '.Nop.Antiforgery',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Prevent would-be attackers from using authentication cookies to impersonate the current user',
+                                        col4: 'Until the end of the scanning session',
+                                    },
+                                    {
+                                        col1: '.Nop.Autentication',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Authenticates client requests and maintains session information',
+                                        col4: 'Until the end of the scanning session',
+                                    },
+                                    {
+                                        col1: '.Nop.Culture',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Maintains user\'s language and location information',
+                                        col4: 'Annual',
+                                    },
+                                    {
+                                        col1: '.Nop.Customer',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stores client information between sessions',
+                                        col4: 'Annual',
+                                    },
+                                    {
+                                        col1: '.Nop.RecentlyViewedProducts',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stores the products recently viewed by the user',
+                                        col4: '1 week',
+                                    },
+                                    {
+                                        col1: '.Nop.TempData',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stores data related to the user\'s activity on the website, on a temporary basis',
+                                        col4: 'Until the end of the scanning session',
+                                    },
+                                ]
+                            }, 
+                            {
+                                title: 'Performance and Analytics cookies',
+                                description: 'These cookies allow the website to remember the choices you have made in the past',
+                                toggle: {
+                                    value: 'analytics',     // your cookie category
+                                    enabled: false,
+                                    readonly: false
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '^_ga',       // match all cookies starting with "_ga"
+                                        col2: 'google.com',
+                                        col3: '2 years',
+                                        col4: 'Used to distinguish users',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'google.com',
+                                        col3: '1 day',
+                                        col4: 'Used to distinguish users',
+                                    },
+                                    {
+                                        col1: '_gat',
+                                        col2: 'google.com',
+                                        col3: '1 minute',
+                                        col4: 'Used to limit the percentage of requests',
+                                    }
+                                ]
+                            }, 
+                            {
+                                title: 'More information',
+                                description: 'For any queries in relation to our <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("cookiespolicy") })" class="cc-link" target="_blank">policy on cookies</a> and your choices, please <a class="cc-link" target="_blank" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>.',
+                            }
+                        ]
+                    }
+                },
+                'es': {
+                    consent_modal: {
+                        title: '¡Usamos cookies!',
+                        description: '<p class="mb-3">Hola, este sitio web utiliza cookies esenciales para garantizar su correcto funcionamiento y cookies de seguimiento para comprender cómo interactúas con él. Sólo se almacenarán si nos das tu consentimiento expreso.</p> <button type="button" data-cc="c-settings" class="cc-link">Configuración</button>',
+                        primary_btn: {
+                            text: 'Aceptar todo',
+                            role: 'accept_all'              // 'accept_selected' or 'accept_all'
+                        },
+                        secondary_btn: {
+                            text: 'Rechazar todo',
+                            role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                        }
+                    },
+                    settings_modal: {
+                        title: 'Preferencias de cookies',
+                        save_settings_btn: 'Guardar ajustes',
+                        accept_all_btn: 'Aceptar todo',
+                        reject_all_btn: 'Rechazar todo',
+                        close_btn_label: 'Cerrar',
+                        cookie_table_headers: [
+                            {col1: 'Nombre'},
+                            {col2: 'Dominio'},
+                            {col3: 'Descripción'},
+                            {col4: 'Expiración'}
+                        ],
+                        blocks: [
+                            {
+                                title: 'Uso de cookies 📢',
+                                description: 'Utilizamos cookies para garantizar las funcionalidades básicas del sitio web y mejorar su experiencia en línea. Puede elegir para cada categoría optar por participar o no participar cuando lo desee. Para obtener más detalles relacionados con las cookies y otros datos confidenciales, lea la <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })" class="cc-link" target="_blank">Política de privacidad</a>.'
+                            }, 
+                            {
+                                title: 'Cookies estrictamente necesarias',
+                                description: 'Estas cookies son esenciales para el correcto funcionamiento de mi sitio web. Sin estas cookies, el sitio web no funcionaría correctamente.',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
+                                    readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '.Nop.Antiforgery',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Prevenir a los posibles atacantes usar cookies de autenticación para suplantar al usuario actual',
+                                        col4: 'Hasta el final de la sesión de escaneo',
+                                    },
+                                    {
+                                        col1: '.Nop.Autentication',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Autentica las peticiones de los clientes y mantiene la información de las sesiones',
+                                        col4: 'Hasta el final de la sesión de escaneo',
+                                    },
+                                    {
+                                        col1: '.Nop.Culture',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Autentica las peticiones de los clientes y mantiene la información de las sesiones',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.Customer',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Autentica las peticiones de los clientes y mantiene la información de las sesiones',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.RecentlyViewedProducts',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Almacena los productos vistos recientemente por el usuario',
+                                        col4: '1 semana',
+                                    },
+                                    {
+                                        col1: '.Nop.TempData',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Almacena datos relacionados con la actividad del usuario en la web, de forma temporal',
+                                        col4: 'Hasta el final de la sesión de escaneo',
+                                    },
+                                ]
+                            }, 
+                            {
+                                title: 'Cookies de rendimiento y análisis',
+                                description: 'Estas cookies permiten que el sitio web recuerde las elecciones que ha realizado en el pasado.',
+                                toggle: {
+                                    value: 'analytics',     // your cookie category
+                                    enabled: false,
+                                    readonly: false
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '^_ga',       // match all cookies starting with "_ga"
+                                        col2: 'google.com',
+                                        col3: '2 years',
+                                        col4: 'Se usa para distinguir a los usuarios',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'google.com',
+                                        col3: '1 day',
+                                        col4: 'Se usa para distinguir a los usuarios',
+                                    },
+                                    {
+                                        col1: '_gat',
+                                        col2: 'google.com',
+                                        col3: '1 minute',
+                                        col4: 'Se usa para limitar el porcentaje de solicitudes',
+                                    }
+                                ]
+                            }, 
+                            {
+                                title: 'Más información',
+                                description: 'Para cualquier consulta en relación con nuestra <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("cookiespolicy") })" class="cc-link" target="_blank">política de cookies</a> y sus opciones, please <a class="cc-link" target="_blank" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>.',
+                            }
+                        ]
+                    }
+                },
+                'ca': {
+                    consent_modal: {
+                        title: '¡Utilitzem cookies!',
+                        description: '<p class="mb-3">Hola, aquest lloc web utilitza cookies essencials per garantir el seu correcte funcionament i cookies de seguiment per entendre com interactueu amb ell. Aquest últim només s\'establirà després del consentiment.</p> <button type="button" data-cc="c-settings" class="cc-link">Deixa\'m triar</button>',
+                        primary_btn: {
+                            text: 'Acceptar-ho tot',
+                            role: 'accept_all'              // 'accept_selected' or 'accept_all'
+                        },
+                        secondary_btn: {
+                            text: 'Rebutja-ho tot',
+                            role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                        }
+                    },
+                    settings_modal: {
+                        title: 'Preferències de cookies',
+                        save_settings_btn: 'Desa la configuració',
+                        accept_all_btn: 'Acceptar-ho tot',
+                        reject_all_btn: 'Rebutja-ho tot',
+                        close_btn_label: 'Tanca',
+                        cookie_table_headers: [
+                            {col1: 'Nom'},
+                            {col2: 'Domini'},
+                            {col3: 'Descripció'},
+                            {col4: 'Caducitat'}
+                        ],
+                        blocks: [
+                            {
+                                title: 'Ús de usage 📢',
+                                description: 'Utilitzem cookies per garantir les funcionalitats bàsiques del lloc web i per millorar la vostra experiència en línia. Pots escollir per a cada categoria per activar/desactivar-te quan vulguis. Per obtenir més detalls relatius a les galetes i altres dades sensibles, si us plau, llegiu-ho sencer <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })" class="cc-link" target="_blank">Política de privadesa</a>.'
+                            }, 
+                            {
+                                title: 'Cookies estrictament necessàries',
+                                description: 'Aquestes cookies són essencials per al bon funcionament del meu lloc web. Sense aquestes cookies, el lloc web no funcionaria correctament',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
+                                    readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '.Nop.Antiforgery',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Eviteu que els possibles atacants utilitzin galetes d\'autenticació per suplantar la identitat de l\'usuari actual',
+                                        col4: 'Fins al final de la sessió d\'escaneig',
+                                    },
+                                    {
+                                        col1: '.Nop.Autentication',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Autentica les sol·licituds dels clients i manté la informació de la sessió',
+                                        col4: 'Fins al final de la sessió d\'escaneig',
+                                    },
+                                    {
+                                        col1: '.Nop.Culture',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Manté la informació de l\'idioma i la ubicació de l\'usuari',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.Customer',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Emmagatzema la informació del client entre sessions',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.RecentlyViewedProducts',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Emmagatzema els productes que l\'usuari ha vist recentment',
+                                        col4: '1 setmana',
+                                    },
+                                    {
+                                        col1: '.Nop.TempData',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Emmagatzema dades relacionades amb l\'activitat de l\'usuari al lloc web, de manera temporal',
+                                        col4: 'Fins al final de la sessió d\'escaneig',
+                                    },
+                                ]
+                            }, 
+                            {
+                                title: 'Cookies de rendiment i analítiques',
+                                description: 'Aquestes cookies permeten al lloc web recordar les eleccions que heu fet en el passat',
+                                toggle: {
+                                    value: 'analytics',     // your cookie category
+                                    enabled: false,
+                                    readonly: false
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '^_ga',       // match all cookies starting with "_ga"
+                                        col2: 'google.com',
+                                        col3: '2 years',
+                                        col4: 'S\'utilitza per distingir usuaris',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'google.com',
+                                        col3: '1 day',
+                                        col4: 'S\'utilitza per distingir usuaris',
+                                    },
+                                    {
+                                        col1: '_gat',
+                                        col2: 'google.com',
+                                        col3: '1 minute',
+                                        col4: 'S\'utilitza per limitar el percentatge de sol·licituds',
+                                    }
+                                ]
+                            }, 
+                            {
+                                title: 'Més informació',
+                                description: 'Per a qualsevol consulta relacionada amb la nostra <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("cookiespolicy") })" class="cc-link" target="_blank">política de cookies</a> i les vostres opcions, si us plau <a class="cc-link" target="_blank" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>.',
+                            }
+                        ]
+                    }
+                },
+                'pt': {
+                    consent_modal: {
+                        title: 'Nós usamos cookies!',
+                        description: '<p class="mb-3">Olá, este site usa cookies essenciais para garantir seu funcionamento adequado e cookies de rastreamento para entender como você interage com ele. Este último será definido somente após consentimento.</p> <button type="button" data-cc="c-settings" class="cc-link">Deixe-me escolher</button>',
+                        primary_btn: {
+                            text: 'Aceitar tudo',
+                            role: 'accept_all'              // 'accept_selected' or 'accept_all'
+                        },
+                        secondary_btn: {
+                            text: 'Rejeitar tudo',
+                            role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                        }
+                    },
+                    settings_modal: {
+                        title: 'Preferências de cookies',
+                        save_settings_btn: 'Salvar configurações',
+                        accept_all_btn: 'Aceitar tudo',
+                        reject_all_btn: 'Rejeitar tudo',
+                        close_btn_label: 'Perto',
+                        cookie_table_headers: [
+                            {col1: 'Nome'},
+                            {col2: 'Domínio'},
+                            {col3: 'Descrição'},
+                            {col4: 'Expiração'}
+                        ],
+                        blocks: [
+                            {
+                                title: 'Uso de cookies 📢',
+                                description: 'Usamos cookies para garantir as funcionalidades básicas do site e para aprimorar sua experiência online. Você pode escolher cada categoria para entrar/sair sempre que quiser. Para mais detalhes relativos a cookies e outros dados sensíveis, por favor leia o <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })" class="cc-link" target="_blank">Política de privacidade</a>.'
+                            }, 
+                            {
+                                title: 'Cookies estritamente necessários',
+                                description: 'Esses cookies são essenciais para o bom funcionamento do meu site. Sem esses cookies, o site não funcionaria corretamente',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
+                                    readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '.Nop.Antiforgery',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Impedir que possíveis invasores usem cookies de autenticação para representar o usuário atual',
+                                        col4: 'Até o final da sessão de digitalização',
+                                    },
+                                    {
+                                        col1: '.Nop.Autentication',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Autentica as solicitações do cliente e mantém as informações da sessão',
+                                        col4: 'Até o final da sessão de digitalização',
+                                    },
+                                    {
+                                        col1: '.Nop.Culture',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Mantém as informações de idioma e localização do usuário',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.Customer',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Armazena informações do cliente entre as sessões',
+                                        col4: 'Anual',
+                                    },
+                                    {
+                                        col1: '.Nop.RecentlyViewedProducts',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Armazena os produtos visualizados recentemente pelo usuário',
+                                        col4: '1 semana',
+                                    },
+                                    {
+                                        col1: '.Nop.TempData',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Armazena dados relacionados com a atividade do utilizador no website, de forma temporária',
+                                        col4: 'Até o final da sessão de digitalização',
+                                    },
+                                ]
+                            }, 
+                            {
+                                title: 'Cookies de desempenho e analíticos',
+                                description: 'Esses cookies permitem que o site se lembre das escolhas que você fez no passado',
+                                toggle: {
+                                    value: 'analytics',     // your cookie category
+                                    enabled: false,
+                                    readonly: false
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '^_ga',       // match all cookies starting with "_ga"
+                                        col2: 'google.com',
+                                        col3: '2 years',
+                                        col4: 'Usado para distinguir usuários',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'google.com',
+                                        col3: '1 day',
+                                        col4: 'Usado para distinguir usuários',
+                                    },
+                                    {
+                                        col1: '_gat',
+                                        col2: 'google.com',
+                                        col3: '1 minute',
+                                        col4: 'Usado para limitar a porcentagem de solicitações',
+                                    }
+                                ]
+                            }, 
+                            {
+                                title: 'Mais Informações',
+                                description: 'Para qualquer dúvida em relação à nossa <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("cookiespolicy") })" class="cc-link" target="_blank">política de cookies</a> e suas escolhas, por favor <a class="cc-link" target="_blank" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>.',
+                            }
+                        ]
+                    }
+                },
+                'fr': {
+                    consent_modal: {
+                        title: 'Nous utilisons des cookies!',
+                        description: '<p class="mb-3">Bonjour, ce site utilise des cookies essentiels pour assurer son bon fonctionnement et des cookies de suivi pour comprendre comment vous interagissez avec lui. Elles ne seront conservées que si vous nous donnez votre consentement exprès, en cliquant sur le bouton "Tout accepter".</p> <button type="button" data-cc="c-settings" class="cc-link">Let me choose</button>',
+                        primary_btn: {
+                            text: 'Accepter tout',
+                            role: 'accept_all'              // 'accept_selected' or 'accept_all'
+                        },
+                        secondary_btn: {
+                            text: 'Tout rejeter',
+                            role: 'accept_necessary'        // 'settings' or 'accept_necessary'
+                        }
+                    },
+                    settings_modal: {
+                        title: 'Préférences en matière de cookies',
+                        save_settings_btn: 'Enregistrer les paramètres',
+                        accept_all_btn: 'Accepter tout',
+                        reject_all_btn: 'Tout rejeter',
+                        close_btn_label: 'Fermer',
+                        cookie_table_headers: [
+                            {col1: 'Nom'},
+                            {col2: 'Domaine'},
+                            {col3: 'La description'},
+                            {col4: 'Expiration'}
+                        ],
+                        blocks: [
+                            {
+                                title: 'Utilisation des cookies 📢',
+                                description: 'Nous utilisons des cookies pour assurer les fonctionnalités de base du site Web et pour améliorer votre expérience en ligne. Vous pouvez choisir pour chaque catégorie de vous inscrire ou de vous désinscrire quand vous le souhaitez. Pour plus de détails relatifs aux cookies et autres données sensibles, veuillez lire l\'intégralité <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })" class="cc-link" target="_blank">Politique de confidentialité</a>.'
+                            }, 
+                            {
+                                title: 'Cookies strictement nécessaires',
+                                description: 'Ces cookies sont indispensables au bon fonctionnement de mon site internet. Sans ces cookies, le site Web ne fonctionnerait pas correctement',
+                                toggle: {
+                                    value: 'necessary',
+                                    enabled: true,
+                                    readonly: true          // cookie categories with readonly=true are all treated as "necessary cookies"
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '.Nop.Antiforgery',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Empêcher les attaquants potentiels d\'utiliser des cookies d\'authentification pour usurper l\'identité de l\'utilisateur actuel',
+                                        col4: 'Jusqu\'à la fin de la session de numérisation',
+                                    },
+                                    {
+                                        col1: '.Nop.Autentication',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Authentifie les demandes des clients et conserve les informations de session',
+                                        col4: 'Jusqu\'à la fin de la session de numérisation',
+                                    },
+                                    {
+                                        col1: '.Nop.Culture',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Maintient la langue de l\'utilisateur et les informations de localisation',
+                                        col4: 'Annuel',
+                                    },
+                                    {
+                                        col1: '.Nop.Customer',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stocke les informations client entre les sessions',
+                                        col4: 'Annuel',
+                                    },
+                                    {
+                                        col1: '.Nop.RecentlyViewedProducts',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stocke les produits récemment consultés par l\'utilisateur',
+                                        col4: '1 semaine',
+                                    },
+                                    {
+                                        col1: '.Nop.TempData',       
+                                        col2: 'ggoya.com',
+                                        col3: 'Stocke temporairement les données relatives à l\'activité de l\'utilisateur sur le site Web',
+                                        col4: 'Jusqu\'à la fin de la session de numérisation',
+                                    },
+                                ]
+                            }, 
+                            {
+                                title: 'Cookies de performance et d\'analyse',
+                                description: 'Ces cookies permettent au site Web de se souvenir des choix que vous avez faits dans le passé',
+                                toggle: {
+                                    value: 'analytics',     // your cookie category
+                                    enabled: false,
+                                    readonly: false
+                                },
+                                cookie_table: [             // list of all expected cookies
+                                    {
+                                        col1: '^_ga',       // match all cookies starting with "_ga"
+                                        col2: 'google.com',
+                                        col3: '2 years',
+                                        col4: 'Utilisé pour distinguer les utilisateurs',
+                                        is_regex: true
+                                    },
+                                    {
+                                        col1: '_gid',
+                                        col2: 'google.com',
+                                        col3: '1 day',
+                                        col4: 'Utilisé pour distinguer les utilisateurs',
+                                    },
+                                    {
+                                        col1: '_gat',
+                                        col2: 'google.com',
+                                        col3: '1 minute',
+                                        col4: 'Utilisé pour limiter le pourcentage de demandes',
+                                    }
+                                ]
+                            }, 
+                            {
+                                title: 'Plus d\'information',
+                                description: 'Pour toute question relative à notre <a href="@Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("cookiespolicy") })" class="cc-link" target="_blank">politique en matière de cookies</a> et à vos choix, veuillez <a class="cc-link" target="_blank" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>.',
+                            }
+                        ]
+                    }
+                },
+            }
+        })
+    })
+</script>

@@ -1,0 +1,17 @@
+//
+// Header
+// --------------------------------------------------
+
+
+.header-upper {
+  padding-top:0.421875rem;
+  padding-bottom:3.35rem;
+  .navbar-stuck & {
+    padding-top:$spacer;
+    padding-bottom:$spacer;
+  }
+  @include media-breakpoint-up(md) { 
+    padding-top:$spacer;
+    padding-bottom:$spacer;
+  }
+}

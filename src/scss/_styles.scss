@@ -1,0 +1,22 @@
+﻿/*------------------------------------------------------------------------------------------*\
+    #NOPCOMMERCE BOOTSTRAP 5 E-COMMERCE TEMPLATE - Copyright 2022 Zimaltec Soluciones S.L.
+\*------------------------------------------------------------------------------------------*/
+/**
+ * 01. custom-bootstrap-variables.....................Variables, mixins y utilities.
+ * 02. vendor........................Bibliotecas de los fabricantes.
+ * 03. base..........................Estilos base y reboots.
+ * 04. layout........................Estilos del marco de las paginas.
+ * 05. components........................Estilos de los componentes de las paginas.
+ */
+
+
+
+
+
+@charset 'UTF-8';
+@import '010_abstracts/010_abstracts';
+@import '020_vendor/020_vendor';
+@import '030_base/030_base';
+@import '040_layout/040_layout';
+@import '050_components/050_components';
+@import '060_plugins/060_plugins';

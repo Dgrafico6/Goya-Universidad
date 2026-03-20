@@ -1,0 +1,149 @@
+<style> 
+    .contact-section {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 60px 20px;
+    font-family: var(--font-ppal);
+    color: #6b6b6b;
+}
+
+/* Línea superior */
+.contact-section::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #dcdcdc;
+    margin-bottom: 40px;
+}
+
+/* Texto principal */
+.contact-section__description {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* Subtexto */
+.contact-section__subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Palabras destacadas */
+.contact-section__highlight {
+    font-weight: 500;
+    color: #2a2a2a;
+}
+
+/* Botón */
+.contact-section__btn {
+    display: inline-block;
+    background-color: #e30613;
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+    transition: background 0.3s ease;
+}
+
+.contact-section__btn:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+/* Texto inferior */
+.contact-section__also {
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+/* Canales */
+.contact-section__channels {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+/* Cada canal */
+.contact-section__channel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Iconos */
+.contact-section__icon svg {
+    width: 42px;
+    height: 42px;
+    stroke: #2a2a2a;
+    fill: none;
+    stroke-width: 1.5;
+    margin-bottom: 10px;
+}
+
+/* Texto debajo iconos */
+.contact-section__channel-label {
+    font-size: 14px;
+    color: #2a2a2a;
+}
+</style>
+
+<section class="contact-section">
+
+    <p class="contact-section__description">
+        @T("goya.theme.contact.description.part1")
+        <strong class="contact-section__highlight">@T("goya.theme.contact.campus.pamplona")</strong>,
+        <strong class="contact-section__highlight">@T("goya.theme.contact.campus.madrid")</strong>
+        @T("goya.theme.contact.campus.y")
+        <strong class="contact-section__highlight">@T("goya.theme.contact.campus.sansebastian")</strong>.
+        @T("goya.theme.contact.description.part2")
+    </p>
+
+    <p class="contact-section__subtitle">
+        @T("goya.theme.contact.peticiones.text")
+        <strong class="contact-section__highlight">@T("goya.theme.contact.peticiones.highlight")</strong>.
+    </p>
+
+    <a href="@T("goya.theme.contact.btn.href")" class="contact-section__btn">
+        @T("goya.theme.contact.btn.text")
+    </a>
+
+    <p class="contact-section__also">@T("goya.theme.contact.also.text")</p>
+
+    <div class="contact-section__channels">
+
+        <a href="mailto:@T("goya.theme.contact.email")" class="contact-section__channel">
+            <div class="contact-section__icon">
+                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="10" width="40" height="28" rx="2"/>
+                    <polyline points="4,10 24,27 44,10"/>
+                    <circle cx="24" cy="24" r="3" fill="#2a2a2a" stroke="none"/>
+                </svg>
+            </div>
+            <span class="contact-section__channel-label">@T("goya.theme.contact.email")</span>
+        </a>
+
+        <div class="contact-section__channel">
+            <div class="contact-section__icon">
+                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 14 C10 14 13 11 14 12 L19 20 C19 20 17 22 17 24 C17 26 22 33 24 34 C26 35 28 33 28 33 L36 38 C37 39 34 42 34 42 C20 44 4 24 10 14 Z"/>
+                    <path d="M30 8 C36 9 42 15 42 22" stroke-width="1.5"/>
+                    <path d="M30 14 C33 15 37 19 37 22" stroke-width="1.5"/>
+                    <path d="M30 20 C31 20.5 33 22 33 22" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <span class="contact-section__channel-label">@T("goya.theme.contact.phone")</span>
+        </div>
+
+    </div>
+
+</section>

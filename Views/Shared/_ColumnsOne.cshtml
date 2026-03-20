@@ -1,0 +1,10 @@
+﻿@{
+    Layout = "_Root";
+}
+
+<div class="container pb-5 mb-2 mb-md-4">
+    @await RenderSectionAsync("Breadcrumb", false)
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MainColumnBefore })
+    @RenderBody()
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.MainColumnAfter })
+</div>

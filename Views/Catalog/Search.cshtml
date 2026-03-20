@@ -1,0 +1,249 @@
+﻿@using Nop.Core.Domain.Common
+@model Nop.Web.Models.Catalog.SearchModel
+@inject CommonSettings _commonSettings
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    NopHtml.AddTitleParts(T("PageTitle.Search").Text);
+    //page class
+    NopHtml.AppendPageCssClassParts("html-search-page");
+
+    NopHtml.AddCssFileParts("/Plugins/Zimaltec.AdvancedStock/Content/css/styles.css");
+
+    var breadcrumbDelimiter = _commonSettings.BreadcrumbDelimiter;
+}
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.advs)").on('click', toggleAdvancedSearch);
+        toggleAdvancedSearch();
+    });
+
+    function toggleAdvancedSearch() {
+        if ($('#@Html.IdFor(model => model.advs)').is(':checked')) {
+            $('#advanced-search-block').show();
+        }
+        else {
+            $('#advanced-search-block').hide();
+        }
+    }
+</script>
+
+@*category breadcrumb*@
+@section Breadcrumb
+{
+    <div class="page-title page-title--overlap">
+        <div class="page-title__container">
+            <div class="page-title__navigation">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start" itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <li class="breadcrumb-item">
+                            <a class="text-nowrap" href="@Url.RouteUrl("Homepage")" title="@T("Categories.Breadcrumb.Top")"><i class="bi bi-house-door"></i> Home</a>
+                        </li>
+                        <li class="breadcrumb-item text-nowrap active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <span class="current-item" itemprop="name">@T("Search")</span>
+                            <span itemprop="item" itemscope itemtype="http://schema.org/Thing" id="@Url.RouteUrl("ProductSearch")"></span>
+                            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBreadcrumbAfter, additionalData = Model })
+                        </li>
+                    </ol>
+                </nav>
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsAfterBreadcrumb, additionalData = Model })
+            </div>
+            <div class="page-title__text">
+                <h1 class="h3 mb-0">@T("Search")</h1>
+            </div>
+        </div>
+    </div>
+}
+@section CatalogFilters {
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsBeforeFilters, additionalData = Model })
+    @await Html.PartialAsync("_CatalogFilters", Model.CatalogProductsModel)
+}
+
+<div class="search-input d-none">
+    <form asp-route="ProductSearch" method="get">
+        <div class="fieldset">
+            <div class="form-fields">
+                <div class="basic-search">
+                    <div class="inputs">
+                        <label asp-for="q">@T("Search.SearchTerm"):</label>
+                        <input asp-for="q" class="search-text" />
+                    </div>
+                    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageBasic, additionalData = Model })
+                    <div class="inputs reversed">
+                        <input asp-for="advs" />
+                        <label asp-for="advs">@T("Search.AdvancedSearch")</label>
+                    </div>
+                </div>
+                <div class="advanced-search" id="advanced-search-block">
+                    @if (Model.AvailableCategories.Count > 0)
+                    {
+                        <div class="inputs">
+                            <label asp-for="cid">@T("Search.Category"):</label>
+                            <select asp-for="cid" asp-items="Model.AvailableCategories"></select>
+                        </div>
+                        <div class="inputs reversed">
+                            <input asp-for="isc" />
+                            <label asp-for="isc">@T("Search.IncludeSubCategories")</label>
+                        </div>
+                    }
+                    @if (Model.AvailableManufacturers.Count > 0)
+                    {
+                        <div class="inputs">
+                            <label asp-for="mid">@T("Search.Manufacturer"):</label>
+                            <select asp-for="mid" asp-items="Model.AvailableManufacturers"></select>
+                        </div>
+                    }
+                    @if (Model.asv && Model.AvailableVendors.Count > 0)
+                    {
+                        <div class="inputs">
+                            <label asp-for="vid">@T("Search.Vendor"):</label>
+                            <select asp-for="vid" asp-items="Model.AvailableVendors"></select>
+                        </div>
+                    }
+                    <div class="inputs reversed">
+                        <input asp-for="sid" />
+                        <label asp-for="sid">@T("Search.SearchInDescriptions")</label>
+                    </div>
+                    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageAdvanced, additionalData = Model })
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="button-1 search-button">@T("Search.Button")</button>
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("_CatalogSelectors", Model.CatalogProductsModel)
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageBeforeResults, additionalData = Model })
+
+@{
+    var catalogProductsViewData = new ViewDataDictionary(ViewData);
+    catalogProductsViewData["fetchUrl"] = Html.Raw(Url.Action("SearchProducts", "Catalog"));
+}
+
+@await Html.PartialAsync("_CatalogProducts", Model.CatalogProductsModel, catalogProductsViewData)
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $(CatalogProducts).on('before', function (e) {
+            var isAdvanced = $('#@Html.IdFor(model => model.advs)').is(':checked');
+
+            e.payload.urlBuilder
+                .addParameter('q', $('#@Html.IdFor(model => model.q)').val())
+                .addParameter('advs', isAdvanced);
+
+            if (isAdvanced) {
+                e.payload.urlBuilder
+                    .addParameter('cid', $('#@Html.IdFor(model => model.cid)').val())
+                    .addParameter('isc', $('#@Html.IdFor(model => model.isc)').is(':checked'))
+                    .addParameter('mid', $('#@Html.IdFor(model => model.mid)').val())
+                    .addParameter('vid', $('#@Html.IdFor(model => model.vid)').val())
+                    .addParameter('sid', $('#@Html.IdFor(model => model.sid)').is(':checked'));
+            }
+        });
+    });
+</script>
+
+<script asp-location="Footer">
+document.addEventListener("DOMContentLoaded", function () {
+    // Mapa de colores (texto buscado -> HEX real del topo)
+    const colorRef = [
+    { nombres: ["rojo", "roja"], hexes: ["#671627", "#6d2b07", "#771f45", "#9d0000", "#9d2235", "#9e2a2f", "#a01a40","#ab2328", "#ae415c", "#b56a6e", "#b77e7f", "#c73144", "#cc2227", "#cc5636","#ce4c49", "#d35434", "#e10098", "#e26c6c", "#e30613", "#e40000", "#e46179","#e49abd", "#e74476", "#e75170", "#ed7a3b", "#ef3340", "#f54e53","#fb0000", "#fe9285", "#ff0000", "#ff0022", "#ff4444", "#ff666e","#ff8886"] },
+    { nombres: ["naranja"], hexes: ["#b94700", "#c84f06", "#ed7a3b", "#fe5000", "#ff6a13", "#ff7b0a", "#ffb536", "#e94e1b",] },
+    { nombres: ["amarillo", "amarilla", "dorado"], hexes: ["#b89d18", "#c2a900", "#c79b42", "#d4af37", "#d5a104", "#d7a314", "#eaa706", "#f4ae33", "#fbb515", "#fbd476", "#ffd700", "#ffdb00", "#ffed00"] },
+    { nombres: ["verde"], hexes: ["#008000", "#009444", "#009640", "#009900", "#0bc938", "#0c911c", "#154734", "#18d649", "#1d332a", "#1eae17", "#243721", "#325649", "#379630", "#3aaa35", "#4a773c", "#4c6128", "#5b6135", "#63a390", "#719949", "#73c92d", "#78c33c", "#87ae48", "#95c11f", "#00ff00", "#96ff00", "#97d700", "#b6c832", "#c3d841"] },
+    { nombres: ["azul", "cyan"], hexes: ["#009fe3","#0000aa", "#0000ff", "#003e9b", "#0040db", "#004284", "#0055a7", "#0060ff","#006274", "#006493", "#0641ea", "#0612ab", "#0b4c92", "#10069f", "#112939", "#11479f", "#1b2a3c", "#1b306b", "#192eef", "#1aa7d1", "#213787", "#2200ff","#2a84cc", "#2b293d", "#2b3d58", "#2e364d", "#333f48", "#385585", "#395668", "#3ca7fa", "#3d53ca", "#434a5f", "#440099", "#465c7f", "#46749a", "#485cc7","#4b5664", "#4b665e", "#567cbb", "#586883", "#839ab1", "#98a8cc", "#b098c4", "#b695c0", "#c1c7d4"] },
+    { nombres: ["cyan", "turquesa"], hexes: ["#006274", "#006493", "#006f8d", "#007257", "#009fe3", "#00a19a", "#00ab84", "#00aeb4", "#00c493", "#1aa7d1", "#63a390", "#83c8e7", "#87cee2","#96bcda", "#c1cfca", "#c5d9e7", "#d6e3e8"] },
+    { nombres: ["rosa", "fucsia"], hexes: ["#ff83b6","#e5c2ca", "#e6007e", "#eddbeb", "#f172c6", "#fe7cdd", "#ebe5da", "#edd5c4", "#efcfac", "#efdbb2", "#efebe6", "#f1e6b2", "#f7e7ce", "#f8ece4", "#f8ecd7", "#ffbf9f"] },
+    { nombres: ["marrón", "beige"], hexes: ["#2d2926", "#402020", "#4e3629", "#4f2832", "#4f2c1d", "#502c1e", "#54415e", "#5e2a2b", "#5e5145", "#683c11", "#6a2c36", "#6a3643", "#6b2830", "#744f28", "#776e64", "#776f48", "#77725a", "#78564c", "#786748", "#7a6e66", "#7b6a58","#84754e", "#86754d", "#8c7732", "#936037", "#946037", "#956c58", "#997777", "#998677", "#9e9e7d", "#a17f4d", "#a35330", "#a89968", "#ac8f87", "#ad7c59","#ae8a79", "#afa9a0", "#b17f4a", "#b2a8a2", "#b78d5b", "#b78d6b", "#b9975b", "#bf9474", "#c09c83", "#c1b2b6", "#c2af9e", "#c29e85", "#c2bda3", "#c4bda3","#c4bfb6", "#c5a28e", "#c5b783", "#cba052", "#cdba78", "#cea886", "#cebc71", "#d3bba8", "#d3bca4", "#d3bc8d", "#d5a286", "#d5d3bf", "#d7c69e", "#d8ba9a","#d9b48f", "#ddcba4", "#dfd1a7", "#e1b87f", "#e2dac6", "#e2dee0", "#e3ca99"] },
+    { nombres: ["negro","negra", "gris"], hexes: ["#000000", "#1c1c1e", "#1c1f2a", "#1d1d1b", "#25282a", "#2c2c2c", "#393939","#4c4c4c", "#54585a", "#56595b", "#575756", "#656565", "#666666", "#6d7276","#727272", "#7a7a7a", "#857874", "#898989", "#8c857b", "#8e8f90", "#978c87","#9d968d", "#9d9d9c", "#a2aaad", "#a4a4a4", "#a8a99e", "#aaadaa", "#aaaaaa","#acacac", "#b2b4b2", "#b2b5b7", "#b8b8b8", "#b9b7bd", "#bebebe", "#c1c6c8","#c4bcb7", "#c7c9c7", "#d0d3d4", "#d3d3d3", "#dbdcdb"] },
+    { nombres: ["blanco", "blanca", "crema"], hexes: ["#dddddd", "#dfdbda","#e3e3e3", "#ededed", "#d5d3bf", "#dfdbda", "#e2dee0", "#ebe5da", "#ededed", "#edd5c4", "#eddbeb","#eeeeee", "#efebe6", "#f1e6b2", "#f7e7ce", "#f8ece4", "#f8ecd7", "#fcfcfc", "#ffffff"] },
+    { nombres: ["burdeos", "granate", "vino"], hexes: ["#f0f70", "#6a2c36", "#b56a6e", "#a01a40", "#671627"] },
+    { nombres: ["purpura", "violeta", "morado", "lila"], hexes: ["#10069f", "#381258", "#381286", "#440099", "#4e008e", "#4f0f70", "#8c3ec8", "#990099", "#a94463", "#b098c4", "#b695c0", "#bb29bb", "#cf78aa", "#d6b2d0"] }
+];
+
+
+    // Crear un mapa de búsqueda { colorNombre: [hexes] }
+    const colores = {};
+    colorRef.forEach(grupo => {
+        grupo.nombres.forEach(nombre => {
+            colores[nombre] = grupo.hexes;
+        });
+    });
+
+    // Leer término de búsqueda ?q=
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q");
+    if (!query) return;
+
+    // Detectar color dentro del texto buscado
+    const palabras = query.toLowerCase().split(" ");
+    const colorBuscado = palabras.find(p => colores[p]);
+    if (!colorBuscado) return;
+
+    const hexesBuscados = colores[colorBuscado];
+
+    // Esperamos a que el catálogo y los widgets estén cargados
+    setTimeout(() => {
+        document.querySelectorAll(".product-item").forEach(producto => {
+            const topos = producto.querySelectorAll(".variant-preview");
+
+            for (let topo of topos) {
+                const bg = window.getComputedStyle(topo).backgroundColor;
+                if (!bg) continue;
+
+                const hex = rgbToHex(bg);
+
+                if (hexesBuscados.includes(hex)) {
+                    topo.click(); // 🔥 simulamos el click real
+                    break;
+                }
+            }
+        });
+    }, 100); // importante: deja tiempo al widget
+
+    // Añadir observer para productos dinámicos
+                        const contenedor = document.querySelector(".products-wrapper");
+                        if (contenedor) {
+                            const observer = new MutationObserver(() => {
+                                setTimeout(() => {
+                                    document.querySelectorAll(".product-item").forEach(producto => {
+                                        const topos = producto.querySelectorAll(".variant-preview");
+
+                                        for (let topo of topos) {
+                                            const bg = window.getComputedStyle(topo).backgroundColor;
+                                            if (!bg) continue;
+
+                                            const hex = rgbToHex(bg);
+                                            if (hexesBuscados.includes(hex)) {
+                                                topo.click();
+                                                break;
+                                            }
+                                        }
+                                    });
+                                }, 100); // pequeño delay tras mutación
+                            });
+
+                            observer.observe(contenedor, { childList: true, subtree: true });
+}
+
+    function rgbToHex(rgb) {
+        if (rgb.startsWith("#")) return rgb.toLowerCase();
+        const result = rgb.match(/\d+/g);
+        if (!result || result.length < 3) return "";
+        return "#" + result.slice(0, 3)
+            .map(x => ("0" + parseInt(x).toString(16)).slice(-2))
+            .join("");
+    }
+}); 
+</script>
+
+
+
+
+
+
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductSearchPageAfterResults, additionalData = Model })
+

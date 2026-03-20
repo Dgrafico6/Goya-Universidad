@@ -1,0 +1,155 @@
+﻿@model IList<CategoryModel>
+@if (Model.Count >= 6)
+{
+    <section class="container mb-4 mb-sm-5">
+        <h3 class="text-accent pb-2 display-7">@T("goya.theme.home.featuredcategories.title.text")</h3>
+        <div class="grid">
+          <!-- 1 -->
+          <div class="grid__item grid__item--cover grid__item--width2 grid__item--height2">
+                @{
+                    var hrefLink0 = Url.RouteUrl("Category", new { SeName = Model[0].SeName });
+                    var name0 = Model[0].Name;
+                    var src0 = Model[0].PictureModel.FullSizeImageUrl;
+                }
+                <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-end-0 border-end-sm"></div>
+              <div class="grid__content grid__content--3">
+                  <h2 class="grid__title grid__title--1"><a class="text-white" href="@hrefLink0">@name0</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink0" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name0" src="@src0">
+          </div>
+          <!-- 2 -->
+          <div class="grid__item grid__item--cover grid__item--width2 grid__item--growdesktop1">
+                @{
+                    var hrefLink1 = Url.RouteUrl("Category", new { SeName = Model[1].SeName });
+                    var name1 = Model[1].Name;
+                    var src1 = Model[1].PictureModel.FullSizeImageUrl;
+                }
+                <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-start-sm border-end-0 border-end-sm"></div>
+              <div class="grid__content grid__content--3">
+                  <h2 class="grid__title grid__title--2"><a class="text-white" href="@hrefLink1">@name1</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink1" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name1" src="@src1">
+          </div>
+          <!-- 3A -->
+          <div class="grid__item grid__item--cover grid__item--nomobile grid__item--nodesktop1">
+              @{
+                var hrefLink2 = Url.RouteUrl("Category", new { SeName = Model[2].SeName });
+                var name2 = Model[2].Name;
+                var src2 = Model[2].PictureModel.FullSizeImageUrl;
+              }
+              <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-start-sm border-end-0 border-end-sm"></div>
+              <div class="grid__content grid__content--2">
+                  <h2 class="grid__title grid__title--3"><a class="text-white" href="@hrefLink2">@name2</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink2" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name2" src="@src2">
+          </div>
+          <!-- 3B -->
+          <div class="grid__item bg-secondary grid__item--nomobile grid__item--nodesktop1">
+              <div class="grid__border border-start-0 border-start-sm border-end-0"></div>
+              <div class="grid__content grid__content--2">
+                  <h2 class="grid__title grid__title--3"><a class="text-dark" href="/">@T("goya.theme.home.featuredcategories.allcategories.text")</a></h2>
+                  <div class="d-table">
+                      <a href="/" class="grid__button btn btn-outline-dark btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <!-- 4 -->
+          <div class="grid__item grid__item--cover grid__item--nomobile grid__item--nodesktop1">
+              @{
+                var hrefLink3 = Url.RouteUrl("Category", new { SeName = Model[3].SeName });
+                var name3 = Model[3].Name;
+                var src3 = Model[3].PictureModel.FullSizeImageUrl;
+              }
+              <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-start-sm border-end-0 border-end-sm"></div>
+              <div class="grid__content grid__content--2">
+                  <h2 class="grid__title grid__title--3"><a class="text-white" href="@hrefLink3">@name3</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink3" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name3" src="@src3">
+          </div>
+          <!-- 5 -->
+          <div class="grid__item grid__item--cover grid__item--width3 grid__item--height2 grid__item--nomobile grid__item--nodesktop1">
+              @{
+                var hrefLink4 = Url.RouteUrl("Category", new { SeName = Model[4].SeName });
+                var name4 = Model[4].Name;
+                var src4 = Model[4].PictureModel.FullSizeImageUrl;
+              }
+              <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-start-sm border-end-0"></div>
+              <div class="grid__content grid__content--3">
+                  <h2 class="grid__title grid__title--2"><a class="text-white" href="@hrefLink4">@name4</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink4" class="btn btn-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name4" src="@src4">
+          </div>
+          <!-- 6 -->
+          <div class="grid__item bg-dark grid__item--nomobile grid__item--nodesktop1">
+              <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-start-sm border-end-0 border-end-sm"></div>
+              <div class="grid__content grid__content--2">
+                  <h2 class="grid__title grid__title--3"><a class="text-white" href="/">@T("goya.theme.home.featuredcategories.allcategories.text")</a></h2>
+                  <div class="d-table">
+                      <a href="/" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <!-- 7 -->
+          <div class="grid__item grid__item--cover grid__item--width2 grid__item--growdesktop1 grid__item--growdesktop2">
+              @{
+                var hrefLink5 = Url.RouteUrl("Category", new { SeName = Model[5].SeName });
+                var name5 = Model[5].Name;
+                var src5 = Model[5].PictureModel.FullSizeImageUrl;
+              }
+              <div class="cover bg-dark"></div>
+              <div class="grid__border border-start-0 border-end-0 border-start-sm border-start-md-0 border-end-md"></div>
+              <div class="grid__content grid__content--3">
+                  <h2 class="grid__title grid__title--2"><a class="text-white" href="@hrefLink5">@name5</a></h2>
+                  <div class="d-table">
+                      <a href="@hrefLink5" class="grid__button btn btn-outline-light btn-sm">
+                          @T("goya.theme.home.featuredcategories.seemore.text")
+                      </a>
+                  </div>
+              </div>
+              <img alt="@name5" src="@src5">
+          </div>
+        </div>
+    </section>
+
+    <script type="text/javascript" asp-location="Footer">
+    $('.grid').isotope({
+      layoutMode: 'packery',
+      itemSelector: '.grid__item'
+    });
+    </script>
+}

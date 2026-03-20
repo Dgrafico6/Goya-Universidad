@@ -1,0 +1,111 @@
+﻿@model CatalogProductsModel
+
+@if (Model.Products.Count <= 0 &&
+     !Model.PriceRangeFilter.Enabled &&
+     !Model.SpecificationFilter.Enabled &&
+     !Model.ManufacturerFilter.Enabled)
+{
+    return;
+}
+
+
+
+<div class="product-selectors d-flex justify-content-center justify-content-lg-end align-items-center pt-2 pb-3 pb-md-4">
+    
+    <div class="d-flex d-lg-none pb-3 align-items-center me-3">
+        <label class="opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">Filtros:</label>
+        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#shop-sidebar" class="btn btn-icon nav-link-style me-2 selected" title="Filters"><i class="bi bi-sliders"></i></a>
+    </div>
+
+    @if (Model.AllowCustomersToSelectPageSize)
+    {
+        <div class="d-none d-lg-flex flex-wrap">
+            <div class="product-page-size d-flex align-items-center flex-nowrap me-3 me-sm-4 pb-3">
+                <label class="opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">@T("Catalog.PageSize"):</label>
+                @Html.DropDownList("products-pagesize", Model.PageSizeOptions, new { aria_label = T("Catalog.PageSize.Label"), @class = "form-select" })
+                <label class="opacity-75 text-nowrap fs-sm ms-2 d-none d-sm-block me-2" for="sorting"> @T("Catalog.PageSize.PerPage")</label>
+            </div>
+        </div>
+
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                var $pageSizeEl = $('#products-pagesize');
+                $pageSizeEl.on('change', function () {
+                    CatalogProducts.getProducts();
+                });
+
+                $(CatalogProducts).on('before', function (e) {
+                    e.payload.urlBuilder
+                        .addParameter('pagesize', $pageSizeEl.val());
+                });
+            });
+        </script>
+    }
+
+    @*view mode*@
+    @if (Model.AllowProductViewModeChanging)
+    {
+        @if (Model.AvailableViewModes.Count > 1)
+        {
+            var gridMode = Model.AvailableViewModes[0];
+            var listMode = Model.AvailableViewModes[1];
+
+            <div class="d-none d-md-flex pb-3 me-3 me-lg-4 product-viewmode align-items-center">
+                <label class="opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">@T("Catalog.ViewMode"):</label>
+                <a class="btn btn-icon nav-link-style me-2 @if (gridMode.Selected){<text>selected</text>}" data-viewmode="@gridMode.Value" title="@gridMode.Text">
+                    <i class="bi bi-grid"></i>
+                </a>
+                <a class="btn btn-icon nav-link-style @if (listMode.Selected){<text>selected</text>}" data-viewmode="@listMode.Value" title="@listMode.Text">
+                    <i class="bi bi-list-task"></i>
+                </a>
+            </div>
+        }
+
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                var $viewModeEls = $('[data-viewmode]');
+                $viewModeEls.on('click', function () {
+                    if (!$(this).hasClass('selected')) {
+                        $viewModeEls.toggleClass('selected');
+                        CatalogProducts.getProducts();
+                    }
+                    return false;
+                });
+
+                $(CatalogProducts).on('before', function (e) {
+                    var $viewModeEl = $('[data-viewmode].selected');
+                    if ($viewModeEl) {
+                        e.payload.urlBuilder
+                            .addParameter('viewmode', $viewModeEl.data('viewmode'));
+                    }
+                });
+            });
+        </script>
+    }
+
+    @if (Model.AllowProductSorting)
+    {
+        <div class="d-flex flex-wrap">
+            <div class="product-sorting d-flex align-items-center flex-nowrap pb-3">
+                <label class="opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">@T("Catalog.OrderBy"):</label>
+                @Html.DropDownList("products-orderby", Model.AvailableSortOptions, new { aria_label = T("Catalog.OrderBy.Label"), @class = "form-select" })
+            </div>
+        </div>
+
+        <script asp-location="Footer">
+            $(document).ready(function () {
+                var $orderByEl = $('#products-orderby');
+                $orderByEl.on('change', function () {
+                    CatalogProducts.getProducts();
+                });
+
+                $(CatalogProducts).on('before', function (e) {
+                    e.payload.urlBuilder
+                        .addParameter('orderby', $orderByEl.val());
+                });
+            });
+        </script>
+
+    }
+
+</div>

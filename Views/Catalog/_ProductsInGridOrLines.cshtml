@@ -1,0 +1,39 @@
+﻿@model CatalogProductsModel
+
+@{
+    var productBoxWrapperClass = "item-box col-xl-3 col-md-4 col-sm-6 px-2 mb-4";
+
+    if(Model.ViewMode == "list")
+    {
+        productBoxWrapperClass = "item-list item-box col-12";
+    }
+}
+
+@if (!string.IsNullOrEmpty(Model.WarningMessage))
+{
+    <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+            @Model.WarningMessage
+        </div>
+    </div>
+}
+
+@if (Model.Products.Count > 0)
+{
+    foreach (var product in Model.Products)
+    {
+        <div class="@productBoxWrapperClass">
+            @await Html.PartialAsync("_ProductBox", product)
+        </div>
+    }
+
+//* Esto es la páginación *//
+@await Component.InvokeAsync("Widget", new { widgetZone = "advanced_pagination", additionalData = Model })
+ 
+}
+else if (!string.IsNullOrEmpty(Model.NoResultMessage))
+{
+    <div class="no-result col-12">
+        @Model.NoResultMessage
+    </div>
+}

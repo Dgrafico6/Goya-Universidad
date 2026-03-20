@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_Root.Head";
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@{ await Html.RenderPartialAsync("_Notifications"); }
+@{ await Html.RenderPartialAsync("_JavaScriptDisabledWarning"); }
+@{ await Html.RenderPartialAsync("_OldInternetExplorerWarning"); }
+<main class="master-wrapper-page page-wrapper">
+    <header class="header-menu bg-light">
+        @await Component.InvokeAsync("AdminHeaderLinks")
+@{ await Html.RenderPartialAsync("_Header"); }
+        <script asp-location="Footer">
+            AjaxCart.init(
+                false
+                , '.header-links .cart-qty'
+                , '.header-links .wishlist-qty'
+                , '#flyout-cart'
+                , {
+                   AjaxCartFailure: '@T("AjaxCart.Failure")'
+                }
+            )
+        </script>
+    </header>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentBefore })
+
+    @if (IsSectionDefined("Breadcrumb"))
+    {
+        @RenderSection("Breadcrumb") 
+    }
+
+    @RenderBody()
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentAfter })   
+</main>
+@await Component.InvokeAsync("Footer")
+@{ await Html.RenderPartialAsync("_ScrollToTop"); }
+@await Component.InvokeAsync("EuCookieLaw")
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language Name="Español" IsDefault="false" IsRightToLeft="false">
+    <LocaleResource Name="goya.theme.login.welcome">
+        <Value>Benvingut! Si us plau, inicieu la sessió</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.homepage.metatitle">
+        <Value>Líders en articles promocionals | Goya Importaciones</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.inspiration.text">
+        <Value>Inspiració</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.novelties.text">
+        <Value>Novetats</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.novelties.href">
+        <Value>/ca/new</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.bestsellers.text">
+        <Value>Els mes venuts</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.collections.text">
+        <Value>Col·leccions</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.fortheglobe.text">
+        <Value>Per al guant</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.fortheglobe.href">
+        <Value>/ca/for-the-globe-2</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.madeineurope.text">
+        <Value>Fabricat a Europa</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.madeineurope.href">
+        <Value>/ca/made-in-europe-2</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.bringcolor.text">
+        <Value>Porta color</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.bringcolor.href">
+        <Value>/ca/bring-color</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.fairtrade.text">
+        <Value>Comerç Just</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.fairtrade.href">
+        <Value>/ca/fair-trade</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.selfcare.text">
+        <Value>Autocura</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.selfcare.href">
+        <Value>/ca/cuidado-personal</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.designer.text">
+        <Value>Dissenyador</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.promotions.text">
+        <Value>Promocions</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.outlet.text">
+        <Value>Outlet</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.outlet.href">
+        <Value>/ca/outlet-2</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.offers.text">
+        <Value>Ofertes</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.salestools.text">
+        <Value>Eines de venda</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.catalogues.text">
+        <Value>Catàlegs</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.catalogues.href">
+        <Value>/ca/catalogos</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.marketingresources.text">
+        <Value>Recursos de màrqueting</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.marketingresources.href">
+        <Value>/ca/marketing-resources</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.marking.text">
+        <Value>Marcatge</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.newslettersgenerator.text">
+        <Value>Generador de butlletins</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.newslettersgenerator.href">
+        <Value>/ca/newsletters-personalitzables</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.plantillasgarabits.text">
+        <Value>Plantilles de garabits</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.ggcustomers.text">
+        <Value>GG Customers</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.ggcustomers.href">
+        <Value>/ca/solicitar-gg-customer</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.ggcustomers.title">
+        <Value>GG Customers</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.resourcescenter.text">
+        <Value>Centre de recursos</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.visualsphotovideo.text">
+        <Value>Vídeo fotogràfic visual</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.sustainability.text">
+        <Value>Sostenibilitat</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.sustainability.href">
+        <Value>/ca/sustainability</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.aboutus.text">
+        <Value>Sobre nosaltres</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.goya2030.text">
+        <Value>Goya 2030</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.goya2030.href">
+        <Value>/ca/goya-2030</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.history.text">
+        <Value>Història</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.vision.text">
+        <Value>Visió</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.mission.text">
+        <Value>Missió</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.showrooms.text">
+        <Value>Sales d'exposició</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.blog.text">
+        <Value>Bloc</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.workwithus.text">
+        <Value>Treballa amb nosaltres</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.utilities.text">
+        <Value>Utilitats</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.register.text">
+        <Value>Registra't</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.paymentsandshipments.text">
+        <Value>Pagaments i enviaments</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.paymentsandshipments.href">
+        <Value>/ca/pagos-y-envios</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.faq.text">
+        <Value>Preguntes freqüents</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.faq.href">
+        <Value>/ca/faq</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.deliverytimes.text">
+        <Value>Temps de lliurament</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.repeatingorder.text">
+        <Value>Ordre repetit</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.specialmanipulating.text">
+        <Value>Manipulació especial</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.specialmanipulating.href">
+        <Value>/ca/manipulado-especial</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.customerinformation.text">
+        <Value>Informació del consumidor</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.addresses.text">
+        <Value>Adreces</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.orders.text">
+        <Value>Comandes</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.passwordchange.text">
+        <Value>Canvi de contrasenya</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.mydesings.text">
+        <Value>Els meus dissenys</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.invoices.text">
+        <Value>Factures</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.creditmemos.text">
+        <Value>Notes de crèdit</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.deliverynotes.text">
+        <Value>albarans de lliurament</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.wishlist.text">
+        <Value>Llista de desitjos</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.topmenu.budget.text">
+        <Value>Quote</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box1.title.text">
+        <Value>El millor marxandatge personalitzat</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box2.title.text">
+        <Value>Nou catàleg de final d'any 2022</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box3.title.text">
+        <Value>Estamos en roadshows</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box4.title.text">
+        <Value>Títol de la pancarta</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box1.description.text">
+        <Value>Regals publicitaris per a empreses B2B, articles promocionals, ecològics i compromesos amb el logo del teu client</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box2.description.text">
+        <Value>Els millors regals d'empresa per aquest Nadal</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box3.description.text">
+        <Value>Títol de la pancarta</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.mainbanner.box4.description.text">
+        <Value>Títol de la pancarta</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.featuredproducts.description.text">
+        <Value>Productes destacats</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection1.title.text">
+        <Value>Personalitza els productes nunca ha estat tan senzill!</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection1.description.text">
+        <Value>Molestie malesuada. Curabitur aliquet quam id dui posuere blandit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus.</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection1.button.text">
+        <Value>Personalitza ara</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.featuredcategories.title.text">
+        <Value>Categories destacades</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.featuredcategories.seemore.text">
+        <Value>Veure més</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.featuredcategories.allcategories.text">
+        <Value>Totes les categories</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection2.title.text">
+        <Value>New designer</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection2.video.href">
+        <Value></Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection2.description.text">
+        <Value>Molestie malesuada. Curabitur aliquet quam id dui posuere blandit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus.</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection2.button.text">
+        <Value>Try now</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.home.customsection2.button2.text">
+        <Value>Watch video</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.product.tabs.description.text">
+        <Value>Description</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.product.tabs.specifications.text">
+        <Value>Specifications</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.product.tabs.markingzones.text">
+        <Value>Marking zones</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.product.tabs.attachments.text">
+        <Value>Attachments</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.productbox.pricefrom.text">
+        <Value>From</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.productbox.seedetails.text">
+        <Value>Veure detalls</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.title.text">
+        <Value>Goya stores</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.spain.text">
+        <Value>España</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.catalonia.text">
+        <Value>Cataluña</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.unitedkingdom.text">
+        <Value>Reino unido</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.portugal.text">
+        <Value>Portugal</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.france.text">
+        <Value>Francia</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.spain.link">
+        <Value>https://develop.ggoya.com/es/</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.catalonia.link">
+        <Value>https://develop-ca.ggoya.com/ca/</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.unitedkingdom.link">
+        <Value>https://develop-en.ggoya.com/en/</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.portugal.link">
+        <Value>https://develop-pt.ggoya.com/pt/</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.footer.stores.france.link">
+        <Value>https://develop-fr.ggoya.com/fr/</Value>
+    </LocaleResource>
+    <LocaleResource Name="goya.theme.contactus.title.text">
+        <Value>Deixa'ns un comentari</Value>
+    </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.title.text">
+    <Value>Contacta amb nosaltres</Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team.title.text">
+    <Value>CONEIX A L'EQUIP</Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team1.text">
+    <Value><label class="fw-light">VIRGINIA GALVE</label><hr class="my-3"></hr><label class="mb-2"><strong>CEO Business Developer</strong></label> <p class="fw-light">Mentre fa voltes pel món, és capaç d'estar<br />en cada detall de la gestió quotidiana.</p></Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team2.text">
+    <Value><label class="fw-light">ELENA GALVE</label><hr class="my-3"></hr><label class="mb-2"><strong>CEO-Business Developer</strong></label><p class="fw-light">Un torrent d'idees que troba<br />productes per als nostres clients.</p></Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team3.text">
+    <Value><label class="fw-light">MANUEL DOMENECH</label><hr class="my-3"></hr><label class="mb-2"><strong>Logistics Manager</strong></label> <p class="fw-light">El sap que el producte és tan important<br />com que arribi a temps.</p></Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team4.text">
+    <Value><label class="fw-light">RAQUEL ESTEBAN</label><hr class="my-3"></hr><label class="mb-2"><strong>Commercial Manager</strong></label> <p class="fw-light">Els clients hi confien en cada pas,<br />no per fins i tot no trobar la solució.</p></Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team5.text">
+    <Value><label class="fw-light">ALBA CAMPOS</label><hr class="my-3"></hr><label class="mb-2"><strong>Head of Design and Producction</strong></label> <p class="fw-light">Quan la teva passió és la teva feina,<br />tot flueix.</p></Value>
+  </LocaleResource>
+  <LocaleResource Name="goya.theme.section.contactus.team6.text">
+    <Value><label class="fw-light">MAIRENA SAINZ</label><hr class="my-3"></hr><label class="mb-2"><strong>Accounting Manager</strong></label> <p class="fw-light">Si no és al cap,<br />no existeix.</p></Value>
+  </LocaleResource>
+</Language>

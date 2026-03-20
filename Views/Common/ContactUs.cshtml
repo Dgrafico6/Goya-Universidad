@@ -1,0 +1,126 @@
+﻿@model ContactUsModel
+@{
+    Layout = "_Fullwidth";
+
+    //title
+    NopHtml.AddTitleParts(T("PageTitle.ContactUs").Text);
+    //page class
+    NopHtml.AppendPageCssClassParts("html-contact-page");
+}
+
+@*contact us breadcrumb*@
+@section Breadcrumb
+    {
+    <div class="container">
+        <div class="page-title page-title--overlap">
+            <div class="page-title__container">
+                <div class="page-title__navigation">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start" itemscope itemtype="http://schema.org/BreadcrumbList">
+                            <li class="breadcrumb-item">
+                                <a class="text-nowrap" href="@Url.RouteUrl("Homepage")" title="@T("Categories.Breadcrumb.Top")"><i class="bi bi-house-door"></i> Home</a>
+                            </li>
+                            <li class="breadcrumb-item text-nowrap active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                <span class="current-item" itemprop="name">@T("PageTitle.ContactUs")</span>
+                                <span itemprop="item" itemscope itemtype="http://schema.org/Thing" id="@Url.RouteUrl("ContactUs")"></span>
+                                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ProductBreadcrumbAfter, additionalData = Model })
+                            </li>
+                        </ol>
+                    </nav>
+                    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.CategoryDetailsAfterBreadcrumb, additionalData = Model })
+                </div>
+                <div class="page-title__text">
+                    <h1 class="h3 mb-0">@T("PageTitle.ContactUs")</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="page contact-page">
+    <div class="page-body">
+        @await Component.InvokeAsync("TopicBlock", new { systemName = "ContactUs" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsTop, additionalData = Model })
+
+        <!-- Split section: Map + Contact form-->
+        <div id="map" class="container-fluid px-0">
+            <div class="row g-0">
+                <div class="col-lg-6 iframe-full-height-wrap">
+                    <iframe class="iframe-full-height"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.4689542468354!2d-0.9942717838579626!3d41.64560877924128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5969700d2310a9%3A0x87611c494ee7344!2sGoya%20Importaciones%20y%20Distribuciones%20SL!5e0!3m2!1ses!2ses!4v1670162179101!5m2!1ses!2ses"
+                            width="600" height="250" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-lg-6 px-4 px-xl-5 py-5 border-top">
+                    <h2 class="h4 mb-4">@T("goya.theme.contactus.title.text")</h2>
+                    @if (Model.SuccessfullySent)
+                    {
+                        <div class="alert alert-success text-center" role="alert">
+                            <h4 class="alert-heading fs-1"><i class="bi bi-check-all"></i></h4>
+                            <p>@Model.Result</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <form asp-route="ContactUs" method="post">
+                            <div asp-validation-summary="ModelOnly" class="message-error"></div>
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="FullName" asp-postfix=":">@T("ContactUs.FullName")&nbsp;<nop-required /></label>
+                                    <input asp-for="FullName" class="form-control" type="text" placeholder="@T("ContactUs.FullName.Hint")" />
+                                    <span asp-validation-for="FullName"></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="Email" asp-postfix=":">@T("ContactUs.Email")&nbsp;<nop-required /></label>
+                                    <input asp-for="Email" class="form-control" type="text" placeholder="@T("ContactUs.Email.Hint")" />
+                                    <span asp-validation-for="Email"></span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="Subject" asp-postfix=":">@T("ContactUs.Subject")&nbsp;<nop-required /></label>
+                                    <input asp-for="Subject" class="form-control" type="text" placeholder="@T("ContactUs.Subject.Hint")" />
+                                    <span asp-validation-for="Subject"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="Enquiry" asp-postfix=":">@T("ContactUs.Enquiry")&nbsp;<nop-required /></label>
+                                    <textarea asp-for="Enquiry" class="form-control" rows="6" placeholder="@T("ContactUs.Enquiry.Hint")"></textarea>
+                                    <span asp-validation-for="Enquiry"></span>
+                                </div>
+                                <div class="mt-2 terms-of-service">
+                                    <div class="pt-2 small">@T("contact.termsofservice.gdpr", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") }))</div>
+                                    <input id="termsofservice" class="form-check-input" type="checkbox" name="termsofservice" />
+                                    <label for="termsofservice" style="font-size:0.8rem;display:initial;">@T("contact.TermsOfService.IAccept", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("privacypolicy") })) <span class="required">*</span></label>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" name="send-email" class="button-1 contact-us-button btn btn-primary mt-4">@T("ContactUs.Button")</button>
+                                    <script asp-location="Footer">
+                                        $(document).ready(function () {
+                                            $('.contact-us-button').on('click', function () {
+                                                //terms of service
+                                                var termOfServiceOk = true;
+                                                if ($('#termsofservice').length > 0) {
+                                                    //terms of service element exists
+                                                    if (!$('#termsofservice').is(':checked')) {
+                                                        displayPopupNotification(
+                                                            '@T("contact.TermsOfService.PleaseAccept")',
+                                                            'warning');
+                                                        termOfServiceOk = false;
+                                                    } else {
+                                                        termOfServiceOk = true;
+                                                    }
+                                                }
+                                                return termOfServiceOk;
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </form>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContactUsBottom, additionalData = Model })
+    </div>
+</div>

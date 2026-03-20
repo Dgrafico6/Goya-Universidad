@@ -1,0 +1,28 @@
+//
+// Product Attachments
+// --------------------------------------------------
+
+
+.file-attachments {
+
+  margin-bottom: 1rem !important;
+
+  .title {display:none}
+
+  ul {
+
+    li {
+
+      padding-left:0 !important;
+      a {
+        &.attachmentLink:hover {text-decoration:none !important}
+      }
+
+    }
+
+  }
+
+}
+.attachment-category {
+  > ul {padding-left:0;}
+}

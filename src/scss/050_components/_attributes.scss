@@ -1,0 +1,32 @@
+//
+// Attributes
+// --------------------------------------------------
+
+
+
+
+.attribute-squares label {
+    display: block;
+    margin: 0 !important;
+    overflow: hidden;
+    text-align: center;
+}
+
+.attributes .attribute-squares .attribute-square-container {
+    display: inline-block;
+}
+
+.attribute-squares .attribute-square-container {
+    display: block;
+    position: relative;
+    z-index: 0;
+    padding: 1px;
+}
+
+.attribute-squares .attribute-square {
+    display: inline-block !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    cursor: pointer;
+    border-radius:50%;
+}

@@ -1,0 +1,93 @@
+/*----------------------------------------------------------------------------*\
+    #Mixins
+\*----------------------------------------------------------------------------*/
+/**
+  * 01. Font smoothing...........................xxx.
+  * 02. Social buttons hover.....................xxx.
+  */
+
+
+
+
+
+/**
+  * 01. Font smoothing.
+  */
+
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/**
+  * 02. Social buttons hover.
+  */
+
+@mixin social-btn-hover($color) {
+  &:hover {
+    border-color: rgba($color, .3);
+    color: $color;
+  }
+}
+
+/**
+  * 03. Nav-bar caret.
+  */
+
+@mixin caret-menu($icon-solid:false, $icon-top:false, $nav-link-with-parts:false, $change-expanded:true) {
+  &:after {
+    position:absolute;
+    right:1.3rem;
+
+    @if $nav-link-with-parts {
+      display:block;
+    }
+
+    @if $icon-top {
+      top:$icon-top;
+    }
+
+    font-family:"bootstrap-icons";
+    font-size:0.75rem;
+
+    @if $icon-solid {
+      content:"\F231";
+    }
+    @else {
+      content:"\F234";
+    }
+    
+  }
+  &[aria-expanded="false"]:after {
+    @if $icon-solid {
+      content:"\F231";
+    }
+    @else {
+      content:"\F234";
+    }
+
+    @if $change-expanded{
+      color: $body-color;
+      transition: color .25s ease-in-out;
+    }
+    
+  }
+  @if $change-expanded {
+    &[aria-expanded="true"]{
+      &:after {
+        @if $icon-solid {
+          content:"\F229";
+        }
+        @else {
+          content:"\F22C";
+        }
+        color:$primary;
+        transition: color .25s ease-in-out;
+      }
+      & + .nav-link-part{
+          color:$primary;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+﻿@using Nop.Core
+@inject IThemeContext themeContext
+@inject IWorkContext workContext
+
+@{
+    var routeName = NopHtml.GetRouteName();
+    var themeName = await themeContext.GetWorkingThemeNameAsync();
+
+    if(routeName == "Homepage")
+        NopHtml.AppendCssFileParts($"~/lib/tiny-slider/tiny-slider.css");
+
+    if(routeName == "Product" || routeName == "Customizer")
+        NopHtml.AppendCssFileParts($"~/lib/lightgallery/css/lightgallery.min.css");
+
+    NopHtml.AppendCssFileParts($"~/lib/simplebar/simplebar.min.css");
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/styles.css");
+}

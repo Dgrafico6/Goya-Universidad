@@ -1,0 +1,92 @@
+//
+// Widgets
+// --------------------------------------------------
+
+
+// Component common styles
+
+.search-box {
+  position:absolute;
+  bottom:0.421875rem;
+  left:0;
+  right:0;
+  width:auto;
+  margin-left:$spacer;
+  margin-right:$spacer;
+
+  @include media-breakpoint-up(md) { 
+    position:relative;
+    display:flex;
+    flex-grow: 1;
+    margin-left:$spacer * 1.5;
+    margin-right:0;
+    left:inherit;
+    right:inherit;
+    bottom:inherit;
+  }
+
+}
+
+.search-box-text {
+  border-color:$dark;
+}
+
+.search-box-results {
+
+  > ul {
+    @extend %dropdown-menu;
+    padding: 0.5rem;
+    > li {
+      list-style:none;
+    }
+  }
+
+  .ui-autocomplete-header {
+    border-bottom:1px solid $border-color;
+    color:$dark;
+    font-size: large;
+    padding: 0.5rem 1rem 0.25rem;
+    cursor: default !important;
+    font-weight:500;
+  }
+
+  .ui-menu-item {
+    
+    &-wrapper {
+      display:block;
+      padding: 0.5rem 1rem;
+      cursor:pointer;
+      &:hover {
+        background-color:$soft;
+        color:$danger;
+      }
+      color:$body-color;
+
+    }
+
+  }
+
+  .ui-autocomplete {
+    img {
+      max-width:3.75rem;
+      margin-right:1rem;
+    }
+/*    &.ui-front {
+      max-height:32rem;
+    }*/
+  }
+
+  .ui-menu-item-wrapper {
+    display:flex;
+    font-size: $font-size-md;
+  }
+
+}
+
+.ui-autocomplete-loading {
+  background: #fff url('/Themes/Goya2/Content/images/ajax-loader-small.gif') right 3rem center no-repeat;
+}
+
+.ui-helper-hidden-accessible {
+  display:none;
+}

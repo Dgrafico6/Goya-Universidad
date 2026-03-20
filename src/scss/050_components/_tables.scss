@@ -1,0 +1,55 @@
+//
+// Tables
+// --------------------------------------------------
+
+.table:not(.table-dark) {
+  thead th, tbody th {
+    color: $table-th-color !important;
+  }
+  td { color: $table-color !important; }
+}
+.table-dark td {
+  color: $table-dark-color;
+}
+.table-secondary,
+.table-secondary > th,
+.table-secondary > td {
+  background-color: $gray-100;
+}
+.table>:not(:last-child)>:last-child>* {
+  border-bottom-color: darken($table-border-color, 12%);
+}
+.table.table-dark>:not(:last-child)>:last-child>* {
+  border-bottom-color: rgba($white, .5);
+}
+
+.table.table-headerless>:not(:first-child) {
+    border-top: 1px solid $table-border-color;
+}
+
+//v.2
+.table:not(.table-borderless) > :not(:first-child) {
+  border-top-width:1px;
+}
+
+.table > :not(:last-child) > :last-child > * {
+  border-bottom-color:inherit;
+}
+
+.table-utility {
+
+  th {
+    @at-root #{selector-replace(&, ".table-utility", ".table.table-utility thead")} {
+      color:$danger !important;
+      font-size:$font-size-md;
+      font-weight:normal;
+      @include media-breakpoint-up(lg) {
+        font-size:$font-size-lg;
+      }
+    }
+    &:first-child {
+      width:25%;
+    }
+  }
+
+}

@@ -1,0 +1,30 @@
+﻿@model AdminHeaderLinksModel
+@if (Model.IsCustomerImpersonated || Model.DisplayAdminLink)
+{
+    <div class="admin-header-links topbar topbar-dark bg-dark">
+        <div class="container justify-content-center">
+            @if (Model.IsCustomerImpersonated)
+            {
+                <div class="impersonate topbar-text text-nowrap">
+                    <span class="me-1">@string.Format(T("Account.ImpersonatedAs").Text, Model.ImpersonatedCustomerName)</span>
+                    <a href="@Url.RouteUrl("Logout")" class="finish-impersonation topbar-link" title="@T("Account.ImpersonatedAs.Finish.Hint")">@T("Account.ImpersonatedAs.Finish")</a>
+                </div>
+            }
+            @if (Model.DisplayAdminLink)
+            {
+                <div class="topbar-text text-nowrap">
+                    <i class="bi bi-shield-lock"></i>
+                    <a href="@Url.Content("~/Admin")" class="administration topbar-link">@T("Account.Administration")</a>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.EditPageUrl))
+            {
+                <div class="topbar-text text-nowrap ps-3 ms-3 border-start">
+                    <i class="bi bi-pencil-square"></i>
+                     <a href="@Model.EditPageUrl" class="manage-page topbar-link">@T("Common.ManagePage")</a>
+                </div>
+            }
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.AdminHeaderLinksAfter, additionalData = Model })
+        </div>
+    </div>
+}

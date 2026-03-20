@@ -1,0 +1,46 @@
+﻿@using Nop.Services.Localization
+@model LanguageSelectorModel
+
+@inject Nop.Core.IWebHelper webHelper
+@inject ILanguageService languageService
+
+@if (Model.AvailableLanguages.Count > 1)
+{
+    <div class="language-selector navbar-tool dropdown ms-3 disable-autohide">
+        @{
+            var returnUrl = webHelper.GetRawUrl(Context.Request);
+            var selectedLanguage = await languageService.GetLanguageByIdAsync(Model.AvailableLanguages.Where(l => l.Id == Model.CurrentLanguageId).FirstOrDefault().Id);
+            <a class="navbar-tool-text dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">@selectedLanguage.UniqueSeoCode.ToUpper()</a>
+            //
+            <ul class="language-list dropdown-menu dropdown-menu-end">
+                @foreach (var lang in Model.AvailableLanguages)
+                {
+                    <li>
+                        <a href="@Url.RouteUrl("ChangeLanguage", new { langid = lang.Id, returnUrl }, webHelper.GetCurrentRequestProtocol())" title="@lang.Name" class="dropdown-item pb-1">
+                            @lang.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+}
+
+@*<!-- Remove -->
+<img class="me-2" src="~/images/flags/@selectedLanguage.FlagImageFileName" width="20" alt="@selectedLanguage.Name">
+<img title='@lang.Name' alt='@lang.Name' @(lang.Id == Model.CurrentLanguageId ? " class='selected me-2'" : "class='me-2'") width=20 src="@Url.Content("~/images/flags/" + @lang.FlagImageFileName) " />
+if (Model.UseImages)
+{
+    
+}
+else
+{
+    var languages = await Model.AvailableLanguages.SelectAwait(async lang => new SelectListItem
+        {
+            Text = lang.Name,
+            Value = Url.RouteUrl("ChangeLanguage", new { langid = lang.Id, returnUrl }, webHelper.GetCurrentRequestProtocol()),
+            Selected = lang.Id.Equals(Model.CurrentLanguageId)
+        }).ToListAsync();
+
+        <select id="customerlanguage" name="customerlanguage" asp-items="@languages" onchange="setLocation(this.value);" aria-label="@T("Languages.Selector.Label")"></select>
+}*@

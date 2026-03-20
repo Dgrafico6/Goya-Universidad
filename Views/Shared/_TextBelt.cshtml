@@ -1,0 +1,92 @@
+@{
+    string linkUrl = "https://www.ggoya.com/es/search?q=new-in";
+    string linkText = "New In";
+
+    if (ViewData["LinkUrl"] is string url) { linkUrl = url; }
+    if (ViewData["LinkText"] is string txt) { linkText = txt; }
+}
+
+
+
+<!-- Contenedor -->
+<div class="text-belt-wrapper">
+    <div class="text-belt">
+        <div class="text-track">
+            @for (int i = 0; i < 24; i++)
+            {
+                <a href="@linkUrl" class="text-item">@linkText</a>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Estilos -->
+<style>
+    .text-belt-wrapper {
+        width: 100%;
+        overflow: hidden;
+        background: transparent;
+        padding: 20px 0;
+        position: relative;
+    }
+
+    .text-belt {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .text-track {
+        display: flex;
+        width: fit-content;
+        animation: scroll-text-belt 50s linear infinite;
+        gap: 100px;
+    }
+
+    .text-item {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 35px;
+        color: black;
+        white-space: nowrap;
+        text-decoration: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0.9;
+        cursor: pointer;
+    }
+
+    .text-item:hover {
+        transform: scale(1.05);
+        opacity: 1;
+        color: #df0209;
+    }
+
+    @@keyframes scroll-text-belt {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .text-track {
+            gap: 60px;
+        }
+
+        .text-item {
+            font-size: 32px;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .text-track {
+            gap: 40px;
+        }
+
+        .text-item {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+    }
+</style>

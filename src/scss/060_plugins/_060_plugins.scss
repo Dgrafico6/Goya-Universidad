@@ -1,0 +1,14 @@
+﻿//
+// Plugins
+// --------------------------------------------------
+
+
+
+//Se importan los .scss de aquellos plugins que no pueden ser referenciados desde una vista de página única y propia.
+//En el caso de icons y variantsPreview, por ejemplo, se inluiría la hoja de estilos en el productBox, y se repetiría tantas veces como 
+//artículos haya en una página, teniendo un efecto altamente negativo por la cantidad de llamadas que se harían en cada request.
+@import '../../../../../Plugins/Zimaltec.Icons/src/scss/styles';
+@import '../../../../../Plugins/Zimaltec.VariantsPreview/src/scss/styles';
+
+//Se importan los .scss de aquellos plugins cuyos estilos se utilizan masivamente desde otros plugins.
+@import '../../../../../Plugins/Goya.ProductSheet/src/scss/styles';

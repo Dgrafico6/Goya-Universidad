@@ -1,0 +1,47 @@
+﻿/*----------------------------------------------------------------------------*\
+    #TopBar
+\*----------------------------------------------------------------------------*/
+
+
+
+
+.topbar {
+  //display: flex;
+  display:none;
+  align-items: center;
+  justify-content: space-between;
+  padding: $topbar-padding-y 0;
+  font-size: $topbar-font-size;
+  > .container,
+  > .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-text,
+  .topbar-link {
+    display: inline-block;
+    margin-bottom: 0;
+    text-decoration: none !important;
+    > i {
+      margin-right: .375rem;
+      font-size: $topbar-font-size;
+      vertical-align: -0.5;
+    }
+  }
+
+  .topbar-text,
+  .topbar-link {
+    color: $topbar-dark-color;
+  }
+  .topbar-link {
+    &:hover { color: $topbar-dark-hover-color; }
+    &.active { color: $topbar-dark-active-color; }
+  }
+  .show .topbar-link { color: $topbar-dark-active-color; }
+
+}
+
+
+
+

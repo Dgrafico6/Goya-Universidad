@@ -1,0 +1,34 @@
+//
+// Shopping-cart
+// --------------------------------------------------
+
+.customization-group {
+  position:relative;
+  border:1px solid $border-color;
+  margin-top:2.5rem;
+
+  .row.bg-soft {
+    img {
+      max-width:5rem;
+    }
+  }
+
+}
+
+.customization-claim {
+  position:absolute;
+  top:-1.8rem;
+  left:0.5rem;
+  border-top:1px solid $border-color;
+  border-right:1px solid $border-color;
+  border-left:1px solid $border-color;
+  background-color:$soft;
+  padding:0.25rem 0.5rem;
+  &__label {
+    
+  }
+}
+
+.cart .remove-from-cart input[type="checkbox"] {
+    display: none;
+}

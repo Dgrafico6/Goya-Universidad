@@ -1,0 +1,32 @@
+﻿@using Nop.Core
+@using Nop.Services.Customers
+@inject IWorkContext workContext
+@inject ICustomerService customerService
+@{
+    var userIsRegistered = await customerService.IsRegisteredAsync(await workContext.GetCurrentCustomerAsync());
+}
+<section class="container mb-5">
+    <div class="row feat-section justify-content-center">
+        <div class="col-12 col-md-6 feat-section__info feat-section__info--left order-1 order-md-0">
+            <h2 class="feat-section__title feat-section__title--left text-accent display-4">
+                @T("goya.theme.home.customsection2.title.text")
+            </h2>
+            <div class="feat-section__text feat-section__text--left text-medium-soft">
+                @T("goya.theme.home.customsection2.description.text")
+            </div>
+            <div class="feat-section__actions feat-section__actions--left">
+                <a href="@T("goya.theme.home.customsection2.video.href")" target="_blank" class="btn btn-secondary d-block d-sm-inline-block mb-3 mb-sm-0 me-sm-3">@T("goya.theme.home.customsection2.button2.text")</a>
+                @if (userIsRegistered)
+                {
+                    <a href="@(Url.RouteUrl("Customizer"))" class="btn btn-danger d-block d-sm-inline-block">@T("goya.theme.home.customsection2.button.text")</a>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-6 feat-section__image order-0 order-md-1">
+            <img alt="@T("goya.theme.home.customsection2.title.text")" src="~/images/home/new-designer-goya-pantone.jpg">
+        </div>
+    </div>
+</section>
+
+
+

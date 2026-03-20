@@ -1,0 +1,50 @@
+﻿@model ShoppingCartModel.DiscountBoxModel
+@if (Model.Display)
+{
+    <div class="coupon-box">
+        <div class="title mb-3">
+            <span class="fs-5 fw-normal">@T("ShoppingCart.DiscountCouponCode")</span>
+        </div>
+        <div class="coupon-code d-flex">
+            <input name="discountcouponcode" id="discountcouponcode" type="text" class="discount-coupon-code form-control me-3" aria-label="@T("ShoppingCart.DiscountCouponCode.Label")" placeholder="@T("ShoppingCart.DiscountCouponCode.Tooltip")" />
+            <button type="submit" name="applydiscountcouponcode" id="applydiscountcouponcode" class="button-2 apply-discount-coupon-code-button btn btn-outline-secondary">@T("ShoppingCart.DiscountCouponCode.Button")</button>
+        </div>
+        @if (Model.Messages.Any())
+        {
+            <div class="card bg-secondary mt-3 border-0">
+                <div class="card-body text-center">
+                    @foreach (var message in Model.Messages)
+                    {
+                        var icon = Model.IsApplied ? "<i class=\"bi-check2\"></i>" : "<i class=\"bi bi-x\"></i>";
+                        var messageText = $"{icon} {message}";
+
+                        <div class="@(Model.IsApplied ? "message-success text-success" : "message-failure text-danger") fs-lg">
+                            @Html.Raw(messageText)
+                        </div>
+                    }
+                    @foreach (var discount in Model.AppliedDiscountsWithCodes)
+                    {
+                        <div class="current-code mt-2">
+                            <span class="applied-discount-code text-muted fs-md me-2">@string.Format(T("ShoppingCart.DiscountCouponCode.CurrentCode").Text, discount.CouponCode)</span>
+                            @*empty value (little hack for FormValueExistsAttribute)*@
+                            <button type="submit" name="removediscount-@discount.Id" class="remove-discount-button btn btn-link px-0 text-danger py-1">
+                                <i class="bi bi-x-circle me-2"></i><span class="fs-sm">@T("Common.Delete")</span>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+    <script asp-location="Footer">
+        $(document).ready(function () {
+            $('#discountcouponcode').on('keydown', function (event) {
+                if (event.keyCode == 13) {
+                    $('#applydiscountcouponcode').trigger("click");
+                    return false;
+                }
+            });
+        });
+    </script>
+}

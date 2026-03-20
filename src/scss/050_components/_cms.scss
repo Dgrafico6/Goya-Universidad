@@ -1,0 +1,270 @@
+//
+// Shop module styles
+// --------------------------------------------------
+
+
+// Cards general
+.card-galery {
+  position:relative;
+}
+
+// Product card
+
+.contact-card {
+  .card-body {
+    &:before {
+      font-family:$icons-font-family;
+      font-size:2rem;
+      line-height:1;
+      display:inline-block;
+      margin-bottom:1rem;
+      color:$danger;
+      @at-root #{selector-replace(&, ".contact-card", ".contact-card--location")} {
+        content:'\F3E8';
+      }
+      @at-root #{selector-replace(&, ".contact-card", ".contact-card--timetable")} {
+        content:'\F293';
+      }
+      @at-root #{selector-replace(&, ".contact-card", ".contact-card--phone")} {
+        content:'\F5C1';
+      }
+      @at-root #{selector-replace(&, ".contact-card", ".contact-card--email")} {
+        content:'\F32F';
+      }
+    }
+  }
+}
+
+// Info card
+.info-card {
+  border:none;
+  margin-bottom:1rem;
+  @include media-breakpoint-up(md) {
+    margin-bottom:0;
+  }
+  .card-image {
+    width:50%;
+    padding:2rem;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:50%;
+    background-color:$danger;
+    @include media-breakpoint-up(sm) {
+      width:60%;
+    }
+    @include media-breakpoint-up(md) {
+      padding:1rem;
+    }
+    @include media-breakpoint-up(lg) {
+      padding:2rem;
+    }
+  }
+  .card-body {
+    font-weight:bold;
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    @include media-breakpoint-up(md) {
+      width:100%;
+    }
+  }
+}
+
+// Borderless card
+.borderless-card {
+  border:none;
+
+  .card-body {
+    padding:0.75rem 0;
+  }
+}
+
+// Sales tools card
+.salestool-card {
+  margin-bottom:1.5rem;
+
+  .card-img-top {
+  }
+  .card-title {
+    font-size:$font-size-sm;
+    line-height:$line-height-sm;
+    color:$dark;
+    margin-bottom:0;
+    @at-root #{selector-replace(&, ".salestool-card", ".salestool-card.salestool-card--big")} {
+      font-size:$font-size-md;
+    }
+    height:1.80rem;
+    overflow:hidden;
+  }
+
+  small {
+    color:$danger;
+
+  }
+
+  .card-actions {
+    display:flex;
+    flex-direction:column;
+    margin-top:1rem;
+    width: max-content;
+  }
+
+  .card-action {
+    margin-bottom:0.5rem;
+    width: 100%;
+  }
+}
+
+.salestool-button {
+  /*padding-right:0.3rem;
+  &--watch{
+    padding-right:0.75rem;
+  }
+
+  &:after {
+    font-family:$icons-font-family;
+    font-size:1.25rem;
+    line-height:0.75;
+    display:inline-block;
+    color:$light;
+    vertical-align: middle;
+    margin-left:0.25rem;
+    @at-root #{selector-replace(&, ".salestool-button:after", ".salestool-button.salestool-button--download:after")} {
+      content:"\F124";
+    }
+    @at-root #{selector-replace(&, ".salestool-button:after", ".salestool-button.salestool-button--watch:after")} {
+      content:"\F341";
+      font-size:1rem;
+    }
+  }*/
+
+
+}
+
+.anti-row {
+  padding: 0 calc(0.5 * $grid-gutter-width);
+}
+
+.rectangles {
+  display:flex;
+}
+
+.rectangle {
+  min-height:10.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  @include media-breakpoint-up(lg) {
+    height:20rem;
+  }
+  h2,h3 {
+    white-space:nowrap;
+  }
+  &--xl {
+    @include media-breakpoint-up(lg) {
+      height:26rem;
+    }
+  }
+  &--img {
+    
+  }
+  &--text {
+    flex-direction:column;
+
+    padding:0 0 0.5rem;
+    &.bg-dark {
+      padding:1rem;
+    }
+    @include media-breakpoint-up(sm) {
+      padding:1rem;
+    }
+    @include media-breakpoint-up(md) {
+      padding:1.5rem;
+    }
+    @include media-breakpoint-up(lg) {
+      padding:2rem;
+    }
+  }
+
+  &--1 {
+    order:1;
+  }
+  &--2 {
+    order:2;
+  }
+  &--3 {
+    order:3;
+  }
+  &--4 {
+    order:4;
+  }
+  &--5 {
+    order:5;
+  }
+  &--6 {
+    order:8;
+    @include media-breakpoint-up(sm) {
+      order:6;
+    }
+  }
+  &--7 {
+    order:7;
+  }
+  &--8 {
+    order:6;
+    @include media-breakpoint-up(sm) {
+      order:8;
+    }
+  }
+  &--9 {
+    order:9;
+  }
+}
+
+.icon-wrapper {
+  width:auto;
+  margin-bottom:1rem;
+  img {
+    height:3rem;
+    width:3rem;
+    
+  }
+
+}
+
+.marketing-resources-card {
+  
+  margin-bottom:1rem;
+  .card-title {
+    position:absolute;
+    bottom:0.25rem;
+    left:1rem;
+    color:$light;
+    font-size:$h5-font-size;
+  }
+
+  .card-body > p {
+    height:4.375rem;
+    overflow:hidden;
+  }
+}
+
+.video-card {
+  .card-title {
+    font-size:$font-size-sm;
+    line-height:$line-height-sm;
+    color:$dark;
+    margin-bottom:1rem;
+  }
+}
+
+.sustainability-card {
+  .card-title {
+    font-size:$font-size-md;
+    color:$dark;
+    text-align:center;
+  }
+}
+
+

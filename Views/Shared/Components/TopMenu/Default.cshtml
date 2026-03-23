@@ -106,7 +106,7 @@
             }
 
         }
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown px-5">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.inspiration.text")</a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="@T("goya.theme.topmenu.novelties.href")">@T("goya.theme.topmenu.novelties.text")</a></li>
@@ -130,69 +130,16 @@
         {
             @*<li class="nav-item d-none d-xl-flex"><a class="nav-link" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.designer.text")</a></li>*@
         }
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" px-5>
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.promotions.text")</a>
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="@T("goya.theme.topmenu.outlet.href")">@T("goya.theme.topmenu.outlet.text")</a></li>
                 @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.offers.text")</a></li>*@
             </ul>
         </li>
-
-        <!--Herramientas de venta Visible en logout-->
-
-        @if (!userIsRegistered) 
-        {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="@Url.RouteUrl("Login")">@T("goya.theme.topmenu.salestools.text")</a>
-            </li>
-        }
-
         @if (userIsRegistered)
         {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.salestools.text")</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="@T("goya.theme.topmenu.catalogues.href")">@T("goya.theme.topmenu.catalogues.text")</a></li>
-                    <li class="dropdown dropdown--parts">
-                        <a href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" class="nav-link-icon d-xl-none" aria-expanded="false"></a> 
-                        <a href="@T("goya.theme.topmenu.marketingresources.href")" class="nav-link-part">@T("goya.theme.topmenu.marketingresources.text")</a>
-                        <div class="clearfix"></div>
-                        <ul class="dropdown-menu">
-                            @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.marking.text")</a></li>*@
-                            @*<li><a class="dropdown-item" href="@Url.RouteUrl("NewslettersGenerator")">@T("goya.theme.topmenu.newslettersgenerator.text")</a></li>*@
-                            @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.newslettersgenerator.href")">@T("goya.theme.topmenu.newslettersgenerator.text")</a></li>*@
-                            @*<li><a class="dropdown-item" href="@T("goya.theme.topmenu.ggcustomers.href")">@T("goya.theme.topmenu.ggcustomers.text")</a></li>*@
-                            <li><a class="dropdown-item" href="@Url.Action("Index", "ResourcesCenter")">@T("goya.theme.topmenu.resourcescenter.text")</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>                                  
-        }
-        @*<li class="nav-item"><a class="nav-link" href="@T("goya.theme.topmenu.sustainability.href")">@T("goya.theme.topmenu.sustainability.text")</a></li>*@
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.aboutus.text")</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.goya2030.href")">@T("goya.theme.topmenu.goya2030.text")</a></li>
-				<li><a class="dropdown-item" href="@T("goya.theme.topmenu.roadshows.href")">@T("goya.theme.topmenu.roadshows.text")</a></li>
-                @*<li><a class="dropdown-item" href="@Url.RouteUrl("ContactUs")">@T("goya.theme.topmenu.showrooms.text")</a></li>*@
-                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.blog.text")</a></li>*@
-                <li><a class="dropdown-item" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
-                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.workwithus.href")">@T("goya.theme.topmenu.workwithus.text")</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.topmenu.utilities.text")</a>
-            <ul class="dropdown-menu">
-                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.register.text")</a></li>*@
-                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.paymentsandshipments.href")">@T("goya.theme.topmenu.paymentsandshipments.text")</a></li>
-                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.faq.href")">@T("goya.theme.topmenu.faq.text")</a></li>
-                @*<li><a class="dropdown-item" href="/">@T("goya.theme.topmenu.repeatingorder.text")</a></li>*@
-                <li><a class="dropdown-item" href="@T("goya.theme.topmenu.specialmanipulating.href")">@T("goya.theme.topmenu.specialmanipulating.text")</a></li>
-            </ul>
-        </li>
-        @if (userIsRegistered)
-        {
-            <li class="nav-item dropdown d-lg-none">
+            <li class="nav-item dropdown d-lg-none  px-5">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Área de cliente</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="@Url.RouteUrl("CustomerInfo")">@T("goya.theme.topmenu.customerinformation.text")</a></li>
@@ -209,13 +156,13 @@
         }
         @if (userIsRegistered)
         {
-            <li class="nav-item nav-item--feat d-none d-xl-flex"><a class="nav-link dropdown-toggle" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.budget.text")</a></li>
+            <li class="nav-item nav-item--feat d-none d-xl-flex ps-5"><a class="nav-link dropdown-toggle" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.budget.text")</a></li>
         }
 
         <!-- Diseñador/Cotizador Visible en logout-->
         @if (!userIsRegistered) 
         {
-            <li class="nav-item nav-item--feat d-none d-xl-flex">
+            <li class="nav-item nav-item--feat d-none d-xl-flex ps-5">
                 <a class="nav-link dropdown-toggle" href="@Url.RouteUrl("Login")"> @T("goya.theme.topmenu.budget.text")</a>
             </li>
         }

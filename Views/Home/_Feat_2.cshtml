@@ -19,7 +19,7 @@
     .hero-bg {
         position: absolute;
         inset: -80px 0;
-        background-image: url(@T("goya.theme.home.hero.bg.button.text"));
+        background-image: url(@T("goya.theme.navarra.hero.bg.button.text"));
         background-size: cover;
         background-position: center;
         filter: brightness(0.85);
@@ -83,8 +83,8 @@
             @if (userIsRegistered)
             {
                 <a href="@(Url.RouteUrl("Customizer"))"
-                   class="hero-btn"
-                   onclick="event.stopPropagation()">
+                    class="hero-btn"
+                    onclick="event.stopPropagation()">
                     @T("goya.theme.home.customsection2.button.text")
                 </a>
             }

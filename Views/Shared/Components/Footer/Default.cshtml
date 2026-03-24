@@ -5,118 +5,289 @@
 
 @inject IWorkContext workContext
 
-<footer class="footer bg-dark pt-5">
-    <div class="container">
-        <div class="footer-upper row">
-            <div class="footer-block information col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="widget widget-links widget-light pb-2 mb-4">
-                    <h3 class="title widget-title text-light">
-                        @T("Footer.Information")
-                    </h3>
-                    <ul class="list widget-list">
-                        
+<footer class="footer">
+
+<!--SECCIÓN SUPERIOR — fondo gris oscuro--> 
+    <div class="footer-top bg-dark-gray py-5">
+        <div class="container">
+            <div class="row align-items-start g-4">
+
+                <!-- Logo -->
+                <div class="col-lg-3 col-md-12 d-flex align-items-start">
+                    <a href="/">
+                        <img src="/images/common/logo-goya-blanco.png"
+                             alt="Goya Distribuciones S.L."
+                             style="max-width:180px; height:auto;" />
+                    </a>
+                </div>
+
+                <!-- Accesos directos -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <h3 class="footer-heading text-light mb-3">@T("Footer.Information")</h3>
+                    <ul class="footer-links list-unstyled">
                         @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
                         {
-                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                            <li><a class="footer-link" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
                         }
                         @if (Model.DisplayContactUsFooterItem)
                         {
-                            <li class="widget-list-item"><a class="widget-list-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                            <li><a class="footer-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
                         }
                     </ul>
                 </div>
-            </div>
-            <div class="footer-block my-account col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="widget widget-links widget-light pb-2 mb-4">
-                    <!-- Traducciones tiendas
-                    <h3 class="title widget-title text-light">
-                        @T("goya.theme.footer.stores.title.text")
-                    </h3>
-                    <ul class="list widget-list">
-                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.spain.link")">@T("goya.theme.footer.stores.spain.text")</a></li>
-                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.catalonia.link")">@T("goya.theme.footer.stores.catalonia.text")</a></li>
-                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.unitedkingdom.link")">@T("goya.theme.footer.stores.unitedkingdom.text")</a></li>
-                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.portugal.link")">@T("goya.theme.footer.stores.portugal.text")</a></li>
-                        <li class="widget-list-item"><a class="widget-list-link" href="@T("goya.theme.footer.stores.france.link")">@T("goya.theme.footer.stores.france.text")</a></li>
-                    </ul>  -->
-                </div>
-            </div>
-                <div class="footer-block follow-us col-lg-4 col-12 text-lg-end pb-2 mb-4 ms-lg-auto">
+
+                <!-- Bloque vacío / columna central libre -->
+                <div class="col-lg-3 col-md-4 col-sm-6 d-none d-md-block"></div>
+
+                <!-- Botones CTA + social + newsletter -->
+                <div class="col-lg-3 col-md-4 col-sm-12">
+
                     @await Component.InvokeAsync("NewsletterBox")
-                    <div class="py-3" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-                        <div class="social" style="display:flex; align-items:center; gap:0.5rem;">
+
+                    <!-- Botones de acción destacados -->
+                    <div class="footer-cta d-flex flex-column gap-2 mt-3">
+                        <a href="@Url.RouteUrl("ContactUs")"
+                        class="footer-cta-btn d-flex align-items-center gap-3">
+                            <span class="footer-cta-icon">
+                                <i class="bi bi-telephone-fill"></i>
+                            </span>
+                            <span class="footer-cta-text">@T("Footer.ContactUs")</span>
+                        </a>
+                        <a href="@Url.RouteUrl("Topic", new { SeName = "catalogo" })"
+                        class="footer-cta-btn d-flex align-items-center gap-3">
+                            <span class="footer-cta-icon">
+                                <i class="bi bi-bookmark-fill"></i>
+                            </span>
+                            <span class="footer-cta-text">@T("Footer.OurCatalogue")</span>
+                        </a>
+                        <a href="@Url.RouteUrl("Topic", new { SeName = "roadshows" })"
+                        class="footer-cta-btn d-flex align-items-center gap-3">
+                            <span class="footer-cta-icon">
+                                <i class="bi bi-bookmark-fill"></i>
+                            </span>
+                            <span class="footer-cta-text">@T("Footer.Roadshows")</span>
+                        </a>
+                    </div>
+
+                    <!-- Redes sociales -->
+                    <div class="footer-social mt-4 d-flex align-items-center gap-2">
                         @await Component.InvokeAsync("SocialButtons")
                     </div>
-                    <img src="/images/common/logo-goya-blanco.png" alt="Goya Distribuciones S.L." style="max-width:10.5rem; height:auto; margin-left:auto;" />
-                </div>
-            </div>
-        </div>
-        <div class="footer-brands" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
-            
-            <div class="footer-brands__item">
-                <img src="/images/footer/amfori.svg" alt="amfori - trade with purpose" />
-            </div>
-            <div class="footer-brands__item">
-                <img src="/images/footer/european-recycling-platform.svg" alt="European recycling platform" />
-            </div>
-            <div class="footer-brands__item">
-                <img src="/images/footer/sedex.svg" alt="Sedex" />
-            </div>
-            <div class="footer-brands__item">
-                <img src="/images/footer/weconnect.svg" alt="Weconnect International" />
-            </div>
-            <div class="footer-brands__item">
-                <img src="/images/footer/ecovadis.svg" alt="Ecovadis" />
-            </div>
-            <div class="footer-brands__item">
-                <img src="/images/footer/fsc.svg" alt="FSC" style="max-height: 40px; width: auto;"/>
-            </div>
-        </div>
-        <hr class="hr-light mb-3">
-        <div class="footer-lower mb-2">
-            <div class="footer-info text-center text-light fs-xs opacity-50 pb-2">
-                <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
-                @if (Model.DisplayTaxShippingInfoFooter)
-                {
-                    var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
-                    <span class="footer-tax-shipping">
-                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
-                    </span>
-                }
-            </div>
-            @await Component.InvokeAsync("StoreThemeSelector")
-        </div>
 
-        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
+                </div>
+
+            </div>
+        </div>
     </div>
-    
+
+    <!-- SECCIÓN INFERIOR — fondo negro con oficinas -->
+    <div class="footer-bottom bg-black py-5">
+        <div class="container">
+            <div class="row g-4 justify-content-center text-center">
+
+                <!-- Repite/adapta estos bloques con tus oficinas reales -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Madrid.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Madrid.Address")<br />
+                        @T("Footer.Office.Madrid.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Madrid.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Barcelona.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Barcelona.Address")<br />
+                        @T("Footer.Office.Barcelona.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Barcelona.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Lisbon.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Lisbon.Address")<br />
+                        @T("Footer.Office.Lisbon.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Lisbon.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Paris.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Paris.Address")<br />
+                        @T("Footer.Office.Paris.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Paris.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Barcelona.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Barcelona.Address")<br />
+                        @T("Footer.Office.Barcelona.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Barcelona.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Lisbon.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Lisbon.Address")<br />
+                        @T("Footer.Office.Lisbon.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Lisbon.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Paris.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Paris.Address")<br />
+                        @T("Footer.Office.Paris.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Paris.Phone")
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <p class="footer-office-title">@T("Footer.Office.Paris.Title")</p>
+                    <p class="footer-office-body">
+                        @T("Footer.Office.Paris.Address")<br />
+                        @T("Footer.Office.Paris.City")<br />
+                        <strong>T.</strong> @T("Footer.Office.Paris.Phone")
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+          BARRA LEGAL — copyright + links
+    ═══════════════════════════════════════════ -->
+    <div class="footer-legal bg-black border-top border-secondary py-3">
+        <div class="container">
+            <div class="row align-items-center justify-content-between g-2">
+
+                <div class="col-auto">
+                    <span class="footer-legal-text">
+                        @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+                    </span>
+                </div>
+
+                <div class="col-auto d-flex gap-3 flex-wrap">
+                    @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                    {
+                        <a class="footer-legal-link" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a>
+                    }
+                    @if (Model.DisplayTaxShippingInfoFooter)
+                    {
+                        var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
+                        <span class="footer-legal-text">
+                            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax",
+                                Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
+                        </span>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
+
 </footer>
+
+<style>
+    /* ─── Paleta ─────────────────────────────────── */
+    .bg-dark-gray  { background-color: #3a3a3a; }
+    .bg-black      { background-color: #1a1a1a; }
+
+    /* ─── Links de navegación ────────────────────── */
+    .footer-heading {
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: #fff;
+        margin-bottom: .75rem;
+    }
+    .footer-links li { margin-bottom: .35rem; }
+    .footer-link {
+        color: #ccc;
+        text-decoration: none;
+        font-size: .875rem;
+        border-bottom: 1px solid #555;
+        display: block;
+        padding-bottom: .35rem;
+        transition: color .2s;
+    }
+    .footer-link:hover { color: #fff; }
+
+    /* ─── Botones CTA (estilo imagen referencia) ─── */
+    .footer-cta-btn {
+        border: 1px solid #666;
+        border-radius: 4px;
+        padding: .6rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        font-size: .8rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        transition: background .2s, border-color .2s;
+    }
+    .footer-cta-btn:hover {
+        background: rgba(255,255,255,.08);
+        border-color: #aaa;
+        color: #fff;
+    }
+    .footer-cta-icon {
+        font-size: 1.1rem;
+        min-width: 1.5rem;
+        text-align: center;
+    }
+
+    /* ─── Bloque oficinas ────────────────────────── */
+    .footer-office-title {
+        color: #fff;
+        font-size: .85rem;
+        font-weight: 700;
+        margin-bottom: .4rem;
+    }
+    .footer-office-body {
+        color: #aaa;
+        font-size: .8rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+
+    /* ─── Barra legal ────────────────────────────── */
+    .footer-legal-text {
+        color: #666;
+        font-size: .75rem;
+    }
+    .footer-legal-link {
+        color: #888;
+        font-size: .75rem;
+        text-decoration: none;
+        transition: color .2s;
+    }
+    .footer-legal-link:hover { color: #fff; }
+    .footer-legal .border-top { border-color: #333 !important; }
+</style>
+
 <script asp-location="Footer">
     $(document).ready(function () {
         $('.footer-block .title').on('click', function () {
             var e = window, a = 'inner';
-            if (!('innerWidth' in window)) {
+            if (!('innerWidth' in window )) {
                 a = 'client';
                 e = document.documentElement || document.body;
             }
             var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
             if (result.width < 769) {
                 $(this).siblings('.list').slideToggle('slow');
-            }
-        });
-    });
-</script>
-<script asp-location="Footer">
-    $(document).ready(function () {
-        $('.block .title').on('click', function () {
-            var e = window, a = 'inner';
-            if (!('innerWidth' in window)) {
-                a = 'client';
-                e = document.documentElement || document.body;
-            }
-            var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
-            if (result.width < 1001) {
-                $(this).siblings('.listbox').slideToggle('slow');
             }
         });
     });

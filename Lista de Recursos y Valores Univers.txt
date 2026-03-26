@@ -1,0 +1,61 @@
+Lista de Recursos y Valores Universidad Navarra
+
+Títulos/Imágenes Universidades
+	goya.theme.navarra.landinguniversities.title1
+	goya.theme.navarra.landinguniversities.title2
+	goya.theme.navarra.landinguniversities.title3
+	goya.theme.navarra.landinguniversities.title4
+
+	goya.theme.navarra.landinguniversities.image1
+	goya.theme.navarra.landinguniversities.image2
+	goya.theme.navarra.landinguniversities.image3
+	goya.theme.navarra.landinguniversities.image4
+
+	
+Hero Section
+	Fondo Hero Section
+
+		goya.theme.navarra.hero.bg.button.text
+
+	Link Hero Section
+
+		goya.theme.home.customsection2.video.href
+
+	Titulo Hero Section
+
+		goya.theme.home.customsection2.title.text
+
+	Boton Hero Section
+
+		goya.theme.home.customsection2.button.text
+
+Sección Información (Por Orden que se ven en web)
+
+	goya.theme.contact.description.part1
+	goya.theme.contact.campus.pamplona
+	goya.theme.contact.campus.madrid
+	goya.theme.contact.campus.y
+	goya.theme.contact.campus.sansebastian
+	goya.theme.contact.description.part2
+
+	goya.theme.contact.peticiones.text
+	goya.theme.contact.peticiones.highlight
+
+	(Estos de arriba es un poco meh ya que se podría hacer todo en uno o menos depende del texto una cosa u otra)
+
+	Boton Link/Texto
+		goya.theme.contact.btn.href
+		goya.theme.contact.btn.text
+
+Texto extra
+
+	goya.theme.contact.also.text
+
+E-Mail / Teléfono
+
+	goya.theme.contact.email
+	goya.theme.contact.phone
+
+	
+
+	

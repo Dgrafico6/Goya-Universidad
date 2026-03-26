@@ -168,13 +168,6 @@
     <div class="footer-legal bg-black border-top border-secondary py-3">
         <div class="container">
             <div class="row align-items-center justify-content-between g-2">
-
-                <div class="col-auto">
-                    <span class="footer-legal-text">
-                        @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
-                    </span>
-                </div>
-
                 <div class="col-auto d-flex gap-3 flex-wrap">
                     @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
                     {
@@ -193,35 +186,64 @@
                 <!-- Logos de certificaciones y asociaciones -->
                     <div class="footer-brands" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
                         <div class="footer-brands__item">   
-                            <img src="/images/footer/amfori.svg" alt="amfori - trade with purpose" />
+                            <img src="/images/footer/amfori_W.svg" alt="amfori - trade with purpose" />
                         </div>
 
                         <div class="footer-brands__item">
-                            <img src="/images/footer/european-recycling-platform.svg" alt="European recycling platform" />
+                            <img src="/images/footer/european-recycling-platform_W.svg" alt="European recycling platform" />
                         </div>
 
                         <div class="footer-brands__item">
-                            <img src="/images/footer/sedex.svg" alt="Sedex" />
+                            <img src="/images/footer/sedex_W.svg" alt="Sedex" />
                         </div>
 
                         <div class="footer-brands__item">
-                            <img src="/images/footer/weconnect.svg" alt="Weconnect International" />
+                            <img src="/images/footer/weconnect_W.svg" alt="Weconnect International" />
                         </div>
 
                         <div class="footer-brands__item">
-                            <img src="/images/footer/ecovadis.svg" alt="Ecovadis" />
+                            <img src="/images/footer/ecovadis_W.svg" alt="Ecovadis" />
                         </div>
 
                         <div class="footer-brands__item">
-                            <img src="/images/footer/fsc.svg" alt="FSC" style="max-height: 40px; width: auto;"/>
+                            <img src="/images/footer/fsc_W.svg" alt="FSC" style="max-height: 40px; width: auto;"/>
                         </div>
                     </div>
+                    <div class="footer-brands" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 4rem; margin-top: 1rem;">
+                        <div class="footer-brands__item">
+                            <img src="/images/footer/EN_fundedbyEU_VERTICAL_RGB_NEG.png" alt="Founded by the European Union" />
+                        </div>
+                        <div class="footer-europe-item">
+                            <img src="/images/footer/Logo%20PRTR%20vertical_COLOR_.png" alt="Plan de Recuperación, Transformación y Resiliencia" />
+                        </div>
+                    </div>
+                </div>
             </div>
+        
+        <div class="footer-brands" style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <p style="color: white;">
+                @T("navarra.theme.footer.europe.text")    
+            </p>
         </div>
+    
+        <hr class="hr-light mb-3">
+        <div class="footer-lower mb-2">
+            <div class="footer-info text-center text-light fs-xs opacity-50 pb-2">
+                <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)</span>
+                @if (Model.DisplayTaxShippingInfoFooter)
+                {
+                    var inclTax = await workContext.GetTaxDisplayTypeAsync() == TaxDisplayType.IncludingTax;
+                    <span class="footer-tax-shipping">
+                        @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = await Html.GetTopicSeNameAsync("shippinginfo") }))
+                    </span>
+                }
+            </div>
+            @await Component.InvokeAsync("StoreThemeSelector")
+        </div>
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
     </div>
-
-    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer, additionalData = Model })
-
+    </div>
 </footer>
 
 <style>

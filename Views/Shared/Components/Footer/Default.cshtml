@@ -13,39 +13,9 @@
             <div class="row align-items-start g-4">
 
                 <!-- Logo -->
-                <div class="col-lg-3 col-md-12 d-flex align-items-start">
-                    <a href="/">
-                        <img src="/images/common/logo-goya-blanco.png"
-                             alt="Goya Distribuciones S.L."
-                             style="max-width:180px; height:auto;" />
-                    </a>
-                </div>
-
-                <!-- Accesos directos -->
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <h3 class="footer-heading text-light mb-3">@T("Footer.Information")</h3>
-                    <ul class="footer-links list-unstyled">
-                        @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
-                        {
-                            <li><a class="footer-link" href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
-                        }
-                        @if (Model.DisplayContactUsFooterItem)
-                        {
-                            <li><a class="footer-link" href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
-                        }
-                    </ul>
-                </div>
-
-                <!-- Bloque vacío / columna central libre -->
-                <div class="col-lg-3 col-md-4 col-sm-6 d-none d-md-block"></div>
-
-                <!-- Botones CTA + social + newsletter -->
-                <div class="col-lg-3 col-md-4 col-sm-12">
-
-                    @await Component.InvokeAsync("NewsletterBox")
-
+                <div class="col-lg-6 col-md-12 d-block align-items-start">
                     <!-- Botones de acción destacados -->
-                    <div class="footer-cta d-flex flex-column gap-2 mt-3">
+                    <div class="footer-cta d-flex flex-column gap-2 mt-5">
                         <a href="@Url.RouteUrl("ContactUs")"
                         class="footer-cta-btn d-flex align-items-center gap-3">
                             <span class="footer-cta-icon">
@@ -68,6 +38,12 @@
                             <span class="footer-cta-text">@T("Footer.Roadshows")</span>
                         </a>
                     </div>
+                </div>
+
+                <!-- Botones CTA + social + newsletter -->
+                <div class="col-lg-6 col-md-12 col-sm-12">
+
+                    @await Component.InvokeAsync("NewsletterBox")
 
                     <!-- Redes sociales -->
                     <div class="footer-social mt-4 d-flex align-items-center gap-2">

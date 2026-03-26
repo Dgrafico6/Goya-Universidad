@@ -28020,6 +28020,25 @@ h3,
     margin-right: 0;
 }
 
+.contact-section__channels {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+}
+
+.contact-section__channel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-section__icon img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+}
+
 .footer-brands__item:last-child {
     margin-right: 0
 }

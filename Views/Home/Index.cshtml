@@ -26,8 +26,9 @@
     var currentStore = await storeContext.GetCurrentStoreAsync();
 
     //Comentar y descomentar para habilitar el tipo de banner deseado
-    var bannerViewFound = "_HeroSlider";
+    //var bannerViewFound = "_HeroSlider";
     //var bannerViewFound = "_IsotopeSlider";
+    var bannerViewFound = "_NewSlider";
 
     var customStoreBannerViewName = bannerViewFound;
 
@@ -37,7 +38,7 @@
         bannerViewFound = customStoreBannerViewName;
 
 }
-
+@{ await Html.RenderPartialAsync("_TextBelt"); }
 @{ await Html.RenderPartialAsync(bannerViewFound); }
 @{ await Html.RenderPartialAsync("_Feat_2"); }
 @await Component.InvokeAsync("HomepageProducts")

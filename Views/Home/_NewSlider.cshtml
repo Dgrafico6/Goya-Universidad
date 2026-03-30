@@ -1,0 +1,159 @@
+<section class="tns-carousel tns-controls-md banner-home">
+<!-- New slider-->
+    <div class="tns-carousel-inner banner-home__inner"
+    data-carousel-options="{&quot;mode&quot;:&quot;carousel&quot;,&quot;autoplay&quot;:true,&quot;autoplayTimeout&quot;:4000,&quot;autoplayButtonOutput&quot;:false,&quot;loop&quot;:true,&quot;autoplayHoverPause&quot;:false,&quot;responsive&quot;:{&quot;0&quot;:{&quot;nav&quot;:true,&quot;controls&quot;:false},&quot;992&quot;:{&quot;nav&quot;:false,&quot;controls&quot;:true}}}">
+
+<!-- Diapositiva 1 -->
+        <div class="banner-home__item bg-banner-1" style="height:90vh; position:relative; overflow:hidden;">
+            <!-- Todo el banner clicable -->
+            <a href='@T("#")' style="display:block; width:100%; height:100%; position:relative; text-decoration:none; color:inherit;">
+
+    <!-- Fondo de vídeo -->
+        <img src='@T("goya.theme.navarra.slider.1")' alt="" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:0;">
+
+    <!-- Texto centrado -->
+                <div class="banner-home__container container" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; color:#fff; text-align:center;">
+                    <h3 class="banner-home__title" style="font-size:3rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; margin:0;">
+                    @T("goya.theme.navarra.slider.text.1")
+                    </h3>
+                </div>
+            </a>
+        </div>
+
+
+<!-- Diapositiva 2 || Esta diapositiva va con el script de abajo se autoactualiza cada martes (si en un mes hay 5 martes el 5 cuenta como 4)-->
+    <!-- SEMANA 1 --> 
+        <div class="banner-home__item bg-banner-1" style="height: 90vh; position: relative; overflow: hidden;">
+            <a  href='@T("#")' target="_blank">
+
+    <!-- Fondo de vídeo -->
+        <img src='@T("goya.theme.navarra.slider.2")' alt="" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:0;">
+                
+
+    <!-- Texto Centrado -->
+                <div class="banner-home__container container" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; color:#fff; text-align:center;">
+                    <h3 class="banner-home__title" style="font-size:3rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; margin:0;">
+                    @T("goya.theme.navarra.slider.text.2")
+                    </h3>
+                </div>
+            </a>
+        </div>
+
+<!-- Diapositiva 3 -->
+        
+        <div class="banner-home__item bg-banner-1 banner-week" style="height: 90vh; position: relative; overflow: hidden;">    
+            <a href='@T("#")' style="display:block; width:100%; height:100%; position:relative; text-decoration:none; color:inherit;">
+
+            <!-- Fondo de vídeo -->
+                <img src='@T("goya.theme.navarra.slider.3")' alt="" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:0;">
+                
+            <!-- Texto Centrado -->
+                <div class="banner-home__container container" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; color:#fff; text-align:center;">
+                    <h3 class="banner-home__title" style="font-size:3rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; margin:0;">
+                    @T("goya.theme.navarra.slider.text.3")
+                    </h3>
+                </div>
+                
+            </a>
+        </div>
+
+
+<!-- Diapositiva 4 -->
+        <div class="banner-home__item bg-banner-1" style="height: 90vh; position: relative; overflow: hidden;">
+            <a  href='@T("#")' target="_blank">
+
+    <!-- Fondo de vídeo -->
+        <img src='@T("goya.theme.navarra.slider.4")' alt="" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; z-index:0;"> 
+                
+
+    <!-- Texto Centrado -->
+                <div class="banner-home__container container" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; color:#fff; text-align:center;">
+                    <h3 class="banner-home__title" style="font-size:3rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; margin:0;">
+                    @T("goya.theme.navarra.slider.text.4")
+                    </h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.querySelector('.tns-carousel-inner.banner-home__inner');
+    if (!slider) return;
+
+    const videos = slider.querySelectorAll('video.slide-video');
+
+  // Estado inicial: listos pero parados
+    videos.forEach(v => {
+    v.setAttribute('preload', 'metadata'); // carga ligera
+    v.muted = true;
+    v.playsInline = true;
+    try { v.pause(); } catch(_) {}
+    v.currentTime = 0;
+});
+
+  // ¿La diapositiva de este vídeo es la activa del slider?
+    const isActiveSlide = (video) => {
+    const slide = video.closest('.banner-home__item');
+    return slide && slide.classList.contains('tns-slide-active');
+};
+
+  // Reglas de reproducción
+    const handlePlayState = (video, ratioInView = 0) => {
+    const shouldPlay = ratioInView >= 0.5 && isActiveSlide(video);
+    if (shouldPlay) {
+        video.play().catch(() => {}); // evitar errores de autoplay
+    } else {
+        if (!video.paused) {
+        try { video.pause(); } catch(_) {}
+      }
+      // "Preparado" para cuando vuelva a salir
+      if (!video.seeking) video.currentTime = 0;
+    }
+  };
+
+  // Observa si cada vídeo está en viewport (al menos 50%)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      handlePlayState(entry.target, entry.intersectionRatio);
+    });
+  }, { threshold: [0, 0.5, 1] });
+
+  videos.forEach(v => io.observe(v));
+
+  // Recalcular al hacer scroll/resize (por si cambia el ratio visible)
+  const recomputeAll = () => {
+    videos.forEach(v => {
+      const rect = v.getBoundingClientRect();
+      const visiblePx = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+      const ratio = rect.height > 0 ? visiblePx / rect.height : 0;
+      handlePlayState(v, ratio);
+    });
+  };
+  window.addEventListener('scroll', recomputeAll, { passive: true });
+  window.addEventListener('resize', recomputeAll);
+
+  // Detecta cambios de diapositiva (Tiny Slider añade/quita clases)
+  const mo = new MutationObserver(recomputeAll);
+  mo.observe(slider, { subtree: true, attributes: true, attributeFilter: ['class'] });
+
+  // Si la pestaña pierde el foco, pausa todo
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      videos.forEach(v => { try { v.pause(); } catch(_) {} });
+    } else {
+      recomputeAll();
+    }
+  });
+
+  // Primera evaluación
+  recomputeAll();
+});
+
+//----------------------------------------------------------------------------------//
+
+
+</script> 

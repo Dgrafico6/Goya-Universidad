@@ -80,7 +80,7 @@
                                 </li>
                                 position++;
                             }
-                             <li class="breadcrumb-item text-nowrap active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <li class="breadcrumb-item text-nowrap active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                                 <span class="current-item" itemprop="name">@Model.Breadcrumb.ProductName</span>
                                 <span itemprop="item" itemscope itemtype="http://schema.org/Thing" id="@Url.RouteUrl("Product", new {SeName = Model.Breadcrumb.ProductName})"></span>
                                 <meta itemprop="position" content="@position" />

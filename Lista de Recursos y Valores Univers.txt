@@ -1,5 +1,18 @@
 Lista de Recursos y Valores Universidad Navarra
 
+Carrusel
+	BG
+	goya.theme.navarra.slider.1
+	goya.theme.navarra.slider.2
+	goya.theme.navarra.slider.3
+	goya.theme.navarra.slider.4
+
+	Texto
+	goya.theme.navarra.slider.text.1
+	goya.theme.navarra.slider.text.2
+	goya.theme.navarra.slider.text.3
+	goya.theme.navarra.slider.text.4
+
 Títulos/Imágenes Universidades
 	goya.theme.navarra.landinguniversities.title1
 	goya.theme.navarra.landinguniversities.title2

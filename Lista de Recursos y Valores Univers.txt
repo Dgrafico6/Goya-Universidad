@@ -69,6 +69,21 @@ E-Mail / Teléfono
 	goya.theme.contact.email
 	goya.theme.contact.phone
 
-	
+Personalizaciones menu y submenú
+
+	goya.theme.navarra.topmenu.aboutus.text
+
+	goya.theme.navarra.topmenu.practicas.href
+	goya.theme.navarra.topmenu.practicas.text
+
+	goya.theme.navarra.topmenu.congresos.href
+	goya.theme.navarra.topmenu.congresos.text
+
+	goya.theme.navarra.topmenu.sudaderas.href
+	goya.theme.navarra.topmenu.sudaderas.text
+
+Categorías importantes home
+
+	goya.theme.navarra.home.featuredcategories.title.text
 
 	

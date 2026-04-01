@@ -126,6 +126,19 @@
                 </li>
             </ul>
         </li>
+        <!--Sobre Nosotros-->
+        <li class="nav-item dropdown pe-5">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">@T("goya.theme.navarra.topmenu.aboutus.text")</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@T("goya.theme.navarra.topmenu.practicas.href")">@T("goya.theme.navarra.topmenu.practicas.text")</a></li>
+				<li><a class="dropdown-item" href="@T("goya.theme.navarra.topmenu.congresos.href")">@T("goya.theme.navarra.topmenu.congresos.text")</a></li>
+            </ul>
+        </li>
+        <!--Sudaderas-->
+        <li class="nav-item pe-5">
+            <a class="nav-link" href="@T("goya.theme.navarra.topmenu.sudaderas.href")">@T("goya.theme.navarra.topmenu.sudaderas.text")</a>
+        </li>
+        
         @if(userIsRegistered)
         {
             @*<li class="nav-item d-none d-xl-flex"><a class="nav-link" href="@(Url.RouteUrl("Customizer"))">@T("goya.theme.topmenu.designer.text")</a></li>*@
